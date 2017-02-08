@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Lib\Status;
 use Illuminate\Http\Request;
 
 class StatusController extends Controller
@@ -14,8 +13,7 @@ class StatusController extends Controller
      */
     public function index()
     {
-        $status = new Status;
-        $status->get();
+        //
     }
 
     /**
