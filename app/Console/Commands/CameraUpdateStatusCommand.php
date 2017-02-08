@@ -2,8 +2,13 @@
 
 namespace App\Console\Commands;
 
-use App\Lib\Status;
+use App\Camera;
+use GuzzleHttp\Client;
+use App\Lib\ParseData;
+use GuzzleHttp\Promise;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Console\Command;
+use GuzzleHttp\Exception\GuzzleException;
 
 class CameraUpdateStatusCommand extends Command
 {
@@ -38,7 +43,23 @@ class CameraUpdateStatusCommand extends Command
      */
     public function handle()
     {
-        $status = new Status;
-        $status->get();
+        $cameras = Camera::all();
+        $client = new Client();
+        $promises = [];
+        foreach($cameras as $camera)
+        {
+            $promises[$camera->serial_number] = $client->getAsync('http://' . $camera->ip . '/gp/gpControl/status');
+        }
+        $results = Promise\unwrap($promises);
+        $results = Promise\settle($promises)->wait();
+
+        foreach($results as $serial_number => $raw)
+        {
+            $camera = $cameras->where('serial_number', $serial_number)->first();
+            $response = $raw['value'];
+            $body = $response->getBody()->getContents();
+            $parsed = new ParseData($body, $camera->model_number);
+            dd($parsed->data()->status);
+        }
     }
 }

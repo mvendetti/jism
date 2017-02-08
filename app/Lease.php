@@ -5,7 +5,7 @@ namespace App;
 use App\Traits\EnforceMacFormatTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Camera extends Model
+class Lease extends Model
 {
     use EnforceMacFormatTrait;
 
@@ -15,12 +15,11 @@ class Camera extends Model
      * @var array
      */
     protected $fillable = [
-        'serial_number',
-        'ip',
-        'mac',
-        'ssid',
-        'model_number',
-        'model_name',
-        'firmware_version'
+        'mac', 'ip', 'hostname',
     ];
+
+    static public function getGoPros()
+    {
+        return self::where('mac', 'like', 'D4:D9:19:%')->get();
+    }
 }

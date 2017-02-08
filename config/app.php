@@ -177,6 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Collective\Remote\RemoteServiceProvider::class,
+
         kelixlabs\KelixNetTools\kelixNetToolsServiceProvider::class,
 
     ],
@@ -228,6 +230,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'SSH' => Collective\Remote\RemoteFacade::class,
         'NetTools' => kelixlabs\KelixNetTools\Facade\NetTools::class,
     ],
 

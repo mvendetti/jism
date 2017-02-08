@@ -10,7 +10,7 @@
         "kelixlabs/kelix-net-tools": "dev-master",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "herzcthu/laravel-nmap": "^0.2.0"
+        "laravelcollective/remote": "^5.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -49,11 +49,5 @@
     "config": {
         "preferred-install": "dist",
         "sort-packages": true
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@github.com:lhilton/LaravelNmap.git"
-        }
-    ]
+    }
 }

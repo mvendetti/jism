@@ -13,6 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+        Commands\JismUpdateStatesCommand::class,
+        Commands\JismConfigureWrtCommand::class,
+        Commands\JismUpdateLeasesCommand::class,
         Commands\CameraWakeCommand::class,
         Commands\CameraSleepCommand::class,
         Commands\CameraStartRecordCommand::class,
@@ -31,6 +34,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command('camera:leases')
+                 ->everyMinute();
     }
 
     /**
