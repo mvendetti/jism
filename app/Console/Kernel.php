@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         Commands\CameraStartRecordCommand::class,
         Commands\CameraStopRecordCommand::class,
         Commands\CameraScanNetworkCommand::class,
+        Commands\CameraUpdateStatusCommand::class,
     ];
 
     /**

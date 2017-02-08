@@ -2,47 +2,45 @@
 
 namespace App\Lib;
 
-use App\Key;
+use App\Camera;
 use GuzzleHttp\Client;
+use GuzzleHttp\Promise;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Exception\GuzzleException;
 
 class Status
 {
-    protected $_keys;
-    protected $_rawStatus;
-    protected $status;
+    protected $cameras;
 
 
     public function __construct()
     {
-        $this->keys = Key::where('model_number', 13)->get();
+        $this->cameras = Camera::all();
     }
 
     public function get()
     {
-        $client = new Client(['base_uri' => 'http://10.5.5.9/gp/gpControl/']);
-        $req =  new Request('GET', 'status');
-        $res = $client->send($req);
-        $this->_rawStatus = json_decode($res->getBody()->getContents(), true);
+        // $client = new Client(['base_uri' => 'http://10.5.5.9/gp/gpControl/']);
+        // $req =  new Request('GET', 'status');
+        // $res = $client->send($req);
+        // $this->_rawStatus = json_decode($res->getBody()->getContents(), true);
 
-        foreach($this->_rawStatus['status'] as $k => $v)
+        $client = new Client();
+        $promises = [];
+        foreach($this->cameras as $camera)
         {
-            $key = $this->keys->where('gopro_id', $k)->first();
-            if($key)
-            {
-                $value = $v;
-                if(count($key->opts))
-                {
-                    $value = $key->opts[$v];
-                }
-                $this->status[$key->value] = $value;
-            }
-            else
-            {
-                $this->status[$k] = $v;
-            }
+            $promises[$camera->serial_number] = $client->getAsync('http://' . $camera->ip . '/gp/gpControl/status');
         }
-        dd($this->status);
+        $results = Promise\unwrap($promises);
+        $results = Promise\settle($promises)->wait();
+
+        foreach($results as $serial_number => $raw)
+        {
+            $camera = $this->cameras->where('serial_number', $serial_number)->first();
+            $response = $raw['value'];
+            $body = $response->getBody()->getContents();
+            $data = new ParseData($body, $camera->model_number);
+            dd($data->data()->status);
+        }
     }
 }
