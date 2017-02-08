@@ -32,7 +32,7 @@ class CameraWakeCommand extends Command
     {
         parent::__construct();
         $this->nettool = new NetTools;
-        $this->nettool::setIP('10.0.42.10');
+        $this->nettool::setIP('10.0.42.5');
         $this->nettool::setNetmask('255.255.255.0');
     }
 

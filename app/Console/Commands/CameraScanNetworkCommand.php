@@ -104,7 +104,7 @@ class CameraScanNetworkCommand extends Command
         $ips = [];
         foreach($nmapResults as $ip => $info)
         {
-            if($ip !== '10.0.42.1' && $ip !== '10.0.42.10')
+            if($ip !== '10.0.42.1' && $ip !== '10.0.42.5')
             {
                 $ips[] = $ip;
             }
