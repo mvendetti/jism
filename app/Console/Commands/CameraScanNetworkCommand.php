@@ -48,12 +48,15 @@ class CameraScanNetworkCommand extends Command
      {
         $leases = Lease::getGoPros();
         $ips = $leases->pluck('ip')->toArray();
-        // dd($ips);
         $get = new HttpGroupGet($ips, '/gp/gpControl/info');
-        $results = $get->run();
-        foreach($results['succeeded'] as $result)
+        $results = $get->run();;
+        foreach($results->succeeded as $result)
         {
-            $this->createCamera($result['data']->info, $result['ip']);
+            $this->createCamera($result->data->info, $result->ip);
+        }
+        foreach($results->failed as $result)
+        {
+            $this->updateOfflineCamera($result->ip);
         }
      }
 
@@ -71,5 +74,8 @@ class CameraScanNetworkCommand extends Command
         $camera = Camera::updateOrCreate($keyOn, $data);
     }
 
-
+    public function updateOfflineCamera($ip)
+    {
+        // needs finishing
+    }
 }

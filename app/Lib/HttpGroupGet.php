@@ -36,7 +36,7 @@ class HttpGroupGet
         $promise = $this->pool->promise();
         $promise->wait();
 
-        return $this->results;
+        return new BigData($this->results);
     }
 
     protected function buildPool($client, $requests, $concurrency)
@@ -66,7 +66,7 @@ class HttpGroupGet
         {
             $body = $response->getBody()->getContents();
             $data = new ParseData($body, 13);
-            $this->results['succeeded'][] = [
+            $this->results['succeeded'][$index] = [
                 'ip' => $index,
                 'data' => $data
             ];
