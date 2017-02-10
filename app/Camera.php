@@ -23,4 +23,9 @@ class Camera extends Model
         'model_name',
         'firmware_version'
     ];
+
+    public function setSerialNumberAttribute($value)
+    {
+        $this->attributes['serial_number'] = strtoupper($value);
+    }
 }
