@@ -8,7 +8,19 @@ class BigData
 
     public function __construct( array $data )
     {
-        $this->data = $data;
+        $this->data = $this->_collectifyData($data);
+    }
+
+    protected function _collectifyData($data)
+    {
+        foreach($data as $key => $value)
+        {
+            if(is_array($value))
+            {
+                $data[$key] = collect($this->_collectifyData($value));
+            }
+        }
+        return $data;
     }
 
     public function __get( $key )
@@ -16,10 +28,6 @@ class BigData
         if( ! isset( $this->data[ $key ] ) )
         {
             return null;
-        }
-        if( is_array( $this->data[ $key ] ) )
-        {
-            $this->data[ $key ] = new BigData( $this->data[ $key ] );
         }
         return $this->data[ $key ];
     }
