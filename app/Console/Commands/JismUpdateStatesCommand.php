@@ -41,6 +41,7 @@ class JismUpdateStatesCommand extends Command
         {
             $this->callSilent('jism:wrt');
             $this->callSilent('jism:leases');
+            $this->callSilent('camera:scan');
             sleep(5);
         }
     }

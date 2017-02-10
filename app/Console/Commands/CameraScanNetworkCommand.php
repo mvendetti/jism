@@ -4,13 +4,10 @@ namespace App\Console\Commands;
 
 use App\Lease;
 use App\Camera;
-use App\lib\BigData;
-use App\Lib\ParseData;
-use GuzzleHttp\Client;
-use GuzzleHttp\Promise;
-use GuzzleHttp\Psr7\Request;
+
+use App\Lib\BigData;
+use App\Lib\HttpGroupGet;
 use Illuminate\Console\Command;
-use GuzzleHttp\Exception\GuzzleException;
 
 class CameraScanNetworkCommand extends Command
 {
@@ -28,6 +25,9 @@ class CameraScanNetworkCommand extends Command
      */
     protected $description = 'Scan the network for gopro cameras';
 
+    protected $succeeded = [];
+    protected $failed = [];
+
     /**
      * Create a new command instance.
      *
@@ -43,39 +43,33 @@ class CameraScanNetworkCommand extends Command
      *
      * @return mixed
      */
-    public function handle()
-    {
+
+     public function handle()
+     {
         $leases = Lease::getGoPros();
-
-        $client = new Client();
-        $promises = [];
-        foreach($leases as $lease)
+        $ips = $leases->pluck('ip')->toArray();
+        // dd($ips);
+        $get = new HttpGroupGet($ips, '/gp/gpControl/info');
+        $results = $get->run();
+        foreach($results['succeeded'] as $result)
         {
-            $promises[$lease->ip] = $client->getAsync('http://' . $lease->ip . '/gp/gpControl/info');
+            $this->createCamera($result['data']->info, $result['ip']);
         }
-        $results = Promise\unwrap($promises);
-        $results = Promise\settle($promises)->wait();
-
-        Camera::truncate();
-        foreach($results as $ip => $raw)
-        {
-            $response = $raw['value'];
-            $body = $response->getBody()->getContents();
-            $parsed = new ParseData($body, 13);
-            $this->createCamera($parsed->data()->info, $ip);
-        }
-    }
+     }
 
     public function createCamera( BigData $info, $ip )
     {
-        Camera::create( [
-            'serial_number' => $info->serial_number,
+        $keyOn = ['serial_number' => $info->serial_number];
+        $data = [
             'ip' => $ip,
             'mac' => $info->ap_mac,
             'ssid' => $info->ap_ssid,
             'model_number' => $info->model_number,
             'model_name' => $info->model_name,
             'firmware_version' => $info->firmware_version
-        ] );
+        ];
+        $camera = Camera::updateOrCreate($keyOn, $data);
     }
+
+
 }
