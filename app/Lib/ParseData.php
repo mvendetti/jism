@@ -9,7 +9,8 @@ class ParseData
     protected $_keys;
     protected $_rawJson;
     protected $_rawData;
-    public $data;
+    protected $_data;
+    protected $_parsed;
 
     public function __construct($json, $model_number = null)
     {
@@ -33,19 +34,19 @@ class ParseData
                     {
                         $value = $key->opts[$v];
                     }
-                    $this->data[$subject][$key->value] = $value;
+                    $this->_data[$subject][$key->value] = $value;
                 }
                 else
                 {
-                    $this->data[$subject][$k] = $v;
+                    $this->_data[$subject][$k] = $v;
                 }
             }
         }
+        $this->_parsed = new \App\Lib\BigData($this->_data);
     }
 
-    public function data()
+    public function __get($name)
     {
-        $bigD = new \App\Lib\BigData($this->data);
-        return $bigD;
+        return $this->_parsed->{$name};
     }
 }
