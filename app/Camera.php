@@ -21,7 +21,8 @@ class Camera extends Model
         'ssid',
         'model_number',
         'model_name',
-        'firmware_version'
+        'firmware_version',
+        'online'
     ];
 
     public function setSerialNumberAttribute($value)

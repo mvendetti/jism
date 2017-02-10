@@ -22,6 +22,7 @@ class CreateCamerasTable extends Migration
             $table->integer('model_number');
             $table->string('model_name');
             $table->string('firmware_version');
+            $table->boolean('online')->default(false)->index();
             $table->timestamps();
         });
     }
