@@ -16,7 +16,7 @@ class CameraScanNetworkCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'camera:scan';
+    protected $signature = 'camera:scan {--ip=*}';
 
     /**
      * The console command description.
@@ -24,9 +24,6 @@ class CameraScanNetworkCommand extends Command
      * @var string
      */
     protected $description = 'Scan the network for gopro cameras';
-
-    protected $succeeded = [];
-    protected $failed = [];
 
     /**
      * Create a new command instance.
@@ -46,19 +43,33 @@ class CameraScanNetworkCommand extends Command
 
      public function handle()
      {
-        $leases = Lease::getGoPros();
-        $ips = $leases->pluck('ip')->toArray();
-        $get = new HttpGroupGet($ips, '/gp/gpControl/info');
-        $results = $get->run();;
-        foreach($results->succeeded as $result)
+        $get = new HttpGroupGet($this->getIps(), '/gp/gpControl/info');
+        $results = $get->run();
+        if($results->succeeded)
         {
-            $this->createCamera($result->data->info, $result->ip);
+            foreach($results->succeeded as $result)
+            {
+                $this->createCamera($result->data->info, $result->ip);
+            }
         }
-        foreach($results->failed as $result)
+        if($results->failed)
         {
-            $this->updateOfflineCamera($result->ip);
+            foreach($results->failed as $result)
+            {
+                $this->updateOfflineCamera($result->ip);
+            }
         }
-     }
+    }
+
+    public function getIps()
+    {
+        $ips = $this->option('ip');
+        if(is_array($ips) && count($ips) > 0)
+        {
+            return $ips;
+        }
+        return Lease::getGoPros()->pluck('ip')->toArray();
+    }
 
     public function createCamera( BigData $info, $ip )
     {
@@ -69,13 +80,19 @@ class CameraScanNetworkCommand extends Command
             'ssid' => $info->ap_ssid,
             'model_number' => $info->model_number,
             'model_name' => $info->model_name,
-            'firmware_version' => $info->firmware_version
+            'firmware_version' => $info->firmware_version,
+            'online' => true
         ];
         $camera = Camera::updateOrCreate($keyOn, $data);
     }
 
     public function updateOfflineCamera($ip)
     {
-        // needs finishing
+        $camera = Camera::where('ip', $ip)->first();
+        if($camera)
+        {
+            $camera->online = false;
+            $camera->save();
+        }
     }
 }
