@@ -18,6 +18,7 @@ class CreateKeysTable extends Migration
             $table->string('model_number')->index();
             $table->string('keytype')->index();
             $table->integer('gopro_id')->index();
+            $table->string('slug')->index();
             $table->string('value');
             $table->string('datatype');
             $table->json('opts')->nullable();
