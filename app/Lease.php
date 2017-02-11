@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Traits\EnforceMacFormatTrait;
-use Illuminate\Database\Eloquent\Model;
 
 class Lease extends Model
 {
