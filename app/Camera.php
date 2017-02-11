@@ -42,6 +42,6 @@ class Camera extends Model
      */
     public function pods()
     {
-        return $this->belongsToMany('App\Pods');
+        return $this->belongsToMany('App\Pod', 'camera_pod', 'serial_number', 'pod_id');
     }
 }
