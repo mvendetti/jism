@@ -16,6 +16,18 @@ class KeysTableHero4Seeder extends Seeder
         {
             DB::table('keys')->insert($row);
         }
+
+        $data = $this->getJson('gopro.hero4.settings.json');
+        foreach($data as $row)
+        {
+            DB::table('keys')->insert($row);
+        }
+    }
+
+    public function getJson($filename)
+    {
+        $path = database_path() . "/seeds/json/${filename}";
+        return json_decode(file_get_contents($path), true);
     }
 
     public function getRaw()
