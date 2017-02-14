@@ -48,8 +48,8 @@ class Camera extends Model
     /**
      * The users that belong to the role.
      */
-    public function pods()
+    public function pod()
     {
-        return $this->belongsToMany('App\Pod', 'camera_pod', 'serial_number', 'pod_id');
+        return $this->belongsTo('App\Pod');
     }
 }

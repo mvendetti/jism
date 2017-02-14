@@ -20,6 +20,6 @@ class Pod extends Model
      */
     public function cameras()
     {
-        return $this->belongsToMany('App\Camera', 'camera_pod', 'pod_id',  'serial_number');
+        return $this->hasMany('App\Camera');
     }
 }
