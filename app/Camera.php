@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Support\Arr;
 use App\Traits\EnforceMacFormatTrait;
+use Illuminate\Database\Eloquent\Model;
 
 class Camera extends Model
 {
@@ -14,7 +15,14 @@ class Camera extends Model
      *
      * @var string
      */
-    protected $secondaryKey = 'serial_number';
+    protected $primaryKey = 'serial_number';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    protected $incrementing = false;
 
     /**
      * The attributes that are mass assignable.
