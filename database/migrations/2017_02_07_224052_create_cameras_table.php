@@ -14,8 +14,7 @@ class CreateCamerasTable extends Migration
     public function up()
     {
         Schema::create('cameras', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('serial_number')->unique();
+            $table->string('serial_number')->primary();
             $table->string('ip')->unique();
             $table->string('mac')->unique();
             $table->string('ssid')->index();
