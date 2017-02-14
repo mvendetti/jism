@@ -13,8 +13,25 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+const LayoutPrimary = require('./layouts/primary.vue')
+const PageHome = require('./pages/home.vue')
+const Header = require('./components/header.vue')
+
+Vue.component('jism-layout-primary', LayoutPrimary);
+Vue.component('jism-page-home', PageHome);
+Vue.component('jism-header', Header);
+
+const routes = [
+    { path: '/', name: 'home', component: PageHome }
+]
+
+const router = new VueRouter({
+  routes // short for routes: routes
+})
 
 const app = new Vue({
-    el: '#app'
+    el: '#jism-app',
+    router
 });
+
+console.log('I am in thasdafdasfde app');
