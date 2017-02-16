@@ -22,20 +22,20 @@
                             <router-link :to="{ name: 'home' }">All</router-link>
                         </li>
 
-                        <li v-if="$route.name !== 'pod' && $route.name !== 'camera'" v-for="pod in pods" class="list-item">
+                        <li v-if="!podRoute && !camRoute" v-for="pod in pods" class="list-item">
                             <router-link :to="{ name: 'pod', params: { pod_id: pod.id } }">{{ pod.name }}</router-link>
                         </li>
 
-                        <li v-if="$route.name === 'pod' || $route.name === 'camera'" class="list-item">
+                        <li v-if="podRoute || camRoute" class="list-item">
                             <router-link :to="{ name: 'pod' }">P{{ this.podId }}</router-link>
                         </li>
 
-                        <li v-if="$route.name === 'pod' || $route.name === 'camera'" class="list-item">
+                        <li v-if="podRoute || camRoute" class="list-item">
                             <router-link v-if="this.camId !== 'left'" :to="{ name: 'camera', params: { pod_id: this.podId, cam_id: 'left' } }">Left</router-link>
                             <span v-if="this.camId === 'left'">Left</span>
                         </li>
 
-                        <li v-if="$route.name === 'pod' || $route.name === 'camera'" class="list-item">
+                        <li v-if="podRoute || camRoute" class="list-item">
                             <router-link v-if="this.camId !== 'right'" :to="{ name: 'camera', params: { pod_id: this.podId, cam_id: 'right' } }">Right</router-link>
                             <span v-if="this.camId === 'right'">Right</span>
                         </li>
@@ -54,6 +54,12 @@
             },
             camId : function() {
                 return this.$route.params.cam_id;
+            },
+            podRoute : function() {
+                return this.$route.name === 'pod'
+            },
+            camRoute : function() {
+                return this.$route.name === 'camera'
             }
         },
         data() {
