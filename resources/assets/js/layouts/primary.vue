@@ -1,9 +1,8 @@
 <template>
     <div>
         <jism-header></jism-header>
-        <div>
-            <slot></slot>
-        </div>
+        <slot></slot>
+        <jism-footer></jism-footer>
     </div>
 </template>
 
@@ -13,6 +12,6 @@
     }
 </script>
 
-<style scoped>
+<style lang="sass" scoped>
 
 </style>
