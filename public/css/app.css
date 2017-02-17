@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);@import url(https://use.fontawesome.com/10bf5a17a3.css);@charset "UTF-8";
 
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -8315,4 +8315,8 @@ button.close {
   .hidden-print {
     display: none !important;
   }
+}
+
+body {
+  margin-bottom: 60px;
 }
