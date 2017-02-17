@@ -21,7 +21,7 @@ class CreateKeysTable extends Migration
             $table->string('slug')->index();
             $table->string('value');
             $table->string('datatype');
-            $table->json('opts')->nullable();
+            $table->text('opts')->nullable();
             $table->timestamps();
         });
     }
