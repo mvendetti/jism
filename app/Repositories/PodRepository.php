@@ -2,24 +2,52 @@
 
 namespace App\Repositories;
 
-use DB;
 use App\Pod;
+use App\Camera;
 
 class PodRepository
 {
-    public static function createNextPod($podNum = null)
+    /**
+     * Creates a new pod
+     *
+     * @var bool
+     */
+    public static function create($number)
     {
-        if(Pod::where('number', $podNum)->first())
+        if(Pod::where('number', $number)->first())
         {
-            throw new \Exception("Pod number $podNum already exists.");
+            throw new \Exception("Pod number $number already exists.");
         }
-        if(! $podNum)
+        return Pod::create(['number' => $number]);
+    }
+
+    /**
+     * Handles the relationship creation between a pod and camera
+     *
+     * @param  Pod    $pod
+     * @param  Camera $camera
+     * @param  string $side
+     * @var bool
+     */
+    public static function assignCamera(Pod $pod, Camera $camera, $side)
+    {
+        $oCameras = Camera::where('pod_id', $pod_id)
+            ->where('serial_number', '!=', $camera->serial_number)
+            ->where('pod_side', $side)
+            ->get();
+
+        if($oCameras)
         {
-            $podNum = DB::table('pods')->max('number');
-            $podNum = $podNum
-                ? $podNum + 1
-                : 1;
+            foreach($oCameras as $oCamera)
+            {
+                $oCamera->pod_side = 'unassigned';
+                $oCamera->pod_id = null;
+                $oCamera->save();
+            }
         }
-        return Pod::create(['number' => $podNum]);
+
+        $camera->pod_side = $side;
+        $camera->pod_id = $pod_id;
+        return $camera->save();
     }
 }

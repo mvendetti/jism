@@ -19,7 +19,7 @@ class HttpGroupGet
     protected $client;
     protected $requests;
     protected $pool;
-    protected $results = [];
+    protected $results = ['successful' => [], 'failed' => []];
 
     public function __construct(array $ips, $url, $protocol = 'http', $timeout = 2.0)
     {
@@ -29,14 +29,38 @@ class HttpGroupGet
         $this->client = new Client(['timeout' => $timeout]);
         $this->requests = $this->buildRequests($this->client, $ips);
         $this->pool = $this->buildPool($this->client, $this->requests, count($ips));
-    }
-
-    public function run()
-    {
         $promise = $this->pool->promise();
         $promise->wait();
+    }
 
-        return new BigData($this->results);
+    public function hasSuccessful()
+    {
+        return count($this->results['successful']) > 0;
+    }
+
+    public function hasFailed()
+    {
+        return count($this->results['failed']) > 0;
+    }
+
+    public function getSuccessful()
+    {
+        return $this->results['successful'];
+    }
+
+    public function getFailed()
+    {
+        return $this->results['failed'];
+    }
+
+    public function getSuccessfulIps()
+    {
+        return array_keys($this->results['successful']);
+    }
+
+    public function getFailedIps()
+    {
+        return array_keys($this->results['failed']);
     }
 
     protected function buildPool($client, $requests, $concurrency)
@@ -64,12 +88,7 @@ class HttpGroupGet
     {
         return function($response, $index)
         {
-            $body = $response->getBody()->getContents();
-            $data = new ParseData($body, 13);
-            $this->results['succeeded'][$index] = [
-                'ip' => $index,
-                'data' => $data
-            ];
+            $this->results['successful'][$index] = $response->getBody()->getContents();
         };
     }
 
@@ -77,11 +96,7 @@ class HttpGroupGet
     {
         return function($reason, $index)
         {
-            $host = $reason->getRequest()->getUri()->getHost();
-            $this->results['failed'][] = [
-                'ip' => $host,
-                'reason' => $reason
-            ];
+            $this->results['failed'][$index] = $reason;
         };
     }
 }

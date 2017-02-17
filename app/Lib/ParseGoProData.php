@@ -6,47 +6,42 @@ use App\Key;
 
 class ParseGoProData
 {
-    protected $_keys;
-    protected $_rawJson;
-    protected $_rawData;
-    protected $_data;
-    protected $_parsed;
+    protected $keys;
+    protected $rawData;
+    protected $data;
+    protected $parsed;
 
-    public function __construct($json, $model_number = null)
+    public function __construct($data, $model_number = null)
     {
-        $this->_keys = $model_number ? Key::where('model_number', $model_number)->get() : collect();
-        $this->_rawJson = $json;
-        $this->_rawStatus = json_decode($this->_rawJson, true);
-        $this->_parse();
+        $this->keys = $model_number ? Key::where('model_number', $model_number)->get() : collect();
+        $this->rawData = $data;
+        $this->parse();
     }
 
-    protected function _parse()
+    protected function parse()
     {
-        foreach($this->_rawStatus as $subject => $data)
+        foreach($this->rawData as $subject => $data)
         {
             foreach($data as $k => $v)
             {
-                $key = $this->_keys->where('gopro_id', $k)->first();
+                $key = $this->keys->where('keytype', $subject)->where('gopro_id', $k)->first();
                 if($key)
                 {
                     $value = $v;
                     if(count($key->opts))
                     {
-                        $value = $key->opts[$v];
+                        $value = isset($key->opts[$v])
+                            ? $key->opts[$v]
+                            : 'error - unknown';
                     }
-                    $this->_data[$subject][$key->value] = $value;
-                }
-                else
-                {
-                    $this->_data[$subject][$k] = $v;
+                    $this->parsed[$subject][$key->value] = $value;
                 }
             }
         }
-        $this->_parsed = new \App\Lib\BigData($this->_data);
     }
 
-    public function toArray()
+    public function get()
     {
-        return $this->_parsed;
+        return $this->parsed;
     }
 }
