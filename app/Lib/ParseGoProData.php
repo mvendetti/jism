@@ -10,6 +10,7 @@ class ParseGoProData
     protected $rawData;
     protected $data;
     protected $parsed;
+    protected $unparsed;
 
     public function __construct($data, $model_number = null)
     {
@@ -34,14 +35,22 @@ class ParseGoProData
                             ? $key->opts[$v]
                             : 'error - unknown';
                     }
-                    $this->parsed[$subject][$key->value] = $value;
+                    $this->parsed[$subject][$key->value] = [ 'gopro_id' => $k, 'gopro_subid' => $v, 'name' => $value ];
+                }
+                else
+                {
+                    $this->unparsed[$subject][$k] = $v;
                 }
             }
         }
     }
 
-    public function get()
+    public function getParsed()
     {
         return $this->parsed;
+    }
+    public function getUnparsed()
+    {
+        return $this->unparsed;
     }
 }

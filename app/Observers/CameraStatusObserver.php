@@ -15,6 +15,12 @@ class CameraStatusObserver
      */
     public function saving(CameraStatus $cs)
     {
-        $cs->parsed = (new ParseGoProData($cs->raw, 13))->get();
+        if(! is_array($cs->raw))
+        {
+            $cs->raw = json_decode($cs->raw);
+        }
+        $parser = new ParseGoProData($cs->raw, 13);
+        $cs->parsed = $parser->getParsed();
+        $cs->unparsed = $parser->getUnparsed();
     }
 }

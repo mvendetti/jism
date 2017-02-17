@@ -18,6 +18,7 @@ class CreateCameraStatusesTable extends Migration
             $table->string('camera_id')->index();
             $table->json('raw')->nullable();
             $table->json('parsed')->nullable();
+            $table->json('unparsed')->nullable();
             $table->timestamps();
         });
     }

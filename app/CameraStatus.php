@@ -24,5 +24,6 @@ class CameraStatus extends Model
     protected $casts = [
         'raw' => 'array',
         'parsed' => 'array',
+        'unparsed' => 'array',
     ];
 }
