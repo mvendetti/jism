@@ -3,12 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Camera;
-use GuzzleHttp\Client;
-use App\Lib\ParseData;
-use GuzzleHttp\Promise;
-use GuzzleHttp\Psr7\Request;
 use Illuminate\Console\Command;
-use GuzzleHttp\Exception\GuzzleException;
+use App\Actions\Cameras\UpdateStatusAction;
 
 class CameraUpdateStatusCommand extends Command
 {
@@ -17,14 +13,14 @@ class CameraUpdateStatusCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'camera:status';
+    protected $signature = 'camera:status {--camera=*}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Update camera status information';
 
     /**
      * Create a new command instance.
@@ -43,23 +39,22 @@ class CameraUpdateStatusCommand extends Command
      */
     public function handle()
     {
-        $cameras = Camera::all();
-        $client = new Client();
-        $promises = [];
-        foreach($cameras as $camera)
-        {
-            $promises[$camera->serial_number] = $client->getAsync('http://' . $camera->ip . '/gp/gpControl/status');
-        }
-        $results = Promise\unwrap($promises);
-        $results = Promise\settle($promises)->wait();
+        UpdateStatusAction::run($this->getCameras());
+    }
 
-        foreach($results as $serial_number => $raw)
+    /**
+     * Gets all of the cameras specified in the command options. Gets all
+     * cameras if no options are specified.
+     *
+     * @return Collection
+     */
+    protected function getCameras()
+    {
+        $cameras = Camera::whereIn('serial_number', $this->option('camera'))->get();
+        if(! $cameras)
         {
-            $camera = $cameras->where('serial_number', $serial_number)->first();
-            $response = $raw['value'];
-            $body = $response->getBody()->getContents();
-            $parsed = new ParseData($body, $camera->model_number);
-            dd($parsed->data()->status);
+            return Camera::all();
         }
+        return Camera::all();
     }
 }

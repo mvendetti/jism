@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\Cameras;
 
 use App\CameraStatus;
 use App\Lib\CamApis\StatusApi;
 
-class CameraUpdateStatusAction
+class UpdateStatusAction
 {
     public function __construct($cameras)
     {
@@ -15,5 +15,10 @@ class CameraUpdateStatusAction
             $camera = $cameras->where('ip', $key)->first();
             $status = CameraStatus::create(['camera_id' => $camera->serial_number, 'raw' => $value]);
         }
+    }
+
+    static public function run($cameras)
+    {
+        return new self($cameras);
     }
 }
