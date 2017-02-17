@@ -8320,3 +8320,7 @@ button.close {
 body {
   margin-bottom: 60px;
 }
+
+.fa {
+  font-size: 2em;
+}

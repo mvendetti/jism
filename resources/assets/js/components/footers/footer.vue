@@ -1,26 +1,13 @@
 <template>
     <div>
         <footer>
-            <div class="container">
-                <div v-if="$route.name === true">
-                    <jism-footer-main></jism-footer-main>
-                </div>
-                <div v-if="">
-                    <jism-footer-main-settings></jism-footer-main-settings>
-                </div>
-                <div v-if="">
-                    <jism-footer-standard></jism-footer-standard>
-                </div>
-                <div v-if="">
-                    <jism-footer-available></jism-footer-available>
-                </div>
-                <div v-if="">
-                    <jism-footer
-                </div>
-                <div v-if="">
-
-                </div>
-            </div>
+            <jism-footer-main v-if="$route.name === 'home'"></jism-footer-main>
+            <jism-footer-main-settings v-if="$route.name === 'settings'"></jism-footer-main-settings>
+            <jism-footer-assign v-if="$route.name === 'assign'"></jism-footer-assign>
+            <jism-footer-pod v-if="$route.name === 'pod'"></jism-footer-pod>
+            <jism-footer-camera v-if="$route.name === 'camera'"></jism-footer-camera>
+            <jism-footer-default v-if="$route.name === 'pod-settings'"></jism-footer-default>
+            <jism-footer-default v-if="$route.name === 'cam-settings'"></jism-footer-default>
         </footer>
     </div>
 </template>
@@ -31,13 +18,17 @@
     }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
     footer
-        position: absolute
+        position: fixed
         bottom: 0
+        text-align: center
+        padding: 1em
         width: 480px
-        height: 60px
-        line-height: 60px
         background-color: #E2E2E2
         border-top: 1px solid #222
+        a
+            color: #636B6F
+        .fa
+            margin: 0 15px
 </style>

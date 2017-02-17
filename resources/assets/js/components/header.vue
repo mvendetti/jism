@@ -83,7 +83,6 @@
     .top-status-bar
         padding: 0.25em
     i
-        font-size: 2em
         &.fa-circle
             color: green
     .pod-ordered-list
