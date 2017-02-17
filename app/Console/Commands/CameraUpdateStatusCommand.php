@@ -50,10 +50,9 @@ class CameraUpdateStatusCommand extends Command
      */
     protected function getCameras()
     {
-        $cameras = Camera::whereIn('serial_number', $this->option('camera'))->get();
-        if(! $cameras)
+        if(count($this->option('camera')) > 0)
         {
-            return Camera::all();
+            return Camera::whereIn('serial_number', $this->option('camera'))->get();
         }
         return Camera::all();
     }
