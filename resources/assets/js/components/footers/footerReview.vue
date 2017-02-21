@@ -1,8 +1,10 @@
 <template>
     <div>
-        <router-link :to="'#'"><i class="fa fa-backward" aria-hidden="true"></i></router-link>
-        <router-link :to="'#'"><i class="fa fa-pause" aria-hidden="true"></i></router-link>
-        <router-link :to="'#'"><i class="fa fa-forward" aria-hidden="true"></router-link>
+        <jism-button-stop></jism-button-stop>
+        <jism-button-record></jism-button-record>
+        <jism-button-backward></jism-button-backward>
+        <jism-button-pause></jism-button-pause>
+        <jism-button-forward></jism-button-forward>
         <router-link :to="{ name: 'camera' }"><i class="fa fa-arrow-left" aria-hidden="true"></i></router-link>
     </div>
 </template>
