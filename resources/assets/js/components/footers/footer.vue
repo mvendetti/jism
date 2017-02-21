@@ -6,6 +6,7 @@
             <jism-footer-assign v-if="$route.name === 'assign'"></jism-footer-assign>
             <jism-footer-pod v-if="$route.name === 'pod'"></jism-footer-pod>
             <jism-footer-camera v-if="$route.name === 'camera'"></jism-footer-camera>
+            <jism-footer-review v-if="$route.name === 'review'"></jism-footer-review>
             <jism-footer-default v-if="$route.name === 'pod-settings'"></jism-footer-default>
             <jism-footer-default v-if="$route.name === 'cam-settings'"></jism-footer-default>
         </footer>

@@ -24,6 +24,14 @@ const CameraSettings = require('./pages/cameraSettings.vue')
 const Pod = require('./pages/pod.vue')
 const PodSettings = require('./pages/podSettings.vue')
 const AssignCamera = require('./pages/assignCamera.vue')
+const CameraReview = require('./pages/cameraReview.vue')
+
+const StopButton = require('./components/buttons/stop.vue')
+const RecordButton = require('./components/buttons/record.vue')
+const BackwardButton = require('./components/buttons/backward.vue')
+const PauseButton = require('./components/buttons/pause.vue')
+const ForwardButton = require('./components/buttons/forward.vue')
+const ReferenceButton = require('./components/buttons/reference.vue')
 
 const Footer = require('./components/footers/footer.vue')
 const FooterDefault = require('./components/footers/footerDefault.vue')
@@ -32,11 +40,28 @@ const FooterMainSettings = require('./components/footers/footerMainSettings.vue'
 const FooterAssign = require('./components/footers/footerAssign.vue')
 const FooterPod = require('./components/footers/footerPod.vue')
 const FooterCamera = require('./components/footers/footerCamera.vue')
+const FooterReview = require('./components/footers/footerReview.vue')
 
 Vue.component('jism-layout-primary', LayoutPrimary);
+
+Vue.component('jism-header', Header);
+
 Vue.component('jism-page-home', PageHome);
 Vue.component('jism-settings', Settings);
-Vue.component('jism-header', Header);
+Vue.component('jism-camera', Camera);
+Vue.component('jism-camera-settings', CameraSettings);
+Vue.component('jism-pod', Pod);
+Vue.component('jism-pod-settings', PodSettings);
+Vue.component('jism-assign-camera', AssignCamera);
+Vue.component('jism-camera-review', CameraReview);
+
+Vue.component('jism-button-stop', StopButton);
+Vue.component('jism-button-record', RecordButton);
+Vue.component('jism-button-backward', BackwardButton);
+Vue.component('jism-button-pause', PauseButton);
+Vue.component('jism-button-forward', ForwardButton);
+Vue.component('jism-button-reference', ReferenceButton);
+
 Vue.component('jism-footer', Footer);
 Vue.component('jism-footer-default', FooterDefault);
 Vue.component('jism-footer-main', FooterMain);
@@ -44,9 +69,7 @@ Vue.component('jism-footer-main-settings', FooterMainSettings);
 Vue.component('jism-footer-assign', FooterAssign);
 Vue.component('jism-footer-pod', FooterPod);
 Vue.component('jism-footer-camera', FooterCamera);
-Vue.component('jism-camera', Camera);
-Vue.component('jism-pod', Pod);
-Vue.component('jism-assign-camera', AssignCamera);
+Vue.component('jism-footer-review', FooterReview);
 
 const routes = [
     { path: '/', name: 'home', component: PageHome },
@@ -55,6 +78,7 @@ const routes = [
     { path: '/pod/:pod_id', name: 'pod', component: Pod },
     { path: '/pod/:pod_id/cam/:cam_id', name: 'camera', component: Camera },
     { path: '/pod/:pod_id/settings', name: 'pod-settings', component: PodSettings },
+    { path: '/pod/:pod_id/cam/:cam_id/review', name: 'review', component: CameraReview },
     { path: '/pod/:pod_id/cam/:cam_id/settings', name: 'cam-settings', component: CameraSettings }
 ]
 
