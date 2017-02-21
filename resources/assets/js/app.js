@@ -50,6 +50,7 @@ Vue.component('jism-footer-review', FooterReview);
 Vue.component('jism-camera', Camera);
 Vue.component('jism-pod', Pod);
 Vue.component('jism-assign-camera', AssignCamera);
+Vue.component('jism-camera-review', CameraReview);
 
 const routes = [
     { path: '/', name: 'home', component: PageHome },
