@@ -43,20 +43,19 @@ class CameraScanNetworkCommand extends Command
 
      public function handle()
      {
-        $get = new HttpGroupGet($this->getIps(), '/gp/gpControl/info');
-        $results = $get->run();
-        if($results->succeeded)
+        $results = new HttpGroupGet($this->getIps(), '/gp/gpControl/info');
+        if($results->hasSuccessful())
         {
-            foreach($results->succeeded as $result)
+            foreach($results->getSuccessful() as $ip => $result)
             {
-                $this->createCamera($result->data->info, $result->ip);
+                $this->createCamera($result, $ip);
             }
         }
-        if($results->failed)
+        if($results->hasFailed())
         {
-            foreach($results->failed as $result)
+            foreach($results->getFailed() as $ip => $result)
             {
-                $this->updateOfflineCamera($result->ip);
+                $this->updateOfflineCamera($ip);
             }
         }
     }
@@ -71,16 +70,17 @@ class CameraScanNetworkCommand extends Command
         return Lease::getGoPros()->pluck('ip')->toArray();
     }
 
-    public function createCamera( BigData $info, $ip )
+    public function createCamera( $info, $ip )
     {
-        $keyOn = ['serial_number' => $info->serial_number];
+        $info = json_decode($info, true)['info'];
+        $keyOn = ['serial_number' => $info['serial_number']];
         $data = [
             'ip' => $ip,
-            'mac' => $info->ap_mac,
-            'ssid' => $info->ap_ssid,
-            'model_number' => $info->model_number,
-            'model_name' => $info->model_name,
-            'firmware_version' => $info->firmware_version,
+            'mac' => $info['ap_mac'],
+            'ssid' => $info['ap_ssid'],
+            'model_number' => $info['model_number'],
+            'model_name' => $info['model_name'],
+            'firmware_version' => $info['firmware_version'],
             'online' => true
         ];
         $camera = Camera::updateOrCreate($keyOn, $data);

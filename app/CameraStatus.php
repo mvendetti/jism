@@ -12,7 +12,7 @@ class CameraStatus extends Model
      * @var array
      */
     protected $fillable = [
-        'camera_id',
+        'camera_serial_number',
         'raw',
     ];
 

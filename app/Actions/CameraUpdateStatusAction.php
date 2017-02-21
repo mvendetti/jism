@@ -13,7 +13,7 @@ class CameraUpdateStatusAction
         foreach($api->getSuccessful() as $key => $value)
         {
             $camera = $cameras->where('ip', $key)->first();
-            $status = CameraStatus::create(['camera_id' => $camera->serial_number, 'raw' => $value]);
+            $status = CameraStatus::create(['camera_serial_number' => $camera->serial_number, 'raw' => $value]);
         }
         foreach($api->getFailed() as $key => $value)
         {

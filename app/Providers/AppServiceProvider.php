@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\CameraStatus;
+use Illuminate\Support\Facades\Schema;
 use App\Observers\CameraStatusObserver;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Schema::defaultStringLength(191);
         CameraStatus::observe(CameraStatusObserver::class);
     }
 
