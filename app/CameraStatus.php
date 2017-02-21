@@ -26,4 +26,12 @@ class CameraStatus extends Model
         'parsed' => 'array',
         'unparsed' => 'array',
     ];
+
+    /**
+     * The users that belong to the role.
+     */
+    public function camera()
+    {
+        return $this->belongsTo('App\Camera');
+    }
 }

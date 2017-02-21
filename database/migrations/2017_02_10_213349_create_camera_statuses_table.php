@@ -15,7 +15,7 @@ class CreateCameraStatusesTable extends Migration
     {
         Schema::create('camera_statuses', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('camera_id')->index();
+            $table->string('camera_serial_number')->index();
             $table->text('raw')->nullable();
             $table->text('parsed')->nullable();
             $table->text('unparsed')->nullable();

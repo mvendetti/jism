@@ -5,7 +5,7 @@ namespace App\Actions\Cameras;
 use App\CameraStatus;
 use App\Lib\CamApis\StatusApi;
 
-class UpdateStatusAction
+class CameraUpdateStatusAction
 {
     public function __construct($cameras)
     {

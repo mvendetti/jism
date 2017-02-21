@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Camera;
 use Illuminate\Console\Command;
-use App\Actions\Cameras\UpdateStatusAction;
+use App\Actions\Cameras\CameraUpdateStatusAction;
 
 class CameraUpdateStatusCommand extends Command
 {
@@ -39,7 +39,7 @@ class CameraUpdateStatusCommand extends Command
      */
     public function handle()
     {
-        UpdateStatusAction::run($this->getCameras());
+        CameraUpdateStatusAction::run($this->getCameras());
     }
 
     /**
