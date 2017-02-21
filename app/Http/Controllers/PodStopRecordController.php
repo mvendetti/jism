@@ -19,6 +19,6 @@ class PodStopRecordController extends Controller
     {
         $cameras = Camera::all();
         CameraStopRecordAction::run($cameras);
-        $cameras = CameraRepository::all();
+        return response()->json(CameraRepository::all());
     }
 }

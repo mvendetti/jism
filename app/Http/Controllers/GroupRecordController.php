@@ -19,6 +19,6 @@ class GroupRecordController extends Controller
     {
         $cameras = Camera::all();
         CameraRecordAction::run($cameras);
-        $cameras = CameraRepository::all();
+        return response()->json(CameraRepository::all());
     }
 }

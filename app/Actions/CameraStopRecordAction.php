@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Actions\Cameras;
+namespace App\Actions;
 
 use App\CameraStatus;
 use App\Lib\CamApis\StopRecordApi;
 
-class CameraRecordAction
+class CameraStopRecordAction
 {
     public function __construct($cameras)
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Cameras;
+namespace App\Actions;
 
 use App\CameraStatus;
 use App\Lib\CamApis\StatusApi;
