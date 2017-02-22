@@ -12,18 +12,7 @@ class CameraStatusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return response()->json(CameraRepository::all());
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function index($camera)
     {
         return response()->json(CameraRepository::all());
     }

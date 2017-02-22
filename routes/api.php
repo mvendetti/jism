@@ -17,9 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('group.status', 'GroupStatusController', ['only' => ['index', 'show']]);
-Route::resource('pod.status', 'PodStatusController', ['only' => ['index', 'show']]);
-Route::resource('camera.status', 'CameraStatusController', ['only' => ['index', 'show']]);
+Route::resource('group.status', 'GroupStatusController', ['only' => ['index']]);
+Route::resource('pod.status', 'PodStatusController', ['only' => ['index']]);
+Route::resource('camera.status', 'CameraStatusController', ['only' => ['index']]);
 Route::resource('group.record', 'GroupRecordController', ['only' => ['store']]);
 Route::resource('pod.record', 'PodRecordController', ['only' => ['store']]);
 Route::resource('camera.record', 'CameraRecordController', ['only' => ['store']]);

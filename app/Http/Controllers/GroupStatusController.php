@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\CameraRepository;
 
 class GroupStatusController extends Controller
 {
@@ -11,18 +12,7 @@ class GroupStatusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return response()->json(CameraRepository::all());
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function index($group)
     {
         return response()->json(CameraRepository::all());
     }
