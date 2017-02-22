@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Camera;
 use Illuminate\Console\Command;
-use App\Actions\Cameras\CameraUpdateStatusAction;
+use App\Actions\CameraUpdateStatusAction;
 
 class CameraUpdateStatusCommand extends Command
 {

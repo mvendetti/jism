@@ -35,7 +35,7 @@ class ParseGoProData
                             ? $key->opts[$v]
                             : 'error - unknown';
                     }
-                    $this->parsed[$subject][$key->value] = [ 'gopro_id' => $k, 'gopro_subid' => $v, 'name' => $value ];
+                    $this->parsed[$subject][$key->slug] = [ 'gopro_id' => $k, 'gopro_subid' => $v, 'label' => $key->value, 'value' => $value ];
                 }
                 else
                 {
