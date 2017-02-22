@@ -5,7 +5,7 @@
         <jism-button-backward></jism-button-backward>
         <jism-button-pause></jism-button-pause>
         <jism-button-forward></jism-button-forward>
-        <router-link :to="{ name: 'camera' }"><i class="fa fa-arrow-left" aria-hidden="true"></i></router-link>
+        <router-link :to="{ name: 'cam-settings' }"><i class="fa fa-arrow-left" aria-hidden="true"></i></router-link>
     </div>
 </template>
 
