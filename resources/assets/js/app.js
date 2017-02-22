@@ -25,6 +25,9 @@ const Pod = require('./pages/pod.vue')
 const PodSettings = require('./pages/podSettings.vue')
 const AssignCamera = require('./pages/assignCamera.vue')
 const CameraReview = require('./pages/cameraReview.vue')
+const Add = require('./pages/add.vue')
+const Remove = require('./pages/remove.vue')
+const Disable = require('./pages/disable.vue')
 
 const StopButton = require('./components/buttons/stop.vue')
 const RecordButton = require('./components/buttons/record.vue')
@@ -54,6 +57,9 @@ Vue.component('jism-pod', Pod);
 Vue.component('jism-pod-settings', PodSettings);
 Vue.component('jism-assign-camera', AssignCamera);
 Vue.component('jism-camera-review', CameraReview);
+Vue.component('jism-add', Add);
+Vue.component('jism-remove', Remove);
+Vue.component('jism-disable', Disable);
 
 Vue.component('jism-button-stop', StopButton);
 Vue.component('jism-button-record', RecordButton);
@@ -74,6 +80,9 @@ Vue.component('jism-footer-review', FooterReview);
 const routes = [
     { path: '/', name: 'home', component: PageHome },
     { path: '/assign', name: 'assign', component: AssignCamera },
+    { path: '/assign/add', name: 'add', component: Add },
+    { path: '/assign/remove', name: 'remove', component: Remove },
+    { path: '/assign/disable', name: 'disable', component: Disable },
     { path: '/settings', name: 'settings', component: Settings },
     { path: '/pod/:pod_id', name: 'pod', component: Pod },
     { path: '/pod/:pod_id/cam/:cam_id', name: 'camera', component: Camera },
