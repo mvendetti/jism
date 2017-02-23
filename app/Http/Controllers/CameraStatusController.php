@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 use App\Repositories\CameraRepository;
 
@@ -14,6 +15,6 @@ class CameraStatusController extends Controller
      */
     public function index($camera)
     {
-        return response()->json(CameraRepository::all());
+        return response()->json(CameraRepository::find($camera));
     }
 }

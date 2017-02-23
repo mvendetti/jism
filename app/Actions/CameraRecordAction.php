@@ -9,6 +9,10 @@ class CameraRecordAction
 {
     public function __construct($cameras)
     {
+        if(class_basename($cameras) !== 'Collection')
+        {
+            $cameras = collect()->push($cameras);
+        }
         $api = new RecordApi($cameras->pluck('ip')->toArray());
     }
 

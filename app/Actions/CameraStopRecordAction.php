@@ -9,6 +9,10 @@ class CameraStopRecordAction
 {
     public function __construct($cameras)
     {
+        if(class_basename($cameras) !== 'Collection')
+        {
+            $cameras = collect()->push($cameras);
+        }
         $api = new StopRecordApi($cameras->pluck('ip')->toArray());
     }
 
