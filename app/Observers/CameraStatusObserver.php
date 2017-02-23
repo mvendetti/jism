@@ -22,8 +22,5 @@ class CameraStatusObserver
         $parser = new ParseGoProData($cs->raw, 13);
         $cs->parsed = $parser->getParsed();
         $cs->unparsed = $parser->getUnparsed();
-
-        //Keep our DB from blowing up. Lee needs to fix this.
-        CameraStatus::where('camera_serial_number', $cs->camera_serial_number)->delete();
     }
 }

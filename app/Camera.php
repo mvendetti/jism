@@ -56,14 +56,6 @@ class Camera extends Model
     /**
      * The roles that belong to the user.
      */
-    public function status()
-    {
-        return $this->hasOne('App\CameraStatus')->latest();
-    }
-
-    /**
-     * The roles that belong to the user.
-     */
     public function statuses()
     {
         return $this->hasMany('App\CameraStatus');
