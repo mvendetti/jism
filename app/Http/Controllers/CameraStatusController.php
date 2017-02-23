@@ -15,6 +15,6 @@ class CameraStatusController extends Controller
      */
     public function index($camera)
     {
-        return response()->json(CameraRepository::find($camera));
+        return response()->json(CameraRepository::find($camera)->first());
     }
 }
