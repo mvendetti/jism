@@ -17,8 +17,7 @@ class CameraStopRecordController extends Controller
      */
     public function store($camera)
     {
-        $cameras = Camera::all();
-        CameraStopRecordAction::run($cameras);
-        return response()->json(CameraRepository::all());
+        CameraStopRecordAction::run(Camera::findOrFail($camera));
+        return response()->json(Camera::findOrFail($camera));
     }
 }
