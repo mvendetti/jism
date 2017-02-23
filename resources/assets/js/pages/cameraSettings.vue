@@ -3,7 +3,7 @@
         <jism-layout-primary>
             <div class="container">
                 <div class="row">
-                    <h1>{{ $route.name }}</h1>
+                    <router-link :to="{ name: 'review' }"><button class="btn btn-primary">Review</button></router-link>
                 </div>
             </div>
         </jism-layout-primary>

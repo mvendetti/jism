@@ -1,18 +1,10 @@
 <template>
     <div>
         <header>
-            <div class="container">
-                <div class="row top-status-bar">
-                    <div class="col-md-4">
-                        <i class="fa fa-circle"></i>
-                    </div>
-                    <div class="col-md-4">
-
-                    </div>
-                    <div class="col-md-4">
-
-                    </div>
-                </div>
+            <div class="row top-status-bar">
+                <i class="fa fa-circle"></i>
+                <i class="fa fa-battery-full" aria-hidden="true"></i>
+                <span>0:00</span>
             </div>
 
             <div class="row">
@@ -64,17 +56,23 @@
         },
         data() {
             return {
-                pods: [
-                    { name: 'P1', id: 1,
-                        cameras: [
-                            { name: 'Left', id: 55 },
-                            { name: 'Right', id: 56 }
-                        ]
-                    },
-                    { name: 'P2', id: 2 },
-                    { name: 'P3', id: 3 }
-                ]
+                pods: [],
+                batteryLevel: '',
+                videoDuration: 0,
+                recordingStatus: 0
             }
+        },
+        methods: {
+            status : function() {
+                axios.get('/api/pod/123/status').then((response) => {
+                        console.log(response.data);
+                    }, (error) => {
+                        console.log(error.response.data);
+                    });
+            }
+        },
+        created() {
+            // this.status();
         }
     }
 </script>
@@ -82,9 +80,11 @@
 <style lang="sass" scoped>
     .top-status-bar
         padding: 0.25em
-    i
-        &.fa-circle
-            color: green
+        text-align: center
+        i
+            margin-right: 100px;
+            &.fa-circle
+                color: green
     .pod-ordered-list
         border-radius: 0
         border-top: 1px solid #222

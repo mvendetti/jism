@@ -1,7 +1,9 @@
 <template>
     <div>
         <jism-header></jism-header>
-        <slot></slot>
+        <div class="wrapper">
+            <slot></slot>
+        </div>
         <jism-footer></jism-footer>
     </div>
 </template>
@@ -12,6 +14,7 @@
     }
 </script>
 
-<style lang="sass" scoped>
-
+<style lang="sass">
+    .wrapper
+        overflow: scroll
 </style>
