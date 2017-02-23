@@ -22,5 +22,11 @@ class CameraStatusObserver
         $parser = new ParseGoProData($cs->raw, 13);
         $cs->parsed = $parser->getParsed();
         $cs->unparsed = $parser->getUnparsed();
+        if(isset($cs->parsed['status']['recording_status']))
+        {
+            $recordingStatus = $cs->parsed['status']['recording_status']['gopro_subid'];
+            $cs->camera->is_recording = $recordingStatus === 1;
+            $cs->camera->save();
+        }
     }
 }
