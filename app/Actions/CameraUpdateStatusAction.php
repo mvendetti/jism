@@ -14,6 +14,8 @@ class CameraUpdateStatusAction
         {
             $camera = $cameras->where('ip', $key)->first();
             $status = CameraStatus::create(['camera_serial_number' => $camera->serial_number, 'raw' => $value]);
+            $camera->online = true;
+            $camera->save();
         }
         foreach($api->getFailed() as $key => $value)
         {
