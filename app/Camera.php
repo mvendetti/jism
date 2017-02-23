@@ -3,12 +3,13 @@
 namespace App;
 
 use Illuminate\Support\Arr;
+use App\Traits\ModelLoadedEventTrait;
 use App\Traits\EnforceMacFormatTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Camera extends Model
 {
-    use EnforceMacFormatTrait;
+    use ModelLoadedEventTrait, EnforceMacFormatTrait;
 
     /**
      * The primary key for the model.
