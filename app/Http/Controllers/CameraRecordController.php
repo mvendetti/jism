@@ -18,6 +18,6 @@ class CameraRecordController extends Controller
     public function store($camera)
     {
         CameraRecordAction::run(Camera::findOrFail($camera));
-        return response()->json(Camera::findOrFail($camera));
+        return response()->json(collect()->push(Camera::findOrFail($camera)));
     }
 }
