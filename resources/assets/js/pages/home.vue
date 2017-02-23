@@ -1,11 +1,7 @@
 <template>
     <div>
         <jism-layout-primary>
-            <div class="container">
-                <div class="row">
-                    <h1>{{ $route.name }}</h1>
-                </div>
-            </div>
+            <h1>Home</h1>
         </jism-layout-primary>
     </div>
 </template>

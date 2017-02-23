@@ -3,75 +3,85 @@
         <jism-layout-primary>
             <h1>Settings</h1>
             <div class="form-group">
-                <div class="col-md-12 col-xs-12">
-                <button @click.prevent="sleep" class="btn btn-default">Sleep</button>
-                <button @click.prevent="wake" class="btn btn-default">Wake</button>
-                <button class="btn btn-primary pull-right">Take Images</button>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-4 col-xs-4">
-                    <label class="control-label">Video:
-                        <label class="label label-default">ON</label>
-                    </label>
-                </div>
-                <div class="col-md-4 col-xs-4">
-                    <label class="control-label">Pro-Tune:
-                        <label class="label label-default">ON</label>
-                    </label>
-                </div>
-                <div class="col-md-4 col-xs-4">
-                    <label class="control-label">Format:
-                        <label class="label label-default">NTSC</label>
-                    </label>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <button @click.prevent="sleep" class="btn btn-default">Sleep</button>
+                        <button @click.prevent="wake" class="btn btn-default">Wake</button>
+                        <button class="btn btn-primary pull-right">Take Images</button>
+                    </div>
                 </div>
             </div>
-
+            <hr />
             <div class="form-group">
-                <div class="col-md-6 col-xs-6">
-                    <label class="control-label">Resolution</label>
-                    <select v-model="resolution" class="form-control">
-                        <option v-for="n in 3">{{ n }}</option>
-                    </select>
-                    <label class="control-label">FPS</label>
-                    <select v-model="fps" class="form-control">
-                        <option v-for="n in 3">{{ n }}</option>
-                    </select>
-                    <label class="control-label">FOV</label>
-                    <select v-model="fov" class="form-control">
-                        <option v-for="n in 3">{{ n }}</option>
-                    </select>
-                    <label class="control-label">Color Temp</label>
-                    <select v-model="colorTemp" class="form-control">
-                        <option v-for="n in 3">{{ n }}</option>
-                    </select>
-                    <label class="control-label">Color Profile</label>
-                    <select v-model="colorProfile" class="form-control">
-                        <option v-for="n in 3">{{ n }}</option>
-                    </select>
+                <div class="row">
+                    <div class="col-md-4 col-xs-4">
+                        <label class="control-label">Video:
+                            <label class="label label-default">ON</label>
+                        </label>
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <label class="control-label">Pro-Tune:
+                            <label class="label label-default">ON</label>
+                        </label>
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <label class="control-label">Format:
+                            <label class="label label-default">NTSC</label>
+                        </label>
+                    </div>
                 </div>
+            </div>
+            <hr />
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6 col-xs-6">
+                        <label class="control-label">Resolution</label>
+                        <select v-model="resolution" class="form-control">
+                            <option v-for="n in 3">{{ n }}</option>
+                        </select>
+                        <label class="control-label">FPS</label>
+                        <select v-model="fps" class="form-control">
+                            <option v-for="n in 3">{{ n }}</option>
+                        </select>
+                        <label class="control-label">FOV</label>
+                        <select v-model="fov" class="form-control">
+                            <option v-for="n in 3">{{ n }}</option>
+                        </select>
+                        <label class="control-label">Color Temp</label>
+                        <select v-model="colorTemp" class="form-control">
+                            <option v-for="n in 3">{{ n }}</option>
+                        </select>
+                        <label class="control-label">Color Profile</label>
+                        <select v-model="colorProfile" class="form-control">
+                            <option v-for="n in 3">{{ n }}</option>
+                        </select>
+                    </div>
 
-                <div class="col-md-6 col-xs-6">
-                    <label class="control-label">Shutter Speed</label>
-                    <select v-model="shutter" class="form-control">
-                        <option v-for="n in 3">{{ n }}</option>
-                    </select>
-                    <label class="control-label">ISO</label>
-                    <select v-model="iso" class="form-control">
-                        <option v-for="n in 3">{{ n }}</option>
-                    </select>
-                    <label class="control-label">Sharpness</label>
-                    <select v-model="sharpness" class="form-control">
-                        <option v-for="n in 3">{{ n }}</option>
-                    </select>
-                    <label class="control-label">Exposure</label>
-                    <select v-model="exposure" class="form-control">
-                        <option v-for="n in 3">{{ n }}</option>
-                    </select>
-                    <label class="control-label">Orientation</label><br />
-                    <button class="btn btn-default">Flip</button>
+                    <div class="col-md-6 col-xs-6">
+                        <label class="control-label">Shutter Speed</label>
+                        <select v-model="shutter" class="form-control">
+                            <option v-for="n in 3">{{ n }}</option>
+                        </select>
+                        <label class="control-label">ISO</label>
+                        <select v-model="iso" class="form-control">
+                            <option v-for="n in 3">{{ n }}</option>
+                        </select>
+                        <label class="control-label">Sharpness</label>
+                        <select v-model="sharpness" class="form-control">
+                            <option v-for="n in 3">{{ n }}</option>
+                        </select>
+                        <label class="control-label">Exposure</label>
+                        <select v-model="exposure" class="form-control">
+                            <option v-for="n in 3">{{ n }}</option>
+                        </select>
+                        <label class="control-label">Orientation</label><br />
+                        <button class="btn btn-default">Flip</button>
+                        <button class="btn btn-primary pull-right">Save</button>
+                    </div>
+                    <div class="col-md-1 col-xs-1">
+                        <button class="btn btn-danger format-button">FORMAT</button>
+                    </div>
                 </div>
-                <button class="btn btn-danger format-button">FORMAT</button>
             </div>
         </jism-layout-primary>
     </div>
@@ -81,15 +91,10 @@
     export default {
         data() {
             return {
-                resolution: [],
-                fps: [],
-                fov: [],
-                colorTemp: [],
-                colorProfile: [],
-                shutter: [],
-                iso: [],
-                sharpness: [],
-                exposure: [],
+                resolution: [], fps: [], fov: [],
+                colorTemp: [], colorProfile: [],
+                shutter: [], iso: [],
+                sharpness: [], exposure: [],
             }
         },
         methods: {
@@ -108,10 +113,29 @@
                     });
             },
             getSettings : function() {
-                //
+                axios.get('/api/group/1/status').then((response) => {
+                        //
+                    }, (error) => {
+                        console.log(error.response.data);
+                    });
             },
             saveSettings : function() {
-                //
+                const data = {
+                    'resolution' : this.resolution,
+                    'fps' : this.fps,
+                    'fov' : this.fov,
+                    'colorTemp' : this.colorTemp,
+                    'colorProfile' : this.colorProfile,
+                    'shutter' : this.shuttter,
+                    'iso' : this.iso,
+                    'sharpness' : this.sharpness,
+                    'exposure' : this.exposure
+                }
+                axios.post('/api/group/1/status', data).then((response) => {
+                        console.log(response.data);
+                    }, (error) => {
+                        console.log(error.response.data);
+                    });
             }
         },
         created() {

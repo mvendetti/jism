@@ -9,7 +9,10 @@
             </div>
             <h3>Cameras</h3>
             <ul class="list-group">
-                <li v-for="camera in cameras" class="list-group-item">{{ camera.ssid }}: {{ camera.pod_side }}</li>
+                <li v-for="camera in cameras" class="list-group-item">
+                    {{ camera.ssid }}: {{ camera.pod_side }}
+                </li>
+                <li v-if="!cameras.length" class="list-group-item">No cameras detected</li>
             </ul>
             <button @click.prevent="addPod" class="btn btn-primary">Add</button>
         </jism-layout-primary>
@@ -27,7 +30,7 @@
         },
         methods: {
             getAvailableCameras : function() {
-                axios.get('/api/camera/1/status').then((response) => {
+                axios.get('/api/group/1/status').then((response) => {
                         this.cameras = response.data;
                     }, (error) => {
                         console.log(error.response.data);
@@ -37,7 +40,7 @@
                 const data = {
                     'pod_id' : this.podId
                 };
-                axios.post('/api/camera/1', data).then((response) => {
+                axios.post('/api/pod', data).then((response) => {
                         console.log(response.data);
                     }, (error) => {
                         console.log(error.response.data);

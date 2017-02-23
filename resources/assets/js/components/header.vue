@@ -4,7 +4,7 @@
             <div class="row top-status-bar">
                 <i class="fa fa-circle"></i>
                 <i class="fa fa-battery-full" aria-hidden="true"></i>
-                <span>0:00</span>
+                <span v-for="duration in orderedDuration">{{ duration.value }}</span>
             </div>
 
             <div class="row">
@@ -52,27 +52,31 @@
             },
             camRoute : function() {
                 return this.$route.name === 'camera'
+            },
+            orderedDuration : function() {
+                return _.orderBy(this.cameras, 'value')
             }
         },
         data() {
             return {
                 pods: [],
-                batteryLevel: '',
-                videoDuration: 0,
+                cameras: [],
+                batteries: [],
+                durations: [],
                 recordingStatus: 0
             }
         },
         methods: {
-            status : function() {
-                axios.get('/api/pod/123/status').then((response) => {
-                        console.log(response.data);
+            groupStatus : function() {
+                axios.get('/api/group/1/status').then((response) => {
+                        this.cameras = response.data;
                     }, (error) => {
                         console.log(error.response.data);
                     });
             }
         },
         created() {
-            // this.status();
+            this.groupStatus();
         }
     }
 </script>

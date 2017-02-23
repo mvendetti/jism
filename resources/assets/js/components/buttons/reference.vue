@@ -1,5 +1,5 @@
 <template>
-        <router-link :to="'#'"><i class="fa fa-eye" aria-hidden="true"></i></router-link>
+        <i class="fa fa-eye" aria-hidden="true"></i>
 </template>
 
 <script>
