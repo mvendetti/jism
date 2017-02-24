@@ -44,24 +44,46 @@ abstract class Base
         $this->results['failed'] = $results->getFailed();
     }
 
-    public function hasSuccessful()
+    public function hasSuccessful($ip = null)
     {
-        return count($this->results['successful']) > 0;
+        return $this->has('successful', $ip);
     }
 
-    public function hasFailed()
+    public function hasFailed($ip = null)
     {
-        return count($this->results['failed']) > 0;
+        return $this->has('failed', $ip);
     }
 
-    public function getSuccessful()
+    public function has($key, $ip = null)
     {
-        return $this->results['successful'];
+        if($ip)
+        {
+            return array_key_exists($ip, $this->results[$key])
+                ? true
+                : false;
+        }
+        return count($this->results[$key]) > 0;
     }
 
-    public function getFailed()
+    public function getSuccessful($ip = null)
     {
-        return $this->results['failed'];
+        return $this->get('successful', $ip);
+    }
+
+    public function getFailed($ip = null)
+    {
+        return $this->get('failed', $ip);
+    }
+
+    public function get($key, $ip = null)
+    {
+        if($ip)
+        {
+            return array_key_exists($ip, $this->results[$key])
+                ? $this->results[$key][$ip]
+                : null;
+        }
+        return $this->results[$key];
     }
 
     public function getSuccessfulIps()

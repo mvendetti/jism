@@ -52,17 +52,24 @@ abstract class CameraAction
     public function refreshStatus()
     {
         $api = new StatusApi($this->cameras->pluck('ip')->toArray());
-        foreach($api->getSuccessful() as $key => $value)
+        $cameras = collect();
+        foreach($this->cameras as &$camera)
         {
-            $camera = $this->cameras->where('ip', $key)->first();
-            $status = CameraStatus::create(['camera_serial_number' => $camera->serial_number, 'raw' => $value]);
-            $camera->setOnline();
+            if($api->hasSuccessful($camera->ip))
+            {
+                $status = CameraStatus::create([
+                    'camera_serial_number' => $camera->serial_number,
+                    'raw' => $api->getSuccessful($camera->ip)
+                ]);
+                $camera->setOnline();
+            }
+            else
+            {
+                $camera->setOffline();
+            }
+            $cameras->push($camera->fresh());
         }
-        foreach($api->getFailed() as $key => $value)
-        {
-            $camera = $this->cameras->where('ip', $key)->first();
-            $camera->setOffline();
-        }
+        $this->cameras = $cameras;
     }
 
     static public function run($cameras)

@@ -12,4 +12,9 @@ class CameraStopRecordAction extends CameraAction
     {
         new StopRecordApi($this->cameras->pluck('ip')->toArray());
     }
+
+    public function atEnd()
+    {
+        new StopRecordApi($this->cameras->pluck('ip')->toArray());
+    }
 }

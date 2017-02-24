@@ -21,7 +21,7 @@ class CameraRecordAction extends CameraAction
         {
             if($camera->is_recording === false)
             {
-                new StopRecordApi($this->cameras->pluck('ip')->toArray());
+                CameraStopRecordAction::run($this->cameras);
                 return abort(500, 'Camera(s) did not successfully start. Stop issued.');
             }
         }
