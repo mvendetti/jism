@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Camera;
 use Illuminate\Http\Request;
-use App\Repositories\CameraRepository;
 
 class GroupStatusController extends Controller
 {
@@ -14,6 +14,6 @@ class GroupStatusController extends Controller
      */
     public function index($group)
     {
-        return response()->json(CameraRepository::all());
+        return response()->json(Camera::all());
     }
 }

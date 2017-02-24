@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Camera;
 use Illuminate\Http\Request;
-use App\Repositories\CameraRepository;
-
 
 class PodStatusController extends Controller
 {
@@ -15,6 +14,6 @@ class PodStatusController extends Controller
      */
     public function index($pod)
     {
-        return response()->json(CameraRepository::all());
+        return response()->json(Camera::all());
     }
 }

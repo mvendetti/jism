@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Camera;
 use Illuminate\Http\Request;
 use App\Actions\CameraRecordAction;
-use App\Repositories\CameraRepository;
 
 class GroupRecordController extends Controller
 {
@@ -17,8 +16,7 @@ class GroupRecordController extends Controller
      */
     public function store($group)
     {
-        $cameras = Camera::all();
-        CameraRecordAction::run($cameras);
-        return response()->json(CameraRepository::all());
+        $action = CameraRecordAction::run(Camera::all());
+        return response()->json($action->getResults());
     }
 }

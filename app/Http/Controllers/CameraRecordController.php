@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Camera;
 use Illuminate\Http\Request;
 use App\Actions\CameraRecordAction;
-use App\Repositories\CameraRepository;
 
 class CameraRecordController extends Controller
 {
@@ -17,7 +16,7 @@ class CameraRecordController extends Controller
      */
     public function store($camera)
     {
-        CameraRecordAction::run(Camera::findOrFail($camera));
-        return response()->json(collect()->push(Camera::findOrFail($camera)));
+        $action = CameraRecordAction::run(Camera::findOrFail($camera));
+        return response()->json($action->getResults());
     }
 }
