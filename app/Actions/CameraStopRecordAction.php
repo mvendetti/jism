@@ -2,22 +2,14 @@
 
 namespace App\Actions;
 
-use App\CameraStatus;
 use App\Lib\CamApis\StopRecordApi;
 
-class CameraStopRecordAction
+class CameraStopRecordAction extends CameraAction
 {
-    public function __construct($cameras)
-    {
-        if(class_basename($cameras) !== 'Collection')
-        {
-            $cameras = collect()->push($cameras);
-        }
-        $api = new StopRecordApi($cameras->pluck('ip')->toArray());
-    }
+    protected $updatesStatus = true;
 
-    static public function run($cameras)
+    public function atStart()
     {
-        return new self($cameras);
+        new StopRecordApi($this->cameras->pluck('ip')->toArray());
     }
 }

@@ -6,30 +6,24 @@ use App\CameraStatus;
 use App\Lib\CamApis\RecordApi;
 use App\Lib\CamApis\StopRecordApi;
 
-class CameraRecordAction
+class CameraRecordAction extends CameraAction
 {
-    public function __construct($cameras)
-    {
-        if(class_basename($cameras) !== 'Collection')
-        {
-            $cameras = collect()->push($cameras);
-        }
-        new RecordApi($cameras->pluck('ip')->toArray());
+    protected $updatesStatus = true;
 
-        $ra = CameraUpdateStatusAction::run($cameras);
-// dd($ra);
-        foreach($ra->cameras as $camera)
+    public function atStart()
+    {
+        new RecordApi($this->cameras->pluck('ip')->toArray());
+    }
+
+    public function atEnd()
+    {
+        foreach($this->cameras as $camera)
         {
             if($camera->is_recording === false)
             {
-                new StopRecordApi($cameras->pluck('ip')->toArray());
+                new StopRecordApi($this->cameras->pluck('ip')->toArray());
                 return abort(500, 'Camera(s) did not successfully start. Stop issued.');
             }
         }
-    }
-
-    static public function run($cameras)
-    {
-        return new self($cameras);
     }
 }

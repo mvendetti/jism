@@ -71,4 +71,17 @@ class Camera extends Model
     {
         return $this->hasMany('App\CameraStatus');
     }
+
+    public function setOnline()
+    {
+        $this->online = true;
+        $this->save();
+    }
+
+    public function setOffline()
+    {
+        $this->online = false;
+        $this->is_recording = false;
+        $this->save();
+    }
 }
