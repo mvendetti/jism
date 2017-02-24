@@ -7,8 +7,11 @@ use App\Lib\CamApis\StatusApi;
 
 class CameraUpdateStatusAction
 {
+    public $cameras;
     public function __construct($cameras)
     {
+        $this->cameras = collect();
+
         $api = new StatusApi($cameras->pluck('ip')->toArray());
         foreach($api->getSuccessful() as $key => $value)
         {
@@ -21,7 +24,12 @@ class CameraUpdateStatusAction
         {
             $camera = $cameras->where('ip', $key)->first();
             $camera->online = false;
+            $camera->is_recording = false;
             $camera->save();
+        }
+        foreach($cameras as &$camera)
+        {
+            $this->cameras->push($camera->fresh());
         }
     }
 

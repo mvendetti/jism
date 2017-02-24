@@ -41,6 +41,16 @@ class Camera extends Model
         'online'
     ];
 
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'online' => 'bool',
+        'is_recording' => 'bool',
+    ];
+
     public function setSerialNumberAttribute($value)
     {
         $this->attributes['serial_number'] = strtoupper($value);
