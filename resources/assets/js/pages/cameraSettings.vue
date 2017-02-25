@@ -24,17 +24,17 @@
         methods: {
             sleep : function() {
                 axios.post('/api/camera/' + this.camId + '/sleep').then((response) => {
-                        console.log(response.data);
-                    }, (error) => {
-                        console.log(error.response.data);
-                    });
+                    console.log(response.data);
+                }, (error) => {
+                    console.log(error.response.data);
+                });
             },
             wake : function() {
                 axios.post('/api/camera/' + this.camId + '/wake').then((response) => {
-                        console.log(response.data);
-                    }, (error) => {
-                        console.log(error.response.data);
-                    });
+                    console.log(response.data);
+                }, (error) => {
+                    console.log(error.response.data);
+                });
             },
         }
     }

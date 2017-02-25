@@ -21,34 +21,28 @@
 
 <script>
     export default {
+        computed: {
+            cameras : function() {
+                return this.$root.shared.cameras;
+            },
+        },
         data() {
             return {
                 pods: [],
-                cameras: [],
                 podId: 1
             }
         },
         methods: {
-            getAvailableCameras : function() {
-                axios.get('/api/group/1/status').then((response) => {
-                        this.cameras = response.data;
-                    }, (error) => {
-                        console.log(error.response.data);
-                    });
-            },
             addPod : function() {
                 const data = {
                     'pod_id' : this.podId
                 };
                 axios.post('/api/pod', data).then((response) => {
-                        console.log(response.data);
-                    }, (error) => {
-                        console.log(error.response.data);
-                    });
+                    console.log(response.data);
+                }, (error) => {
+                    console.log(error.response.data);
+                });
             }
-        },
-        created() {
-            this.getAvailableCameras();
         }
     }
 </script>

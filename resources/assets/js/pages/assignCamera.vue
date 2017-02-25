@@ -26,23 +26,15 @@
 
 <script>
     export default {
+        computed: {
+            cameras : function() {
+                return this.$root.shared.cameras;
+            }
+        },
         data() {
             return {
-                pods: [],
-                cameras: [],
+                pods: []
             }
-        },
-        methods: {
-            getAvailableCameras : function() {
-                axios.get('/api/group/1/status').then((response) => {
-                        this.cameras = response.data;
-                    }, (error) => {
-                        console.log(error.response.data);
-                    });
-            }
-        },
-        created() {
-            this.getAvailableCameras();
         }
     }
 </script>

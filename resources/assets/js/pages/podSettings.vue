@@ -17,17 +17,17 @@
         methods: {
             sleep : function() {
                 axios.post('/api/pod/' + this.podId + '/sleep').then((response) => {
-                        console.log(response.data);
-                    }, (error) => {
-                        console.log(error.response.data);
-                    });
+                    console.log(response.data);
+                }, (error) => {
+                    console.log(error.response.data);
+                });
             },
             wake : function() {
                 axios.post('/api/pod/' + this.podId + '/wake').then((response) => {
-                        console.log(response.data);
-                    }, (error) => {
-                        console.log(error.response.data);
-                    });
+                    console.log(response.data);
+                }, (error) => {
+                    console.log(error.response.data);
+                });
             },
         }
     }

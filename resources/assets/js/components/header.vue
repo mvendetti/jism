@@ -41,6 +41,12 @@
 <script>
     export default {
         computed: {
+            cameras : function() {
+                return this.$root.shared.cameras;
+            },
+            foo : function() {
+                //
+            },
             podId : function() {
                 return this.$route.params.pod_id;
             },
@@ -60,23 +66,10 @@
         data() {
             return {
                 pods: [],
-                cameras: [],
                 batteries: [],
                 durations: [],
                 recordingStatus: 0
             }
-        },
-        methods: {
-            groupStatus : function() {
-                axios.get('/api/group/1/status').then((response) => {
-                        this.cameras = response.data;
-                    }, (error) => {
-                        console.log(error.response.data);
-                    });
-            }
-        },
-        created() {
-            this.groupStatus();
         }
     }
 </script>
@@ -86,7 +79,7 @@
         padding: 0.25em
         text-align: center
         i
-            margin-right: 100px;
+            margin-right: 100px
             &.fa-circle
                 color: green
     .pod-ordered-list

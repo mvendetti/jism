@@ -10,7 +10,13 @@
 
 <script>
     export default {
-
+        created() {
+            axios.get('/api/group/1/status').then((response) => {
+                this.$root.shared.cameras = response.data;
+            }, (error) => {
+                console.log(error.response.data);
+            });
+        }
     }
 </script>
 
