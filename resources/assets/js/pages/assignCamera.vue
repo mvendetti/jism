@@ -12,13 +12,12 @@
             <h1>Cameras</h1>
             <ul class="list-group">
                 <li v-for="camera in cameras" class="list-group-item">
-                    <router-link :to="{ name: 'add' }">
+                    <router-link v-if="camera.online" :to="{ name: 'add' }">
                         {{ camera.ssid }}: <span v-if="camera.pod_id">{{ camera.pod_id }}/</span>{{ camera.pod_side }}
                     </router-link>
+                    <span v-else>{{ camera.ssid }}: Camera Offline</span>
                 </li>
-                <li v-if="!cameras.length" class="list-group-item">
-                    NO CAMERAS DETECTED
-                </li>
+                <li v-if="!cameras.length" class="list-group-item">No cameras detected</li>
             </ul>
         </jism-layout-primary>
     </div>

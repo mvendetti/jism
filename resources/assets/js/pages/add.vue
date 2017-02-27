@@ -10,7 +10,8 @@
             <h3>Cameras</h3>
             <ul class="list-group">
                 <li v-for="camera in cameras" class="list-group-item">
-                    {{ camera.ssid }}: {{ camera.pod_side }}
+                    <span v-if="cameras.online">{{ camera.ssid }}: {{ camera.pod_side }}</span>
+                    <span v-else>{{ camera.ssid }}: Camera Offline</span>
                 </li>
                 <li v-if="!cameras.length" class="list-group-item">No cameras detected</li>
             </ul>
