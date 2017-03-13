@@ -6,7 +6,7 @@
     export default {
         methods: {
             startRecording : function() {
-                axios.post('/api/camera/1/record').then((response) => {
+                axios.post('/api/group/1/record').then((response) => {
                     console.log(response.data);
                 }, (error) => {
                     console.log(error.response.data);
