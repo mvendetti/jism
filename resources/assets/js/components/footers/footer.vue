@@ -27,8 +27,8 @@
         position: fixed
         bottom: 0
         text-align: center
+        width: 100%
         padding: 1em
-        width: 480px
         background-color: #E2E2E2
         border-top: 1px solid #222
         a

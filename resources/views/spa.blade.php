@@ -8,7 +8,7 @@
         <title>Jism</title>
     </head>
     <body>
-        <div id="jism-app" style="width:480px; margin:0 auto;"><router-view></router-view></div>
+        <div id="jism-app"><router-view></router-view></div>
     </body>
     <script src="/js/app.js"></script>
 </html>

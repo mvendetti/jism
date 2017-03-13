@@ -1,7 +1,7 @@
 <template>
     <div>
         <jism-header></jism-header>
-        <div class="wrapper">
+        <div class="container wrapper">
             <slot></slot>
         </div>
         <jism-footer></jism-footer>
