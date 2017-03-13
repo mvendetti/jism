@@ -26,3 +26,6 @@ Route::resource('camera.record', 'CameraRecordController', ['only' => ['store']]
 Route::resource('group.stop', 'GroupStopRecordController', ['only' => ['store']]);
 Route::resource('pod.stop', 'PodStopRecordController', ['only' => ['store']]);
 Route::resource('camera.stop', 'CameraStopRecordController', ['only' => ['store']]);
+Route::resource('group.sleep', 'GroupSleepController', ['only' => ['store']]);
+Route::resource('pod.sleep', 'PodSleepController', ['only' => ['store']]);
+Route::resource('camera.sleep', 'CameraSleepController', ['only' => ['store']]);
