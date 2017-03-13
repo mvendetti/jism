@@ -5,7 +5,7 @@
             <ul class="list-group">
                 <li v-for="pod in pods" class="list-group-item">{{ pod.pod_id }}</li>
                 <li v-if="!pods.length" class="list-group-item">
-                    <router-link :to="{ name: 'add' }">ADD SOME PODS, YO</router-link>
+                    <router-link :to="{ name: 'add' }">Add pod here</router-link>
                 </li>
             </ul>
 
@@ -15,7 +15,9 @@
                     <router-link v-if="camera.online" :to="{ name: 'add' }">
                         {{ camera.ssid }}: <span v-if="camera.pod_id">{{ camera.pod_id }}/</span>{{ camera.pod_side }}
                     </router-link>
-                    <span v-else>{{ camera.ssid }}: Camera Offline</span>
+                    <router-link v-else :to="{ name: 'settings' }">
+                        <span>{{ camera.ssid }}: Camera Offline</span>
+                    </router-link>
                 </li>
                 <li v-if="!cameras.length" class="list-group-item">No cameras detected</li>
             </ul>

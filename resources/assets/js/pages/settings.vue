@@ -76,7 +76,6 @@
                         </select>
                         <label class="control-label">Orientation</label><br />
                         <button class="btn btn-default">Flip</button>
-                        <button class="btn btn-primary pull-right">Save</button>
                     </div>
                     <div class="col-md-1 col-xs-1">
                         <button class="btn btn-danger format-button">FORMAT</button>
@@ -112,13 +111,6 @@
                         console.log(error.response.data);
                     });
             },
-            getSettings : function() {
-                axios.get('/api/group/1/status').then((response) => {
-                        //
-                    }, (error) => {
-                        console.log(error.response.data);
-                    });
-            },
             saveSettings : function() {
                 const data = {
                     'resolution' : this.resolution,
@@ -131,15 +123,12 @@
                     'sharpness' : this.sharpness,
                     'exposure' : this.exposure
                 }
-                axios.post('/api/group/1/status', data).then((response) => {
+                axios.post('/api/group/1/settings', data).then((response) => {
                         console.log(response.data);
                     }, (error) => {
                         console.log(error.response.data);
                     });
             }
-        },
-        created() {
-            this.getSettings();
         }
     }
 </script>
