@@ -12813,7 +12813,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     computed: {
@@ -12935,7 +12934,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = {
     computed: {
         cameras: function cameras() {
-            // return this.$root.shared.cameras;
+            return this.$root.shared.cameras;
         }
     },
     data: function data() {
@@ -35101,9 +35100,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "data-toggle": "dropdown"
     }
-  }, [_vm._v("\n                    " + _vm._s(this.durationTime) + "\n                    "), _c('span', {
-    staticClass: "caret"
-  })]), _vm._v(" "), _c('ul', {
+  }, [_vm._v("\n                    " + _vm._s(this.durationTime) + "\n                ")]), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu"
   }, _vm._l((_vm.durations), function(duration) {
     return _c('li', [_c('a', {

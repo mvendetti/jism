@@ -3,8 +3,22 @@
         <header>
             <div class="row top-status-bar">
                 <i class="fa fa-circle"></i>
-                <i class="fa fa-battery-full" aria-hidden="true"></i>
-                <span v-for="duration in orderedDuration">{{ duration.value }}</span>
+                <span v-for="battery in batteries">
+                    <i v-if="battery.status.parsed.status.internal_batter_level.gopro_subid === 1" class="fa fa-battery-quarter" aria-hidden="true"></i>
+                    <i v-if="battery.status.parsed.status.internal_batter_level.gopro_subid === 2" class="fa fa-battery-half" aria-hidden="true"></i>
+                    <i v-if="battery.status.parsed.status.internal_batter_level.gopro_subid === 3" class="fa fa-battery-full" aria-hidden="true"></i>
+                    <i v-if="battery.status.parsed.status.internal_batter_level.gopro_subid === 4" class="fa fa-bolt" aria-hidden="true"></i>
+                </span>
+                <span class="dropdown">
+                    <span class="dropdown-toggle" data-toggle="dropdown">
+                        {{ this.durationTime }}
+                    </span>
+                    <ul class="dropdown-menu">
+                        <li v-for="duration in durations">
+                            <a href="#">{{ duration.pod_id }}/{{ duration.pod_side }}: {{ duration.status.parsed.status.remaining_video_duration.value }}</a>
+                        </li>
+                    </ul>
+                </span>
             </div>
 
             <div class="row">
@@ -44,8 +58,17 @@
             cameras : function() {
                 return this.$root.shared.cameras;
             },
-            foo : function() {
-                //
+            durations : function() {
+                return this.sort('status.parsed.status.remaining_video_duration.value');
+            },
+            durationTime : function() {
+                return _.first(this.durations).status.parsed.status.remaining_video_duration.value;
+            },
+            batteries : function() {
+                return this.sort('status.parsed.status.internal_batter_level.value');
+            },
+            batteryLevel : function() {
+                return _.first(this.batteries).status.parsed.status.internal_batter_level.gopro_subid;
             },
             podId : function() {
                 return this.$route.params.pod_id;
@@ -54,27 +77,30 @@
                 return this.$route.params.cam_id;
             },
             podRoute : function() {
-                return this.$route.name === 'pod'
+                return this.$route.name === 'pod';
             },
             camRoute : function() {
-                return this.$route.name === 'camera'
-            },
-            orderedDuration : function() {
-                return _.orderBy(this.cameras, 'value')
+                return this.$route.name === 'camera';
             }
         },
         data() {
             return {
                 pods: [],
-                batteries: [],
-                durations: [],
                 recordingStatus: 0
             }
+        },
+        methods: {
+            sort : function(key, order) {
+                if(typeof order === 'undefined') {
+                    order = 'asc'
+                }
+                return _.orderBy(this.cameras, [key], [order]);
+            },
         }
     }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
     .top-status-bar
         padding: 0.25em
         text-align: center
