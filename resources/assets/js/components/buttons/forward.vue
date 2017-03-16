@@ -1,5 +1,5 @@
 <template>
-        <router-link :to="'#'"><i class="fa fa-forward" aria-hidden="true"></router-link>
+        <router-link :to="'#'"><i class="fa fa-forward" aria-hidden="true"></i></router-link>
 </template>
 
 <script>
