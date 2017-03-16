@@ -1,5 +1,8 @@
 require('./bootstrap');
 
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+
 const LayoutPrimary = require('./layouts/primary.vue')
 
 const Header = require('./components/header.vue')

@@ -18,8 +18,15 @@ require('bootstrap-sass');
  */
 
 window.Vue = require('vue');
-window.VueRouter = require('vue-router')
-Vue.use(VueRouter)
+
+/**
+ * Getting a weird error with Router 2.3.0
+ * Uncaught TypeError: VueRouter is not a constructor
+ * I'm going to import the router in app.js for now.
+ * -Mike
+ */
+// window.VueRouter = require('vue-router');
+// Vue.use(VueRouter);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
