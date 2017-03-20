@@ -12830,17 +12830,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         cameras: function cameras() {
             return this.$root.shared.cameras;
         },
-        durations: function durations() {
+        durationSort: function durationSort() {
             return this.sort('status.parsed.status.remaining_video_duration.value');
         },
-        durationTime: function durationTime() {
-            return _.first(this.durations);
+        durationFirst: function durationFirst() {
+            return _.first(this.durationSort);
         },
-        batteries: function batteries() {
+        batterySort: function batterySort() {
             return this.sort('status.parsed.status.internal_batter_level.gopro_subid');
         },
-        batteryLevel: function batteryLevel() {
-            return _.first(this.batteries);
+        batteryFirst: function batteryFirst() {
+            return _.first(this.batterySort);
         },
         podId: function podId() {
             return this.$route.params.pod_id;
@@ -12868,6 +12868,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 order = 'asc';
             }
             return _.orderBy(this.cameras, [key], [order]);
+        }
+    },
+    filters: {
+        secondsToHours: function secondsToHours(value) {
+            return moment.duration(value, 'seconds').asHours().toFixed(2);
         }
     }
 };
@@ -35086,66 +35091,50 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fa fa-circle"
   }), _vm._v(" "), _c('span', {
     staticClass: "dropdown"
-  }, [(_vm.batteryLevel) ? _c('span', {
+  }, [(_vm.batteryFirst) ? _c('span', {
     staticClass: "dropdown-toggle",
     attrs: {
       "data-toggle": "dropdown"
     }
-  }, [_vm._v("\n                    P" + _vm._s(_vm.batteryLevel.pod_id) + "/" + _vm._s(_vm.batteryLevel.pod_side) + ":\n                    "), (_vm.batteryLevel.status.parsed.status.internal_batter_level.gopro_subid === 1) ? _c('i', {
+  }, [_vm._v("\n                    P" + _vm._s(_vm.batteryFirst.pod_id) + "/" + _vm._s(_vm.batteryFirst.pod_side) + ":\n                    "), (_vm.batteryFirst.status.parsed.status.internal_batter_level.gopro_subid === 1) ? _c('i', {
     staticClass: "fa fa-battery-quarter",
     attrs: {
       "aria-hidden": "true"
     }
-  }) : _vm._e(), _vm._v(" "), (_vm.batteryLevel.status.parsed.status.internal_batter_level.gopro_subid === 2) ? _c('i', {
+  }) : _vm._e(), _vm._v(" "), (_vm.batteryFirst.status.parsed.status.internal_batter_level.gopro_subid === 2) ? _c('i', {
     staticClass: "fa fa-battery-half",
     attrs: {
       "aria-hidden": "true"
     }
-  }) : _vm._e(), _vm._v(" "), (_vm.batteryLevel.status.parsed.status.internal_batter_level.gopro_subid === 3) ? _c('i', {
+  }) : _vm._e(), _vm._v(" "), (_vm.batteryFirst.status.parsed.status.internal_batter_level.gopro_subid === 3) ? _c('i', {
     staticClass: "fa fa-battery-full",
     attrs: {
       "aria-hidden": "true"
     }
-  }) : _vm._e(), _vm._v(" "), (_vm.batteryLevel.status.parsed.status.internal_batter_level.gopro_subid === 4) ? _c('i', {
+  }) : _vm._e(), _vm._v(" "), (_vm.batteryFirst.status.parsed.status.internal_batter_level.gopro_subid === 4) ? _c('i', {
     staticClass: "fa fa-bolt",
     attrs: {
       "aria-hidden": "true"
     }
   }) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu"
-  }, _vm._l((_vm.batteries), function(battery) {
-    return _c('li', [(battery.status.parsed.status.internal_batter_level.gopro_subid === 1) ? _c('a', {
-      attrs: {
-        "href": ""
-      }
-    }, [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
+  }, _vm._l((_vm.batterySort), function(battery) {
+    return _c('li', [(battery.status.parsed.status.internal_batter_level.gopro_subid === 1) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
       staticClass: "fa fa-battery-quarter",
       attrs: {
         "aria-hidden": "true"
       }
-    })]) : _vm._e(), _vm._v(" "), (battery.status.parsed.status.internal_batter_level.gopro_subid === 2) ? _c('a', {
-      attrs: {
-        "href": ""
-      }
-    }, [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
+    })]) : _vm._e(), _vm._v(" "), (battery.status.parsed.status.internal_batter_level.gopro_subid === 2) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
       staticClass: "fa fa-battery-half",
       attrs: {
         "aria-hidden": "true"
       }
-    })]) : _vm._e(), _vm._v(" "), (battery.status.parsed.status.internal_batter_level.gopro_subid === 3) ? _c('a', {
-      attrs: {
-        "href": ""
-      }
-    }, [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
+    })]) : _vm._e(), _vm._v(" "), (battery.status.parsed.status.internal_batter_level.gopro_subid === 3) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
       staticClass: "fa fa-battery-full",
       attrs: {
         "aria-hidden": "true"
       }
-    })]) : _vm._e(), _vm._v(" "), (battery.status.parsed.status.internal_batter_level.gopro_subid === 4) ? _c('a', {
-      attrs: {
-        "href": ""
-      }
-    }, [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
+    })]) : _vm._e(), _vm._v(" "), (battery.status.parsed.status.internal_batter_level.gopro_subid === 4) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
       staticClass: "fa fa-bolt",
       attrs: {
         "aria-hidden": "true"
@@ -35153,19 +35142,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })]) : _vm._e()])
   }))]), _vm._v(" "), _c('span', {
     staticClass: "dropdown"
-  }, [(_vm.durationTime) ? _c('span', {
+  }, [(_vm.durationFirst) ? _c('span', {
     staticClass: "dropdown-toggle",
     attrs: {
       "data-toggle": "dropdown"
     }
-  }, [_vm._v("\n                    P" + _vm._s(_vm.durationTime.pod_id) + "/" + _vm._s(_vm.durationTime.pod_side) + ": " + _vm._s(_vm.durationTime.status.parsed.status.remaining_video_duration.value) + "\n                ")]) : _vm._e(), _vm._v(" "), _c('ul', {
+  }, [_vm._v("\n                    P" + _vm._s(_vm.durationFirst.pod_id) + "/" + _vm._s(_vm.durationFirst.pod_side) + ": " + _vm._s(_vm._f("secondsToHours")(_vm.durationFirst.status.parsed.status.remaining_video_duration.value)) + " hours\n                ")]) : _vm._e(), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu"
-  }, _vm._l((_vm.durations), function(duration) {
-    return _c('li', [_c('a', {
-      attrs: {
-        "href": ""
-      }
-    }, [_vm._v("P" + _vm._s(duration.pod_id) + "/" + _vm._s(duration.pod_side) + ": " + _vm._s(duration.status.parsed.status.remaining_video_duration.value))])])
+  }, _vm._l((_vm.durationSort), function(duration) {
+    return _c('li', [_c('a', [_vm._v("P" + _vm._s(duration.pod_id) + "/" + _vm._s(duration.pod_side) + ": " + _vm._s(_vm._f("secondsToHours")(duration.status.parsed.status.remaining_video_duration.value)) + " hours")])])
   }))])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
