@@ -3,19 +3,30 @@
         <header>
             <div class="row top-status-bar">
                 <i class="fa fa-circle"></i>
-                <span v-for="battery in batteries">
-                    <i v-if="battery.status.parsed.status.internal_batter_level.gopro_subid === 1" class="fa fa-battery-quarter" aria-hidden="true"></i>
-                    <i v-if="battery.status.parsed.status.internal_batter_level.gopro_subid === 2" class="fa fa-battery-half" aria-hidden="true"></i>
-                    <i v-if="battery.status.parsed.status.internal_batter_level.gopro_subid === 3" class="fa fa-battery-full" aria-hidden="true"></i>
-                    <i v-if="battery.status.parsed.status.internal_batter_level.gopro_subid === 4" class="fa fa-bolt" aria-hidden="true"></i>
+                <span class="dropdown">
+                    <span v-if="batteryLevel" class="dropdown-toggle" data-toggle="dropdown">
+                        P{{ batteryLevel.pod_id }}/{{ batteryLevel.pod_side }}:
+                        <i v-if="batteryLevel.status.parsed.status.internal_batter_level.gopro_subid === 1" class="fa fa-battery-quarter" aria-hidden="true"></i>
+                        <i v-if="batteryLevel.status.parsed.status.internal_batter_level.gopro_subid === 2" class="fa fa-battery-half" aria-hidden="true"></i>
+                        <i v-if="batteryLevel.status.parsed.status.internal_batter_level.gopro_subid === 3" class="fa fa-battery-full" aria-hidden="true"></i>
+                        <i v-if="batteryLevel.status.parsed.status.internal_batter_level.gopro_subid === 4" class="fa fa-bolt" aria-hidden="true"></i>
+                    </span>
+                    <ul class="dropdown-menu">
+                        <li v-for="battery in batteries">
+                            <a href="" v-if="battery.status.parsed.status.internal_batter_level.gopro_subid === 1">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-battery-quarter" aria-hidden="true"></i></a>
+                            <a href="" v-if="battery.status.parsed.status.internal_batter_level.gopro_subid === 2">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-battery-half" aria-hidden="true"></i></a>
+                            <a href="" v-if="battery.status.parsed.status.internal_batter_level.gopro_subid === 3">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-battery-full" aria-hidden="true"></i></a>
+                            <a href="" v-if="battery.status.parsed.status.internal_batter_level.gopro_subid === 4">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-bolt" aria-hidden="true"></i></a>
+                        </li>
+                    </ul>
                 </span>
                 <span class="dropdown">
-                    <span class="dropdown-toggle" data-toggle="dropdown">
-                        {{ this.durationTime }}
+                    <span v-if="durationTime" class="dropdown-toggle" data-toggle="dropdown">
+                        P{{ durationTime.pod_id }}/{{ durationTime.pod_side }}: {{ durationTime.status.parsed.status.remaining_video_duration.value }}
                     </span>
                     <ul class="dropdown-menu">
                         <li v-for="duration in durations">
-                            <a href="#">{{ duration.pod_id }}/{{ duration.pod_side }}: {{ duration.status.parsed.status.remaining_video_duration.value }}</a>
+                            <a href="">P{{ duration.pod_id }}/{{ duration.pod_side }}: {{ duration.status.parsed.status.remaining_video_duration.value }}</a>
                         </li>
                     </ul>
                 </span>
@@ -62,13 +73,13 @@
                 return this.sort('status.parsed.status.remaining_video_duration.value');
             },
             durationTime : function() {
-                return _.first(this.durations).status.parsed.status.remaining_video_duration.value;
+                return _.first(this.durations);
             },
             batteries : function() {
-                return this.sort('status.parsed.status.internal_batter_level.value');
+                return this.sort('status.parsed.status.internal_batter_level.gopro_subid');
             },
             batteryLevel : function() {
-                return _.first(this.batteries).status.parsed.status.internal_batter_level.gopro_subid;
+                return _.first(this.batteries);
             },
             podId : function() {
                 return this.$route.params.pod_id;

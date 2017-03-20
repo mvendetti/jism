@@ -3,7 +3,7 @@
         <jism-layout-primary>
             <h1>Pods</h1>
             <ul class="list-group">
-                <li v-for="pod in pods" class="list-group-item">{{ pod.pod_id }}</li>
+                <li v-for="pod in pods" class="list-group-item">P{{ pod.pod_id }}</li>
                 <li v-if="!pods.length" class="list-group-item">
                     <router-link :to="{ name: 'add' }">Add pod here</router-link>
                 </li>
@@ -13,7 +13,7 @@
             <ul class="list-group">
                 <li v-for="camera in cameras" class="list-group-item">
                     <router-link v-if="camera.online" :to="{ name: 'add' }">
-                        {{ camera.ssid }}: <span v-if="camera.pod_id">{{ camera.pod_id }}/</span>{{ camera.pod_side }}
+                        {{ camera.ssid }}: <span v-if="camera.pod_id">P{{ camera.pod_id }}/</span>{{ camera.pod_side }}
                     </router-link>
                     <router-link v-else :to="{ name: 'settings' }">
                         <span>{{ camera.ssid }}: Camera Offline</span>
