@@ -2,21 +2,30 @@
     <div>
         <header>
             <div class="row top-status-bar">
-                <i class="fa fa-circle"></i>
+                <span class="dropdown">
+                    <span class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-circle green"></i>
+                    </span>
+                    <ul class="dropdown-menu">
+                        <li v-for="camera in cameras">
+                            <a>P{{ camera.pod_id }}/{{ camera.pod_side }}: <i :class="['fa fa-circle', !camera.online ? 'gray' : 'green']"></i></a>
+                        </li>
+                    </ul>
+                </span>
                 <span class="dropdown">
                     <span v-if="batteryFirst" class="dropdown-toggle" data-toggle="dropdown">
                         P{{ batteryFirst.pod_id }}/{{ batteryFirst.pod_side }}:
-                        <i v-if="batteryFirst.status.parsed.status.internal_batter_level.gopro_subid === 1" class="fa fa-battery-quarter" aria-hidden="true"></i>
-                        <i v-if="batteryFirst.status.parsed.status.internal_batter_level.gopro_subid === 2" class="fa fa-battery-half" aria-hidden="true"></i>
-                        <i v-if="batteryFirst.status.parsed.status.internal_batter_level.gopro_subid === 3" class="fa fa-battery-full" aria-hidden="true"></i>
-                        <i v-if="batteryFirst.status.parsed.status.internal_batter_level.gopro_subid === 4" class="fa fa-bolt" aria-hidden="true"></i>
+                        <i v-if="batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 1" class="fa fa-battery-quarter" aria-hidden="true"></i>
+                        <i v-if="batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 2" class="fa fa-battery-half" aria-hidden="true"></i>
+                        <i v-if="batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 3" class="fa fa-battery-full" aria-hidden="true"></i>
+                        <i v-if="batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 4" class="fa fa-bolt" aria-hidden="true"></i>
                     </span>
                     <ul class="dropdown-menu">
                         <li v-for="battery in batterySort">
-                            <a v-if="battery.status.parsed.status.internal_batter_level.gopro_subid === 1">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-battery-quarter" aria-hidden="true"></i></a>
-                            <a v-if="battery.status.parsed.status.internal_batter_level.gopro_subid === 2">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-battery-half" aria-hidden="true"></i></a>
-                            <a v-if="battery.status.parsed.status.internal_batter_level.gopro_subid === 3">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-battery-full" aria-hidden="true"></i></a>
-                            <a v-if="battery.status.parsed.status.internal_batter_level.gopro_subid === 4">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-bolt" aria-hidden="true"></i></a>
+                            <a v-if="battery.status.parsed.status.internal_battery_level.gopro_subid === 1">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-battery-quarter" aria-hidden="true"></i></a>
+                            <a v-if="battery.status.parsed.status.internal_battery_level.gopro_subid === 2">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-battery-half" aria-hidden="true"></i></a>
+                            <a v-if="battery.status.parsed.status.internal_battery_level.gopro_subid === 3">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-battery-full" aria-hidden="true"></i></a>
+                            <a v-if="battery.status.parsed.status.internal_battery_level.gopro_subid === 4">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-bolt" aria-hidden="true"></i></a>
                         </li>
                     </ul>
                 </span>
@@ -76,7 +85,7 @@
                 return _.first(this.durationSort);
             },
             batterySort : function() {
-                return this.sort('status.parsed.status.internal_batter_level.gopro_subid');
+                return this.sort('status.parsed.status.internal_battery_level.gopro_subid');
             },
             batteryFirst : function() {
                 return _.first(this.batterySort);
@@ -98,12 +107,12 @@
             return {
                 pods: [],
                 recordingStatus: 0
-            }
+            };
         },
         methods: {
             sort : function(key, order) {
                 if(typeof order === 'undefined') {
-                    order = 'asc'
+                    order = 'asc';
                 }
                 return _.orderBy(this.cameras, [key], [order]);
             }
@@ -113,7 +122,7 @@
                 return moment.duration(value, 'seconds').asHours().toFixed(2);
             }
         }
-    }
+    };
 </script>
 
 <style lang="sass">
@@ -121,9 +130,15 @@
         padding: 0.25em
         text-align: center
         i
-            margin-right: 100px
-            &.fa-circle
+            margin-right: 75px
+            &.green
                 color: green
+            &.red
+                color: red
+            &.yellow
+                color: yellow
+            &.gray
+                color: gray
     .pod-ordered-list
         border-radius: 0
         border-top: 1px solid #222
