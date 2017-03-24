@@ -7,5 +7,5 @@ use App\Lib\CamApis\StatusApi;
 
 class CameraUpdateStatusAction extends CameraAction
 {
-    protected $updatesStatus = false;
+    protected $updatesStatus = true;
 }

@@ -52,7 +52,6 @@ abstract class CameraAction
     public function refreshStatus()
     {
         $api = new StatusApi($this->cameras->pluck('ip')->toArray());
-        $cameras = collect();
         foreach($this->cameras as &$camera)
         {
             if($api->hasSuccessful($camera->ip))
@@ -67,9 +66,7 @@ abstract class CameraAction
             {
                 $camera->setOffline();
             }
-            $cameras->push($camera->fresh());
         }
-        $this->cameras = $cameras;
     }
 
     static public function run($cameras)
