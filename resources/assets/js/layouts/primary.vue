@@ -11,11 +11,12 @@
 <script>
     export default {
         created() {
-            axios.get('/api/group/1/status').then((response) => {
-                this.$root.shared.cameras = response.data;
-            }, (error) => {
-                console.log(error.response.data);
-            });
+            var myCameras = new Cameras(),
+                self = this;
+            myCameras.getAll();
+            setTimeout(function() {
+                self.$root.shared.cameras = myCameras.cameras;
+            }, 500);
         }
     }
 </script>

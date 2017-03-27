@@ -55,3 +55,5 @@ window.axios = require('axios');
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
+
+require('./lib/Cameras');
