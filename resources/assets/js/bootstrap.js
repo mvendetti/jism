@@ -57,3 +57,4 @@ window.axios = require('axios');
 // });
 
 require('./lib/Cameras');
+require('./lib/Pods');

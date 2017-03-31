@@ -83,7 +83,8 @@ const routes = [
 
 var Store = {
     state: {
-        cameras: []
+        cameras: [],
+        pods: []
     }
 };
 
