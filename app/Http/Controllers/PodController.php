@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Pod;
+use App\Http\Requests\PodPostRequest;
+use App\Http\Requests\PodUpdateRequest;
 
 class PodController extends Controller
 {
@@ -13,7 +15,7 @@ class PodController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Pod::all());
     }
 
     /**
@@ -32,9 +34,9 @@ class PodController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PodPostRequest $request)
     {
-        //
+        return response()->json(Pod::create($request->all()));
     }
 
     /**
@@ -45,7 +47,7 @@ class PodController extends Controller
      */
     public function show($id)
     {
-        //
+        return response()->json(Pod::find($id));
     }
 
     /**
@@ -66,9 +68,10 @@ class PodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PodUpdateRequest $request, $id)
     {
-        //
+        Pod::where('id', $id)->update($request->all());
+        return response()->json(Pod::all());
     }
 
     /**
@@ -79,6 +82,6 @@ class PodController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return response()->json(Pod::destroy($id));
     }
 }
