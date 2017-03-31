@@ -5,7 +5,7 @@
             <ul class="list-group">
                 <li v-for="pod in pods" :class="['list-group-item', pod.disabled ? 'disabled' : '']">
                     <label :for="'pod' + pod.number">P{{ pod.number }}</label>
-                    <input @click="pod.disabled = !pod.disabled" :value="'pod' + pod.number" type="checkbox" class="pull-right">
+                    <input @click="pod.disabled = !pod.disabled" @change="disable(pod.id, pod.disabled)" :value="'pod' + pod.number" type="checkbox" :checked="pod.disabled" class="pull-right">
                 </li>
                 <li v-if="!pods.length" class="list-group-item">No pods to disable</li>
             </ul>
@@ -16,20 +16,21 @@
 <script>
     export default {
         computed: {
-            pods : function() {
+            pods() {
                 return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
             },
         },
-        data() {
-            return {
-                //
-            }
-        },
         methods: {
-            //
-        },
-        created() {
-            //
+            disable(id, state) {
+                var data = {
+                    'disabled': state
+                };
+                axios.patch('/api/pod/' + id, data).then((response) => {
+                    console.log(response.data);
+                }, (error) => {
+                    console.log(error.response.data);
+                });
+            }
         }
     }
 </script>
