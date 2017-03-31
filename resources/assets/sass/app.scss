@@ -11,3 +11,9 @@
 html, body {margin-bottom: 60px; overflow-x: hidden;}
 .fa {font-size: 2.2em;}
 .format-button {margin: 75px 0 10px 0;}
+p {
+    &.error-message {
+        color: #a94442;
+        margin: 5px 0;
+    }
+}

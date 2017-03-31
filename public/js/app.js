@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 290);
+/******/ 	return __webpack_require__(__webpack_require__.s = 288);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -4665,7 +4665,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(288)
+var listToStyles = __webpack_require__(286)
 
 /*
 type StyleObject = {
@@ -27181,7 +27181,8 @@ var routes = [{ path: '/', name: 'home', component: PageHome }, { path: '/assign
 
 var Store = {
     state: {
-        cameras: []
+        cameras: [],
+        pods: []
     }
 };
 
@@ -28424,7 +28425,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return _.first(this.durationSort);
         },
         batterySort: function batterySort() {
-            return this.sort('status.parsed.status.internal_battery_level.gopro_subid');
+            return this.sort('status.parsed.status.internal_batter_level.gopro_subid');
         },
         batteryFirst: function batteryFirst() {
             return _.first(this.batterySort);
@@ -28483,13 +28484,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = {
     created: function created() {
-        var _this = this;
-
-        axios.get('/api/group/1/status').then(function (response) {
-            _this.$root.shared.cameras = response.data;
-        }, function (error) {
-            console.log(error.response.data);
-        });
+        var myCameras = new Cameras(),
+            self = this;
+        myCameras.getAll();
+        setTimeout(function () {
+            self.$root.shared.cameras = myCameras.cameras;
+        }, 500);
+        var myPods = new Pods(),
+            self = this;
+        myPods.getAll();
+        setTimeout(function () {
+            self.$root.shared.pods = myPods.pods;
+        }, 500);
     }
 };
 
@@ -28533,42 +28539,73 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     computed: {
         cameras: function cameras() {
             return this.$root.shared.cameras;
+        },
+        pods: function pods() {
+            return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
+        },
+        errorPod: function errorPod() {
+            return this.hasError('number');
         }
     },
     data: function data() {
         return {
-            pods: [],
-            podIdSelected: 1,
-            cameraSelected: []
+            errors: {},
+            podNumber: 1
         };
     },
 
     methods: {
-        isMax: function isMax(camera) {
-            if (this.cameraSelected.length >= 2 && this.cameraSelected.indexOf(camera) === -1) {
+        addPod: function addPod() {
+            var _this = this;
+
+            var data = {
+                'number': this.podNumber
+            };
+            axios.post('/api/pod', data).then(function (response) {
+                //
+            }, function (error) {
+                _this.errors = error.response.data;
+            });
+        },
+        assignCameraToPod: function assignCameraToPod(pod, side, event) {
+            var _this2 = this;
+
+            var camera_id = '' + event.target.value;
+            pod['camera_' + side + '_id'] = camera_id;
+            axios.patch('/api/pod/' + pod.id, pod).then(function (response) {
+                console.log(response.data);
+            }, function (error) {
+                _this2.errors = error.response.data;
+            });
+        },
+        hasError: function hasError(field) {
+            if (typeof this.errors[field] != 'undefined' && this.errors[field].length > 0) {
                 return true;
             }
             return false;
-        },
-        addPod: function addPod() {
-            var data = {
-                'pod_id': this.podIdSelected,
-                'camera': this.cameraSelected.toString().replace(/,/g, '/')
-            };
-
-            this.pods.push(data);
-            this.podId = 1;
-
-            // axios.post('/api/pod', data).then((response) => {
-            //     console.log(response.data);
-            // }, (error) => {
-            //     console.log(error.response.data);
-            // });
         }
     }
 };
@@ -28611,12 +28648,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         cameras: function cameras() {
             return this.$root.shared.cameras;
+        },
+        pods: function pods() {
+            return this.$root.shared.pods;
         }
     },
     data: function data() {
         return {
-            pods: []
+            //
         };
+    },
+
+    methods: {
+        getPods: function getPods() {
+            var _this = this;
+
+            axios.get('/api/pod').then(function (response) {
+                _this.pods = response.data;
+            }, function (error) {
+                console.log(error.response.data);
+            });
+        }
+    },
+    created: function created() {
+        this.getPods();
     }
 };
 
@@ -28737,25 +28792,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = {
+    computed: {
+        pods: function pods() {
+            return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
+        }
+    },
     data: function data() {
         return {
-            pods: [{ name: 'P1', pod_id: 1, disabled: false }, { name: 'P2', pod_id: 2, disabled: false }, { name: 'P3', pod_id: 3, disabled: false }]
+            //
         };
     },
 
     methods: {
-        getPods: function getPods() {
-            var _this = this;
-
-            axios.get('/api/pod').then(function (response) {
-                _this.pods = response.data;
-            }, function (error) {
-                console.log(error.response.data);
-            });
-        }
+        //
     },
     created: function created() {
-        // this.getPods();
+        //
     }
 };
 
@@ -28860,16 +28912,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = {
+    computed: {
+        pods: function pods() {
+            return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
+        }
+    },
     data: function data() {
         return {
-            pods: [],
-            podId: 0
+            //
         };
     },
 
     methods: {
-        removePod: function removePod() {
-            axios.delete('/api/pod/' + this.podId).then(function (response) {
+        removePod: function removePod(id) {
+            axios.delete('/api/pod/' + id).then(function (response) {
                 console.log(response.data);
             }, function (error) {
                 console.log(error.response.data);
@@ -29036,7 +29092,7 @@ window.moment = __webpack_require__(0);
 
 window.$ = window.jQuery = __webpack_require__(12);
 
-__webpack_require__(178);
+__webpack_require__(180);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -29044,7 +29100,7 @@ __webpack_require__(178);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(289);
+window.Vue = __webpack_require__(287);
 
 /**
  * Getting a weird error with Router 2.3.0
@@ -29081,8 +29137,58 @@ window.axios = __webpack_require__(132);
 //     key: 'your-pusher-key'
 // });
 
+__webpack_require__(178);
+__webpack_require__(179);
+
 /***/ }),
 /* 178 */
+/***/ (function(module, exports) {
+
+/**
+ * Camera collection class.
+ */
+window.Cameras = function (data) {
+    var myClass = this;
+    // var importedData = {
+    //     total : data.total ? data.total : 0,
+    //     from : data.from ? data.from : 0,
+    // };
+    // $.extend(this, importedData);
+
+    this.cameras = [];
+
+    this.getAll = function () {
+        axios.get('/api/group/1/status').then(function (response) {
+            myClass.cameras = response.data;
+        }, function (error) {
+            console.log(error.response.data);
+        });
+    };
+};
+
+/***/ }),
+/* 179 */
+/***/ (function(module, exports) {
+
+/**
+ * Camera collection class.
+ */
+window.Pods = function (data) {
+    var myClass = this;
+
+    this.pods = [];
+
+    this.getAll = function () {
+        axios.get('/api/pod').then(function (response) {
+            myClass.pods = response.data;
+        }, function (error) {
+            console.log(error.response.data);
+        });
+    };
+};
+
+/***/ }),
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -31464,20 +31570,6 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
-
-/***/ }),
-/* 179 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "", ""]);
-
-/***/ }),
-/* 180 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "", ""]);
 
 /***/ }),
 /* 181 */
@@ -48998,7 +49090,7 @@ webpackContext.id = 206;
 
 
 /* styles */
-__webpack_require__(275)
+__webpack_require__(273)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49036,7 +49128,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(268)
+__webpack_require__(267)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49074,7 +49166,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(278)
+__webpack_require__(276)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49112,7 +49204,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(281)
+__webpack_require__(279)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49150,7 +49242,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(273)
+__webpack_require__(271)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49226,7 +49318,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(285)
+__webpack_require__(283)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49264,7 +49356,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(284)
+__webpack_require__(282)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49340,7 +49432,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(283)
+__webpack_require__(281)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49378,7 +49470,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(279)
+__webpack_require__(277)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49416,7 +49508,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(287)
+__webpack_require__(285)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49454,7 +49546,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(272)
+__webpack_require__(270)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49530,7 +49622,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(282)
+__webpack_require__(280)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49568,7 +49660,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(286)
+__webpack_require__(284)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49604,17 +49696,13 @@ module.exports = Component.exports
 /* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/* styles */
-__webpack_require__(266)
-
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(166),
   /* template */
   __webpack_require__(238),
   /* scopeId */
-  "data-v-1dba1a1e",
+  null,
   /* cssModules */
   null
 )
@@ -49642,17 +49730,13 @@ module.exports = Component.exports
 /* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/* styles */
-__webpack_require__(269)
-
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(167),
   /* template */
   __webpack_require__(241),
   /* scopeId */
-  "data-v-2b6c5854",
+  null,
   /* cssModules */
   null
 )
@@ -49682,7 +49766,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(280)
+__webpack_require__(278)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49720,7 +49804,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(277)
+__webpack_require__(275)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49758,7 +49842,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(274)
+__webpack_require__(272)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49830,7 +49914,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(276)
+__webpack_require__(274)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49906,7 +49990,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(267)
+__webpack_require__(266)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49944,7 +50028,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(270)
+__webpack_require__(268)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49982,7 +50066,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(271)
+__webpack_require__(269)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -50147,14 +50231,21 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('jism-layout-primary', [_c('h1', [_vm._v("New Pod")]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
+  return _c('div', [_c('jism-layout-primary', [_c('h1', [_vm._v("New Pod")]), _vm._v(" "), _c('form', {
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.addPod($event)
+      }
+    }
+  }, [_c('div', {
+    class: ['form-group', _vm.errorPod ? 'has-error' : '']
   }, [_c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.podIdSelected),
-      expression: "podIdSelected"
+      value: (_vm.podNumber),
+      expression: "podNumber"
     }],
     staticClass: "form-control",
     on: {
@@ -50165,76 +50256,73 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.podIdSelected = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.podNumber = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
-  }, _vm._l((10), function(n) {
+  }, _vm._l((5), function(n) {
     return _c('option', [_vm._v(_vm._s(n))])
-  }))]), _vm._v(" "), _c('h3', [_vm._v("Pods")]), _vm._v(" "), _c('ul', {
+  })), _vm._v(" "), _vm._l((_vm.errors.number), function(error) {
+    return _c('p', {
+      staticClass: "error-message"
+    }, [_vm._v(_vm._s(error))])
+  }), _c('p'), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Create")])], 2)]), _vm._v(" "), _c('h3', [_vm._v("Pods")]), _vm._v(" "), _c('ul', {
     staticClass: "list-group"
   }, [_vm._l((_vm.pods), function(pod) {
     return _c('li', {
       staticClass: "list-group-item"
-    }, [_c('span', [_c('strong', [_vm._v("P" + _vm._s(pod.pod_id) + ":")]), _vm._v(" " + _vm._s(pod.camera))])])
+    }, [_c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col-xs-2 col-md-2"
+    }, [_c('strong', [_vm._v("P" + _vm._s(pod.number))])]), _vm._v(" "), _c('div', {
+      staticClass: "col-xs-5 col-md-5"
+    }, [_c('select', {
+      staticClass: "form-control",
+      on: {
+        "change": function($event) {
+          _vm.assignCameraToPod(pod, 'left', $event)
+        }
+      }
+    }, [_c('option', {
+      attrs: {
+        "value": ""
+      }
+    }, [_vm._v("unassigned")]), _vm._v(" "), _vm._l((_vm.cameras), function(camera) {
+      return _c('option', {
+        domProps: {
+          "value": camera.serial_number,
+          "selected": camera.serial_number == pod.camera_left_id
+        }
+      }, [_vm._v("\n                            " + _vm._s(camera.ssid) + "\n                            ")])
+    })], 2)]), _vm._v(" "), _c('div', {
+      staticClass: "col-xs-5 col-md-5"
+    }, [_c('select', {
+      staticClass: "form-control",
+      on: {
+        "change": function($event) {
+          _vm.assignCameraToPod(pod, 'right', $event)
+        }
+      }
+    }, [_vm._v(">\n                            "), _c('option', {
+      attrs: {
+        "value": ""
+      }
+    }, [_vm._v("unassigned")]), _vm._v(" "), _vm._l((_vm.cameras), function(camera) {
+      return _c('option', {
+        domProps: {
+          "value": camera.serial_number,
+          "selected": camera.serial_number == pod.camera_right_id
+        }
+      }, [_vm._v("\n                            " + _vm._s(camera.ssid) + "\n                        ")])
+    })], 2)])])])
   }), _vm._v(" "), (!_vm.pods.length) ? _c('li', {
     staticClass: "list-group-item"
-  }, [_vm._v("No pods added")]) : _vm._e()], 2), _vm._v(" "), _c('h3', [_vm._v("Cameras")]), _vm._v(" "), _c('ul', {
-    staticClass: "list-group"
-  }, [_vm._l((_vm.cameras), function(camera) {
-    return _c('li', {
-      staticClass: "list-group-item"
-    }, [(camera.online) ? _c('span', [_vm._v("\n                    " + _vm._s(camera.ssid) + ": " + _vm._s(camera.pod_side) + "\n                    "), _c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: (_vm.cameraSelected),
-        expression: "cameraSelected"
-      }],
-      staticClass: "pull-right",
-      attrs: {
-        "type": "checkbox",
-        "disabled": _vm.isMax(camera.ssid)
-      },
-      domProps: {
-        "value": camera.ssid,
-        "checked": Array.isArray(_vm.cameraSelected) ? _vm._i(_vm.cameraSelected, camera.ssid) > -1 : (_vm.cameraSelected)
-      },
-      on: {
-        "__c": function($event) {
-          var $$a = _vm.cameraSelected,
-            $$el = $event.target,
-            $$c = $$el.checked ? (true) : (false);
-          if (Array.isArray($$a)) {
-            var $$v = camera.ssid,
-              $$i = _vm._i($$a, $$v);
-            if ($$c) {
-              $$i < 0 && (_vm.cameraSelected = $$a.concat($$v))
-            } else {
-              $$i > -1 && (_vm.cameraSelected = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
-            }
-          } else {
-            _vm.cameraSelected = $$c
-          }
-        }
-      }
-    })]) : _c('router-link', {
-      attrs: {
-        "to": {
-          name: 'settings'
-        }
-      }
-    }, [_c('span', [_vm._v(_vm._s(camera.ssid) + ": Camera Offline")])])], 1)
-  }), _vm._v(" "), (!_vm.cameras.length) ? _c('li', {
-    staticClass: "list-group-item"
-  }, [_vm._v("No cameras detected")]) : _vm._e()], 2), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-primary",
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.addPod($event)
-      }
-    }
-  }, [_vm._v("Add")])])], 1)
+  }, [_vm._v("No pods added")]) : _vm._e()], 2)])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -50313,7 +50401,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._l((_vm.pods), function(pod) {
     return _c('li', {
       staticClass: "list-group-item"
-    }, [_vm._v("P" + _vm._s(pod.pod_id))])
+    }, [_vm._v("P" + _vm._s(pod.number))])
   }), _vm._v(" "), (!_vm.pods.length) ? _c('li', {
     staticClass: "list-group-item"
   }, [_c('router-link', {
@@ -50362,8 +50450,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._l((_vm.pods), function(pod) {
     return _c('li', {
       staticClass: "list-group-item"
-    }, [_vm._v("\n                P" + _vm._s(pod.pod_id) + "\n                "), _c('button', {
-      staticClass: "btn btn-xs btn-danger pull-right"
+    }, [_vm._v("\n                P" + _vm._s(pod.number) + "\n                "), _c('button', {
+      staticClass: "btn btn-xs btn-danger pull-right",
+      on: {
+        "click": function($event) {
+          _vm.removePod(pod.id)
+        }
+      }
     }, [_vm._v("DELETE")])])
   }), _vm._v(" "), (!_vm.pods.length) ? _c('li', {
     staticClass: "list-group-item"
@@ -50942,22 +51035,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "data-toggle": "dropdown"
     }
-  }, [_vm._v("\n                    P" + _vm._s(_vm.batteryFirst.pod_id) + "/" + _vm._s(_vm.batteryFirst.pod_side) + ":\n                    "), (_vm.batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 1) ? _c('i', {
+  }, [_vm._v("\n                    P" + _vm._s(_vm.batteryFirst.pod_id) + "/" + _vm._s(_vm.batteryFirst.pod_side) + ":\n                    "), (_vm.batteryFirst.status.parsed.status.internal_batter_level.gopro_subid === 1) ? _c('i', {
     staticClass: "fa fa-battery-quarter",
     attrs: {
       "aria-hidden": "true"
     }
-  }) : _vm._e(), _vm._v(" "), (_vm.batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 2) ? _c('i', {
+  }) : _vm._e(), _vm._v(" "), (_vm.batteryFirst.status.parsed.status.internal_batter_level.gopro_subid === 2) ? _c('i', {
     staticClass: "fa fa-battery-half",
     attrs: {
       "aria-hidden": "true"
     }
-  }) : _vm._e(), _vm._v(" "), (_vm.batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 3) ? _c('i', {
+  }) : _vm._e(), _vm._v(" "), (_vm.batteryFirst.status.parsed.status.internal_batter_level.gopro_subid === 3) ? _c('i', {
     staticClass: "fa fa-battery-full",
     attrs: {
       "aria-hidden": "true"
     }
-  }) : _vm._e(), _vm._v(" "), (_vm.batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 4) ? _c('i', {
+  }) : _vm._e(), _vm._v(" "), (_vm.batteryFirst.status.parsed.status.internal_batter_level.gopro_subid === 4) ? _c('i', {
     staticClass: "fa fa-bolt",
     attrs: {
       "aria-hidden": "true"
@@ -50965,22 +51058,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu"
   }, _vm._l((_vm.batterySort), function(battery) {
-    return _c('li', [(battery.status.parsed.status.internal_battery_level.gopro_subid === 1) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
+    return _c('li', [(battery.status.parsed.status.internal_batter_level.gopro_subid === 1) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
       staticClass: "fa fa-battery-quarter",
       attrs: {
         "aria-hidden": "true"
       }
-    })]) : _vm._e(), _vm._v(" "), (battery.status.parsed.status.internal_battery_level.gopro_subid === 2) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
+    })]) : _vm._e(), _vm._v(" "), (battery.status.parsed.status.internal_batter_level.gopro_subid === 2) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
       staticClass: "fa fa-battery-half",
       attrs: {
         "aria-hidden": "true"
       }
-    })]) : _vm._e(), _vm._v(" "), (battery.status.parsed.status.internal_battery_level.gopro_subid === 3) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
+    })]) : _vm._e(), _vm._v(" "), (battery.status.parsed.status.internal_batter_level.gopro_subid === 3) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
       staticClass: "fa fa-battery-full",
       attrs: {
         "aria-hidden": "true"
       }
-    })]) : _vm._e(), _vm._v(" "), (battery.status.parsed.status.internal_battery_level.gopro_subid === 4) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
+    })]) : _vm._e(), _vm._v(" "), (battery.status.parsed.status.internal_batter_level.gopro_subid === 4) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
       staticClass: "fa fa-bolt",
       attrs: {
         "aria-hidden": "true"
@@ -51216,15 +51309,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       class: ['list-group-item', pod.disabled ? 'disabled' : '']
     }, [_c('label', {
       attrs: {
-        "for": 'pod' + pod.pod_id
+        "for": 'pod' + pod.number
       }
-    }, [_vm._v("P" + _vm._s(pod.pod_id))]), _vm._v(" "), _c('input', {
+    }, [_vm._v("P" + _vm._s(pod.number))]), _vm._v(" "), _c('input', {
       staticClass: "pull-right",
       attrs: {
         "type": "checkbox"
       },
       domProps: {
-        "value": 'pod' + pod.pod_id
+        "value": 'pod' + pod.number
       },
       on: {
         "click": function($event) {
@@ -53605,7 +53698,7 @@ if (inBrowser && window.Vue) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(179);
+var content = __webpack_require__(181);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -53631,7 +53724,7 @@ if(false) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(180);
+var content = __webpack_require__(182);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -53657,7 +53750,7 @@ if(false) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(181);
+var content = __webpack_require__(183);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -53683,7 +53776,7 @@ if(false) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(182);
+var content = __webpack_require__(184);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -53709,33 +53802,7 @@ if(false) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(183);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("49a4ba0d", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-1dba1a1e&scoped=true!./../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!./../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./add.vue", function() {
-     var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-1dba1a1e&scoped=true!./../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!./../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./add.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 267 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(184);
+var content = __webpack_require__(185);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -53755,13 +53822,13 @@ if(false) {
 }
 
 /***/ }),
-/* 268 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(185);
+var content = __webpack_require__(186);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -53781,33 +53848,7 @@ if(false) {
 }
 
 /***/ }),
-/* 269 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(186);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("eacecd8a", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-2b6c5854&scoped=true!./../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!./../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./assignCamera.vue", function() {
-     var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-2b6c5854&scoped=true!./../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!./../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./assignCamera.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 270 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -53833,7 +53874,7 @@ if(false) {
 }
 
 /***/ }),
-/* 271 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -53859,7 +53900,7 @@ if(false) {
 }
 
 /***/ }),
-/* 272 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -53885,7 +53926,7 @@ if(false) {
 }
 
 /***/ }),
-/* 273 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -53911,7 +53952,7 @@ if(false) {
 }
 
 /***/ }),
-/* 274 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -53937,7 +53978,7 @@ if(false) {
 }
 
 /***/ }),
-/* 275 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -53963,7 +54004,7 @@ if(false) {
 }
 
 /***/ }),
-/* 276 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -53989,7 +54030,7 @@ if(false) {
 }
 
 /***/ }),
-/* 277 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -54015,7 +54056,7 @@ if(false) {
 }
 
 /***/ }),
-/* 278 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -54041,7 +54082,7 @@ if(false) {
 }
 
 /***/ }),
-/* 279 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -54067,7 +54108,7 @@ if(false) {
 }
 
 /***/ }),
-/* 280 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -54093,7 +54134,7 @@ if(false) {
 }
 
 /***/ }),
-/* 281 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -54119,7 +54160,7 @@ if(false) {
 }
 
 /***/ }),
-/* 282 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -54145,7 +54186,7 @@ if(false) {
 }
 
 /***/ }),
-/* 283 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -54171,7 +54212,7 @@ if(false) {
 }
 
 /***/ }),
-/* 284 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -54197,7 +54238,7 @@ if(false) {
 }
 
 /***/ }),
-/* 285 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -54223,7 +54264,7 @@ if(false) {
 }
 
 /***/ }),
-/* 286 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -54249,7 +54290,7 @@ if(false) {
 }
 
 /***/ }),
-/* 287 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -54275,7 +54316,7 @@ if(false) {
 }
 
 /***/ }),
-/* 288 */
+/* 286 */
 /***/ (function(module, exports) {
 
 /**
@@ -54308,7 +54349,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 289 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63561,7 +63602,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(128)))
 
 /***/ }),
-/* 290 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(130);

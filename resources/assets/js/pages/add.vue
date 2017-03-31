@@ -2,32 +2,50 @@
     <div>
         <jism-layout-primary>
             <h1>New Pod</h1>
-            <div class="form-group">
-                <select v-model="podIdSelected" class="form-control">
-                    <option v-for="n in 10">{{ n }}</option>
-                </select>
-            </div>
+            <form @submit.prevent="addPod" >
+                <div :class="['form-group', errorPod ? 'has-error' : '']">
+                    <select v-model="podNumber" class="form-control">
+                        <option v-for="n in 5">{{ n }}</option>
+                    </select>
+                    <p v-for="error in errors.number" class="error-message">{{ error }}</p><p></p>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
             <h3>Pods</h3>
             <ul class="list-group">
                 <li v-for="pod in pods" class="list-group-item">
-                    <span><strong>P{{ pod.pod_id }}:</strong> {{ pod.camera }}</span>
+                    <div class="row">
+                        <div class="col-xs-2 col-md-2">
+                            <strong>P{{ pod.number }}</strong>
+                        </div>
+                        <div class="col-xs-5 col-md-5">
+                            <select class="form-control" @change="assignCameraToPod(pod, 'left', $event)">
+                                <option value="">unassigned</option>
+                                <option
+                                    v-for="camera in cameras"
+                                    :value="camera.serial_number"
+                                    :selected="camera.serial_number == pod.camera_left_id"
+                                >
+                                {{ camera.ssid }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-xs-5 col-md-5">
+                            <select class="form-control" @change="assignCameraToPod(pod, 'right', $event)">>
+                                <option value="">unassigned</option>
+                                <option
+                                    v-for="camera in cameras"
+                                    :value="camera.serial_number"
+                                    :selected="camera.serial_number == pod.camera_right_id"
+                                >
+                                {{ camera.ssid }}
+                            </option>
+                            </select>
+                        </div>
+                    </div>
                 </li>
                 <li v-if="!pods.length" class="list-group-item">No pods added</li>
             </ul>
-            <h3>Cameras</h3>
-            <ul class="list-group">
-                <li v-for="camera in cameras" class="list-group-item">
-                    <span v-if="camera.online">
-                        {{ camera.ssid }}: {{ camera.pod_side }}
-                        <input v-model="cameraSelected" :value="camera.ssid" type="checkbox" class="pull-right" :disabled="isMax(camera.ssid)">
-                    </span>
-                    <router-link v-else :to="{ name: 'settings' }">
-                        <span>{{ camera.ssid }}: Camera Offline</span>
-                    </router-link>
-                </li>
-                <li v-if="!cameras.length" class="list-group-item">No cameras detected</li>
-            </ul>
-            <button @click.prevent="addPod" class="btn btn-primary">Add</button>
         </jism-layout-primary>
     </div>
 </template>
@@ -35,44 +53,49 @@
 <script>
     export default {
         computed: {
-            cameras : function() {
+            cameras() {
                 return this.$root.shared.cameras;
+            },
+            pods() {
+                return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
+            },
+            errorPod() {
+                return this.hasError('number');
             }
         },
         data() {
             return {
-                pods: [],
-                podIdSelected: 1,
-                cameraSelected: []
+                errors: {},
+                podNumber: 1
             }
         },
         methods: {
-            isMax : function(camera) {
-                if(this.cameraSelected.length >= 2 && this.cameraSelected.indexOf(camera) === -1) {
+            addPod() {
+                var data = {
+                    'number': this.podNumber
+                };
+                axios.post('/api/pod', data).then((response) => {
+                    //
+                }, (error) => {
+                    this.errors = error.response.data;
+                });
+            },
+            assignCameraToPod(pod, side, event) {
+                var camera_id = `${event.target.value}`;
+                pod['camera_' + side + '_id'] = camera_id;
+                axios.patch('/api/pod/' + pod.id, pod).then((response) => {
+                    console.log(response.data);
+                }, (error) => {
+                    this.errors = error.response.data;
+                });
+            },
+            hasError(field) {
+                if(typeof this.errors[field] != 'undefined' && this.errors[field].length > 0)
+                {
                     return true;
                 }
                 return false;
-            },
-            addPod : function() {
-                const data = {
-                    'pod_id' : this.podIdSelected,
-                    'camera' : this.cameraSelected.toString().replace(/,/g , '/')
-                };
-
-                this.pods.push(data)
-                this.podId = 1
-
-                // axios.post('/api/pod', data).then((response) => {
-                //     console.log(response.data);
-                // }, (error) => {
-                //     console.log(error.response.data);
-                // });
-
             }
         }
     }
 </script>
-
-<style lang="sass" scoped>
-
-</style>

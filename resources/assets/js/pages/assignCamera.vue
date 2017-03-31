@@ -3,7 +3,7 @@
         <jism-layout-primary>
             <h1>Pods</h1>
             <ul class="list-group">
-                <li v-for="pod in pods" class="list-group-item">P{{ pod.pod_id }}</li>
+                <li v-for="pod in pods" class="list-group-item">P{{ pod.number }}</li>
                 <li v-if="!pods.length" class="list-group-item">
                     <router-link :to="{ name: 'add' }">Add pod here</router-link>
                 </li>
@@ -30,16 +30,27 @@
         computed: {
             cameras : function() {
                 return this.$root.shared.cameras;
-            }
+            },
+            pods : function() {
+                return this.$root.shared.pods;
+            },
         },
         data() {
             return {
-                pods: []
+                //
+            };
+        },
+        methods: {
+            getPods : function() {
+                axios.get('/api/pod').then((response) => {
+                    this.pods = response.data;
+                }, (error) => {
+                    console.log(error.response.data);
+                });
             }
+        },
+        created() {
+            this.getPods();
         }
-    }
+    };
 </script>
-
-<style lang="sass" scoped>
-
-</style>
