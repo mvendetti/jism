@@ -16,6 +16,9 @@ class CreatePodsTable extends Migration
         Schema::create('pods', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('number')->index()->unique();
+            $table->string('camera_left_id')->index()->nullable();
+            $table->string('camera_right_id')->index()->nullable();
+            $table->boolean('disabled')->default(false)->index();
             $table->timestamps();
         });
     }
