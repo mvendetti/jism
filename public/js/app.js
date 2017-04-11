@@ -28412,6 +28412,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     computed: {
@@ -28650,28 +28656,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.$root.shared.cameras;
         },
         pods: function pods() {
-            return this.$root.shared.pods;
+            return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
         }
-    },
-    data: function data() {
-        return {
-            //
-        };
-    },
-
-    methods: {
-        getPods: function getPods() {
-            var _this = this;
-
-            axios.get('/api/pod').then(function (response) {
-                _this.pods = response.data;
-            }, function (error) {
-                console.log(error.response.data);
-            });
-        }
-    },
-    created: function created() {
-        this.getPods();
     }
 };
 
@@ -28797,17 +28783,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
         }
     },
-    data: function data() {
-        return {
-            //
-        };
-    },
-
     methods: {
-        //
-    },
-    created: function created() {
-        //
+        disable: function disable(id, state) {
+            var data = {
+                'disabled': state
+            };
+            axios.patch('/api/pod/' + id, data).then(function (response) {
+                console.log(response.data);
+            }, function (error) {
+                console.log(error.response.data);
+            });
+        }
     }
 };
 
@@ -29028,14 +29014,66 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
         return {
-            resolution: [], fps: [], fov: [],
-            colorTemp: [], colorProfile: [],
-            shutter: [], iso: [],
-            sharpness: [], exposure: []
+            resolution: '1', fps: '8', fov: '0',
+            colorTemp: '2', colorProfile: '1',
+            shutter: '13', iso: '8',
+            sharpness: '1', exposure: '4', orientation: '1'
         };
     },
 
@@ -31702,7 +31740,7 @@ exports.push([module.i, "\n.fa-circle[data-v-833ffa5a] {\n  color: firebrick;\n}
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.top-status-bar {\n  padding: 0.25em;\n  text-align: center;\n}\n.top-status-bar i {\n    margin-right: 75px;\n}\n.top-status-bar i.green {\n      color: green;\n}\n.top-status-bar i.red {\n      color: red;\n}\n.top-status-bar i.yellow {\n      color: yellow;\n}\n.top-status-bar i.gray {\n      color: gray;\n}\n.pod-ordered-list {\n  border-radius: 0;\n  border-top: 1px solid #222;\n  border-bottom: 1px solid #222;\n  background-color: #e2e2e2;\n  padding: 0.75em;\n}\n.pod-ordered-list li::before {\n    padding: 0 15px;\n}\n.pod-ordered-list li a.active {\n    color: #777;\n}\n.pod-ordered-list li a:hover, .pod-ordered-list li a:focus {\n    text-decoration: none;\n}\n.pod-ordered-list .list-item {\n    font-weight: 900;\n    font-size: 1.1em;\n}\n", ""]);
+exports.push([module.i, "\n.top-status-bar {\n  padding: 0.25em;\n  text-align: center;\n}\n.top-status-bar i {\n    margin-right: 75px;\n}\n.top-status-bar i.green {\n      color: green;\n}\n.top-status-bar i.red {\n      color: red;\n}\n.top-status-bar i.yellow {\n      color: yellow;\n}\n.top-status-bar i.gray {\n      color: gray;\n}\n.top-status-bar button {\n    border: none;\n    background-color: transparent;\n}\n.pod-ordered-list {\n  border-radius: 0;\n  border-top: 1px solid #222;\n  border-bottom: 1px solid #222;\n  background-color: #e2e2e2;\n  padding: 0.75em;\n}\n.pod-ordered-list li::before {\n    padding: 0 15px;\n}\n.pod-ordered-list li a.active {\n    color: #777;\n}\n.pod-ordered-list li a:hover, .pod-ordered-list li a:focus {\n    text-decoration: none;\n}\n.pod-ordered-list .list-item {\n    font-weight: 900;\n    font-size: 1.1em;\n}\n", ""]);
 
 /***/ }),
 /* 200 */
@@ -50308,7 +50346,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.assignCameraToPod(pod, 'right', $event)
         }
       }
-    }, [_vm._v(">\n                            "), _c('option', {
+    }, [_c('option', {
       attrs: {
         "value": ""
       }
@@ -50548,9 +50586,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.resolution = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
-  }, _vm._l((3), function(n) {
-    return _c('option', [_vm._v(_vm._s(n))])
-  })), _vm._v(" "), _c('label', {
+  }, [_c('option', {
+    attrs: {
+      "value": "1",
+      "selected": ""
+    }
+  }, [_vm._v("4K")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "4"
+    }
+  }, [_vm._v("2.7K")])]), _vm._v(" "), _c('label', {
     staticClass: "control-label"
   }, [_vm._v("FPS")]), _vm._v(" "), _c('select', {
     directives: [{
@@ -50571,9 +50616,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.fps = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
-  }, _vm._l((3), function(n) {
-    return _c('option', [_vm._v(_vm._s(n))])
-  })), _vm._v(" "), _c('label', {
+  }, [_c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v("240")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v("120")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "5"
+    }
+  }, [_vm._v("60")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "8",
+      "selected": ""
+    }
+  }, [_vm._v("30")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "10"
+    }
+  }, [_vm._v("24")])]), _vm._v(" "), _c('label', {
     staticClass: "control-label"
   }, [_vm._v("FOV")]), _vm._v(" "), _c('select', {
     directives: [{
@@ -50594,9 +50658,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.fov = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
-  }, _vm._l((3), function(n) {
-    return _c('option', [_vm._v(_vm._s(n))])
-  })), _vm._v(" "), _c('label', {
+  }, [_c('option', {
+    attrs: {
+      "value": "0",
+      "selected": ""
+    }
+  }, [_vm._v("Wide")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v("Medium")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "2"
+    }
+  }, [_vm._v("Narrow")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "4"
+    }
+  }, [_vm._v("Linear")])]), _vm._v(" "), _c('label', {
     staticClass: "control-label"
   }, [_vm._v("Color Temp")]), _vm._v(" "), _c('select', {
     directives: [{
@@ -50617,9 +50696,40 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.colorTemp = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
-  }, _vm._l((3), function(n) {
-    return _c('option', [_vm._v(_vm._s(n))])
-  })), _vm._v(" "), _c('label', {
+  }, [_c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v("Auto")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v("3000K")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "5"
+    }
+  }, [_vm._v("4000K")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "6"
+    }
+  }, [_vm._v("4800K")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "2",
+      "selected": ""
+    }
+  }, [_vm._v("5500K")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "7"
+    }
+  }, [_vm._v("6000K")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "3"
+    }
+  }, [_vm._v("6500K")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "4"
+    }
+  }, [_vm._v("Native")])]), _vm._v(" "), _c('label', {
     staticClass: "control-label"
   }, [_vm._v("Color Profile")]), _vm._v(" "), _c('select', {
     directives: [{
@@ -50640,9 +50750,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.colorProfile = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
-  }, _vm._l((3), function(n) {
-    return _c('option', [_vm._v(_vm._s(n))])
-  }))]), _vm._v(" "), _c('div', {
+  }, [_c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v("GoPro Color")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "1",
+      "selected": ""
+    }
+  }, [_vm._v("Flat")])])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-6 col-xs-6"
   }, [_c('label', {
     staticClass: "control-label"
@@ -50665,9 +50782,76 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.shutter = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
-  }, _vm._l((3), function(n) {
-    return _c('option', [_vm._v(_vm._s(n))])
-  })), _vm._v(" "), _c('label', {
+  }, [_c('option', {
+    attrs: {
+      "value": "3"
+    }
+  }, [_vm._v("1/24")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "5"
+    }
+  }, [_vm._v("1/30")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "6"
+    }
+  }, [_vm._v("1/48")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "8"
+    }
+  }, [_vm._v("1/60")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "9"
+    }
+  }, [_vm._v("1/80")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "12"
+    }
+  }, [_vm._v("1/100")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "13",
+      "selected": ""
+    }
+  }, [_vm._v("1/120")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "14"
+    }
+  }, [_vm._v("1/160")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "15"
+    }
+  }, [_vm._v("1/180")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "16"
+    }
+  }, [_vm._v("1/192")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "17"
+    }
+  }, [_vm._v("1/200")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "18"
+    }
+  }, [_vm._v("1/240")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "19"
+    }
+  }, [_vm._v("1/320")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "20"
+    }
+  }, [_vm._v("1/360")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "21"
+    }
+  }, [_vm._v("1/400")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "22"
+    }
+  }, [_vm._v("1/480")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "23"
+    }
+  }, [_vm._v("1/960")])]), _vm._v(" "), _c('label', {
     staticClass: "control-label"
   }, [_vm._v("ISO")]), _vm._v(" "), _c('select', {
     directives: [{
@@ -50688,9 +50872,36 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.iso = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
-  }, _vm._l((3), function(n) {
-    return _c('option', [_vm._v(_vm._s(n))])
-  })), _vm._v(" "), _c('label', {
+  }, [_c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v("6400")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v("1600")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "2"
+    }
+  }, [_vm._v("400")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "3"
+    }
+  }, [_vm._v("3200")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "4"
+    }
+  }, [_vm._v("800")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "7"
+    }
+  }, [_vm._v("200")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "8",
+      "selected": ""
+    }
+  }, [_vm._v("100")])]), _vm._v(" "), _c('label', {
     staticClass: "control-label"
   }, [_vm._v("Sharpness")]), _vm._v(" "), _c('select', {
     directives: [{
@@ -50711,9 +50922,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.sharpness = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
-  }, _vm._l((3), function(n) {
-    return _c('option', [_vm._v(_vm._s(n))])
-  })), _vm._v(" "), _c('label', {
+  }, [_c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v("High")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "1",
+      "selected": ""
+    }
+  }, [_vm._v("Medium")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "2"
+    }
+  }, [_vm._v("Low")])]), _vm._v(" "), _c('label', {
     staticClass: "control-label"
   }, [_vm._v("Exposure")]), _vm._v(" "), _c('select', {
     directives: [{
@@ -50734,16 +50956,80 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.exposure = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
-  }, _vm._l((3), function(n) {
-    return _c('option', [_vm._v(_vm._s(n))])
-  })), _vm._v(" "), _c('label', {
+  }, [_c('option', {
+    attrs: {
+      "value": "8"
+    }
+  }, [_vm._v("-2.0")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "7"
+    }
+  }, [_vm._v("-1.5")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "6"
+    }
+  }, [_vm._v("-1.0")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "5"
+    }
+  }, [_vm._v("-0.5")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "4",
+      "selected": ""
+    }
+  }, [_vm._v("0.0")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "3"
+    }
+  }, [_vm._v("0.5")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "2"
+    }
+  }, [_vm._v("1.0")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v("1.5")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v("2.0")])]), _vm._v(" "), _c('label', {
     staticClass: "control-label"
-  }, [_vm._v("Orientation")]), _c('br'), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-default"
-  }, [_vm._v("Flip")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Orientation")]), _c('br'), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.orientation),
+      expression: "orientation"
+    }],
+    staticClass: "form-control",
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.orientation = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "1",
+      "selected": ""
+    }
+  }, [_vm._v("Up")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "2"
+    }
+  }, [_vm._v("Down")])])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-1 col-xs-1"
   }, [_c('button', {
-    staticClass: "btn btn-danger format-button"
+    staticClass: "btn btn-danger format-button",
+    on: {
+      "click": _vm.format
+    }
   }, [_vm._v("FORMAT")])])])])])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
@@ -51020,6 +51306,8 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('header', [_c('div', {
     staticClass: "row top-status-bar"
+  }, [_c('div', {
+    staticClass: "col-xs-4"
   }, [_c('span', {
     staticClass: "dropdown"
   }, [_vm._m(0), _vm._v(" "), _c('ul', {
@@ -51028,14 +51316,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('li', [_c('a', [_vm._v("P" + _vm._s(camera.pod_id) + "/" + _vm._s(camera.pod_side) + ": "), _c('i', {
       class: ['fa fa-circle', !camera.online ? 'gray' : 'green']
     })])])
-  }))]), _vm._v(" "), _c('span', {
+  }))])]), _vm._v(" "), _c('div', {
+    staticClass: "col-xs-4"
+  }, [_c('span', {
     staticClass: "dropdown"
-  }, [(_vm.batteryFirst) ? _c('span', {
+  }, [(_vm.batteryFirst) ? _c('button', {
     staticClass: "dropdown-toggle",
     attrs: {
       "data-toggle": "dropdown"
     }
-  }, [_vm._v("\n                    P" + _vm._s(_vm.batteryFirst.pod_id) + "/" + _vm._s(_vm.batteryFirst.pod_side) + ":\n                    "), (_vm.batteryFirst.status.parsed.status.internal_batter_level.gopro_subid === 1) ? _c('i', {
+  }, [(_vm.batteryFirst.status.parsed.status.internal_batter_level.gopro_subid === 1) ? _c('i', {
     staticClass: "fa fa-battery-quarter",
     attrs: {
       "aria-hidden": "true"
@@ -51079,18 +51369,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "aria-hidden": "true"
       }
     })]) : _vm._e()])
-  }))]), _vm._v(" "), _c('span', {
+  }))])]), _vm._v(" "), _c('div', {
+    staticClass: "col-xs-4"
+  }, [_c('span', {
     staticClass: "dropdown"
-  }, [(_vm.durationFirst) ? _c('span', {
+  }, [(_vm.durationFirst) ? _c('button', {
     staticClass: "dropdown-toggle",
     attrs: {
       "data-toggle": "dropdown"
     }
-  }, [_vm._v("\n                    P" + _vm._s(_vm.durationFirst.pod_id) + "/" + _vm._s(_vm.durationFirst.pod_side) + ": " + _vm._s(_vm._f("secondsToHours")(_vm.durationFirst.status.parsed.status.remaining_video_duration.value)) + " hours\n                ")]) : _vm._e(), _vm._v(" "), _c('ul', {
+  }, [_vm._v(" " + _vm._s(_vm._f("secondsToHours")(_vm.durationFirst.status.parsed.status.remaining_video_duration.value)) + " hours\n                    ")]) : _vm._e(), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu"
   }, _vm._l((_vm.durationSort), function(duration) {
     return _c('li', [_c('a', [_vm._v("P" + _vm._s(duration.pod_id) + "/" + _vm._s(duration.pod_side) + ": " + _vm._s(_vm._f("secondsToHours")(duration.status.parsed.status.remaining_video_duration.value)) + " hours")])])
-  }))])]), _vm._v(" "), _c('div', {
+  }))])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-12"
@@ -51151,7 +51443,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Right")]) : _vm._e(), _vm._v(" "), (this.camId === 'right') ? _c('span', [_vm._v("Right")]) : _vm._e()], 1) : _vm._e()], 2)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
+  return _c('button', {
     staticClass: "dropdown-toggle",
     attrs: {
       "data-toggle": "dropdown"
@@ -51307,21 +51599,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._l((_vm.pods), function(pod) {
     return _c('li', {
       class: ['list-group-item', pod.disabled ? 'disabled' : '']
-    }, [_c('label', {
-      attrs: {
-        "for": 'pod' + pod.number
-      }
-    }, [_vm._v("P" + _vm._s(pod.number))]), _vm._v(" "), _c('input', {
+    }, [_c('span', [_vm._v("P" + _vm._s(pod.number))]), _vm._v(" "), _c('input', {
       staticClass: "pull-right",
       attrs: {
         "type": "checkbox"
       },
       domProps: {
-        "value": 'pod' + pod.number
+        "value": 'pod' + pod.number,
+        "checked": pod.disabled
       },
       on: {
         "click": function($event) {
           pod.disabled = !pod.disabled
+        },
+        "change": function($event) {
+          _vm.disable(pod.id, pod.disabled)
         }
       }
     })])
