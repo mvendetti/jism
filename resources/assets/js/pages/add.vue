@@ -31,7 +31,7 @@
                             </select>
                         </div>
                         <div class="col-xs-5 col-md-5">
-                            <select class="form-control" @change="assignCameraToPod(pod, 'right', $event)">>
+                            <select class="form-control" @change="assignCameraToPod(pod, 'right', $event)">
                                 <option value="">unassigned</option>
                                 <option
                                     v-for="camera in cameras"

@@ -28,29 +28,12 @@
 <script>
     export default {
         computed: {
-            cameras : function() {
+            cameras() {
                 return this.$root.shared.cameras;
             },
-            pods : function() {
-                return this.$root.shared.pods;
+            pods() {
+                return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
             },
-        },
-        data() {
-            return {
-                //
-            };
-        },
-        methods: {
-            getPods : function() {
-                axios.get('/api/pod').then((response) => {
-                    this.pods = response.data;
-                }, (error) => {
-                    console.log(error.response.data);
-                });
-            }
-        },
-        created() {
-            this.getPods();
         }
     };
 </script>
