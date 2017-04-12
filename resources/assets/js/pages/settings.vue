@@ -15,19 +15,27 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-4 col-xs-4">
-                        <label class="control-label">Video:
-                            <label class="label label-default">ON</label>
-                        </label>
+                        <label class="control-label">Type</label>
+                        <select v-model="type" class="form-control">
+                            <option value="0" selected>Video</option>
+                            <option value="1">TimeLapse Video</option>
+                            <option value="2">Video+Photo</option>
+                            <option value="3">Looping</option>
+                        </select>
                     </div>
                     <div class="col-md-4 col-xs-4">
-                        <label class="control-label">Pro-Tune:
-                            <label class="label label-default">ON</label>
-                        </label>
+                        <label class="control-label">Protune</label>
+                        <select v-model="protune" class="form-control">
+                            <option value="1" selected>On</option>
+                            <option value="0">Off</option>
+                        </select>
                     </div>
                     <div class="col-md-4 col-xs-4">
-                        <label class="control-label">Format:
-                            <label class="label label-default">NTSC</label>
-                        </label>
+                        <label class="control-label">Format</label>
+                        <select v-model="format" class="form-control">
+                            <option value="0" selected>NTSC</option>
+                            <option value="1">PAL</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -142,10 +150,11 @@
     export default {
         data() {
             return {
+                type: '0', protune: '1', format: '0',
                 resolution: '1', fps: '8', fov: '0',
                 colorTemp: '2', colorProfile: '1',
-                shutter: '13', iso: '8',
-                sharpness: '1', exposure: '4', orientation: '1'
+                shutter: '13', iso: '8', sharpness: '1',
+                exposure: '4', orientation: '1'
             }
         },
         methods: {
@@ -165,6 +174,9 @@
             },
             saveSettings() {
                 var data = {
+                    'type' : this.type,
+                    'protune' : this.protune,
+                    'format' : this.format,
                     'resolution' : this.resolution,
                     'fps' : this.fps,
                     'fov' : this.fov,
@@ -173,7 +185,8 @@
                     'shutter' : this.shuttter,
                     'iso' : this.iso,
                     'sharpness' : this.sharpness,
-                    'exposure' : this.exposure
+                    'exposure' : this.exposure,
+                    'orientation' : this.orientation
                 }
                 axios.post('/api/group/1/settings', data).then((response) => {
                         console.log(response.data);
@@ -184,7 +197,3 @@
         }
     }
 </script>
-
-<style lang="sass" scoped>
-
-</style>
