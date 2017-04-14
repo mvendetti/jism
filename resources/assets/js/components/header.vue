@@ -2,43 +2,48 @@
     <div>
         <header>
             <div class="row top-status-bar">
-                <span class="dropdown">
-                    <span class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-circle green"></i>
+                <div class="col-xs-4">
+                    <span class="dropdown">
+                        <button class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-circle green"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li v-for="camera in cameras">
+                                <a>P{{ camera.pod_id }}/{{ camera.pod_side }}: <i :class="['fa fa-circle', !camera.online ? 'gray' : 'green']"></i></a>
+                            </li>
+                        </ul>
                     </span>
-                    <ul class="dropdown-menu">
-                        <li v-for="camera in cameras">
-                            <a>P{{ camera.pod_id }}/{{ camera.pod_side }}: <i :class="['fa fa-circle', !camera.online ? 'gray' : 'green']"></i></a>
-                        </li>
-                    </ul>
-                </span>
-                <span class="dropdown">
-                    <span v-if="batteryFirst" class="dropdown-toggle" data-toggle="dropdown">
-                        P{{ batteryFirst.pod_id }}/{{ batteryFirst.pod_side }}:
-                        <i v-if="batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 1" class="fa fa-battery-quarter" aria-hidden="true"></i>
-                        <i v-if="batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 2" class="fa fa-battery-half" aria-hidden="true"></i>
-                        <i v-if="batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 3" class="fa fa-battery-full" aria-hidden="true"></i>
-                        <i v-if="batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 4" class="fa fa-bolt" aria-hidden="true"></i>
+                </div>
+                <div class="col-xs-4">
+                    <span class="dropdown">
+                        <button v-if="batteryFirst" class="dropdown-toggle" data-toggle="dropdown">
+                            <i v-if="batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 1" class="fa fa-battery-quarter" aria-hidden="true"></i>
+                            <i v-if="batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 2" class="fa fa-battery-half" aria-hidden="true"></i>
+                            <i v-if="batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 3" class="fa fa-battery-full" aria-hidden="true"></i>
+                            <i v-if="batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 4" class="fa fa-bolt" aria-hidden="true"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li v-for="battery in batterySort">
+                                <a v-if="battery.status.parsed.status.internal_battery_level.gopro_subid === 1">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-battery-quarter" aria-hidden="true"></i></a>
+                                <a v-if="battery.status.parsed.status.internal_battery_level.gopro_subid === 2">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-battery-half" aria-hidden="true"></i></a>
+                                <a v-if="battery.status.parsed.status.internal_battery_level.gopro_subid === 3">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-battery-full" aria-hidden="true"></i></a>
+                                <a v-if="battery.status.parsed.status.internal_battery_level.gopro_subid === 4">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-bolt" aria-hidden="true"></i></a>
+                            </li>
+                        </ul>
                     </span>
-                    <ul class="dropdown-menu">
-                        <li v-for="battery in batterySort">
-                            <a v-if="battery.status.parsed.status.internal_battery_level.gopro_subid === 1">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-battery-quarter" aria-hidden="true"></i></a>
-                            <a v-if="battery.status.parsed.status.internal_battery_level.gopro_subid === 2">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-battery-half" aria-hidden="true"></i></a>
-                            <a v-if="battery.status.parsed.status.internal_battery_level.gopro_subid === 3">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-battery-full" aria-hidden="true"></i></a>
-                            <a v-if="battery.status.parsed.status.internal_battery_level.gopro_subid === 4">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-bolt" aria-hidden="true"></i></a>
-                        </li>
-                    </ul>
-                </span>
-                <span class="dropdown">
-                    <span v-if="durationFirst" class="dropdown-toggle" data-toggle="dropdown">
-                        P{{ durationFirst.pod_id }}/{{ durationFirst.pod_side }}: {{ durationFirst.status.parsed.status.remaining_video_duration.value | secondsToHours }} hours
+                </div>
+                <div class="col-xs-4">
+                    <span class="dropdown">
+                        <button v-if="durationFirst" class="dropdown-toggle" data-toggle="dropdown">
+                            {{ durationFirst.status.parsed.status.remaining_video_duration.value | secondsToHours }} hours
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li v-for="duration in durationSort">
+                                <a>P{{ duration.pod_id }}/{{ duration.pod_side }}: {{ duration.status.parsed.status.remaining_video_duration.value | secondsToHours }} hours</a>
+                            </li>
+                        </ul>
                     </span>
-                    <ul class="dropdown-menu">
-                        <li v-for="duration in durationSort">
-                            <a>P{{ duration.pod_id }}/{{ duration.pod_side }}: {{ duration.status.parsed.status.remaining_video_duration.value | secondsToHours }} hours</a>
-                        </li>
-                    </ul>
-                </span>
+                </div>
             </div>
 
             <div class="row">
@@ -49,7 +54,7 @@
                         </li>
 
                         <li v-if="!podRoute && !camRoute" v-for="pod in pods" class="list-item">
-                            <router-link :to="{ name: 'pod', params: { pod_id: pod.id } }">{{ pod.name }}</router-link>
+                            <router-link :to="{ name: 'pod', params: { pod_id: pod.number } }">P{{ pod.number }}</router-link>
                         </li>
 
                         <li v-if="podRoute || camRoute" class="list-item">
@@ -75,42 +80,39 @@
 <script>
     export default {
         computed: {
-            cameras : function() {
+            cameras() {
                 return this.$root.shared.cameras;
             },
-            durationSort : function() {
+            pods() {
+                return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
+            },
+            durationSort() {
                 return this.sort('status.parsed.status.remaining_video_duration.value');
             },
-            durationFirst : function() {
+            durationFirst() {
                 return _.first(this.durationSort);
             },
-            batterySort : function() {
+            batterySort() {
                 return this.sort('status.parsed.status.internal_battery_level.gopro_subid');
             },
-            batteryFirst : function() {
+            batteryFirst() {
                 return _.first(this.batterySort);
             },
-            podId : function() {
+            podId() {
                 return this.$route.params.pod_id;
             },
-            camId : function() {
+            camId() {
                 return this.$route.params.cam_id;
             },
-            podRoute : function() {
+            podRoute() {
                 return this.$route.name === 'pod';
             },
-            camRoute : function() {
+            camRoute() {
                 return this.$route.name === 'camera';
             }
         },
-        data() {
-            return {
-                pods: [],
-                recordingStatus: 0
-            };
-        },
         methods: {
-            sort : function(key, order) {
+            sort(key, order) {
                 if(typeof order === 'undefined') {
                     order = 'asc';
                 }
@@ -118,7 +120,7 @@
             }
         },
         filters: {
-            secondsToHours : function(value) {
+            secondsToHours(value) {
                 return moment.duration(value, 'seconds').asHours().toFixed(2);
             }
         }
@@ -139,6 +141,9 @@
                 color: yellow
             &.gray
                 color: gray
+        button
+            border: none
+            background-color: transparent
     .pod-ordered-list
         border-radius: 0
         border-top: 1px solid #222
