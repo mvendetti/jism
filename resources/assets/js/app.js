@@ -84,7 +84,14 @@ const routes = [
 var Store = {
     state: {
         cameras: [],
-        pods: []
+        pods: [],
+        settings: {
+            type: '0', protune: '1', format: '0',
+            resolution: '1', fps: '8', fov: '0',
+            colorTemp: '2', colorProfile: '1',
+            shutter: '13', iso: '8', sharpness: '1',
+            exposure: '4', orientation: '1'
+        }
     }
 };
 

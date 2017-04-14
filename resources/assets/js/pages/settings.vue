@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col-md-4 col-xs-4">
                         <label class="control-label">Type</label>
-                        <select v-model="type" class="form-control">
+                        <select v-model="settings.type" class="form-control">
                             <option value="0" selected>Video</option>
                             <option value="1">TimeLapse Video</option>
                             <option value="2">Video+Photo</option>
@@ -25,14 +25,14 @@
                     </div>
                     <div class="col-md-4 col-xs-4">
                         <label class="control-label">Protune</label>
-                        <select v-model="protune" class="form-control">
+                        <select v-model="settings.protune" class="form-control">
                             <option value="1" selected>On</option>
                             <option value="0">Off</option>
                         </select>
                     </div>
                     <div class="col-md-4 col-xs-4">
                         <label class="control-label">Format</label>
-                        <select v-model="format" class="form-control">
+                        <select v-model="settings.format" class="form-control">
                             <option value="0" selected>NTSC</option>
                             <option value="1">PAL</option>
                         </select>
@@ -44,12 +44,12 @@
                 <div class="row">
                     <div class="col-md-6 col-xs-6">
                         <label class="control-label">Resolution</label>
-                        <select v-model="resolution" class="form-control">
+                        <select v-model="settings.resolution" class="form-control">
                             <option value="1" selected>4K</option>
                             <option value="4">2.7K</option>
                         </select>
                         <label class="control-label">FPS</label>
-                        <select v-model="fps" class="form-control">
+                        <select v-model="settings.fps" class="form-control">
                             <option value="0">240</option>
                             <option value="1">120</option>
                             <option value="5">60</option>
@@ -57,14 +57,14 @@
                             <option value="10">24</option>
                         </select>
                         <label class="control-label">FOV</label>
-                        <select v-model="fov" class="form-control">
+                        <select v-model="settings.fov" class="form-control">
                             <option value="0" selected>Wide</option>
                             <option value="1">Medium</option>
                             <option value="2">Narrow</option>
                             <option value="4">Linear</option>
                         </select>
                         <label class="control-label">Color Temp</label>
-                        <select v-model="colorTemp" class="form-control">
+                        <select v-model="settings.colorTemp" class="form-control">
                             <option value="0">Auto</option>
                             <option value="1">3000K</option>
                             <option value="5">4000K</option>
@@ -76,7 +76,7 @@
 
                         </select>
                         <label class="control-label">Color Profile</label>
-                        <select v-model="colorProfile" class="form-control">
+                        <select v-model="settings.colorProfile" class="form-control">
                             <option value="0">GoPro Color</option>
                             <option value="1" selected>Flat</option>
                         </select>
@@ -84,7 +84,7 @@
 
                     <div class="col-md-6 col-xs-6">
                         <label class="control-label">Shutter Speed</label>
-                        <select v-model="shutter" class="form-control">
+                        <select v-model="settings.shutter" class="form-control">
                             <option value="3">1/24</option>
                             <option value="5">1/30</option>
                             <option value="6">1/48</option>
@@ -104,7 +104,7 @@
                             <option value="23">1/960</option>
                         </select>
                         <label class="control-label">ISO</label>
-                        <select v-model="iso" class="form-control">
+                        <select v-model="settings.iso" class="form-control">
                             <option value="0">6400</option>
                             <option value="1">1600</option>
                             <option value="2">400</option>
@@ -114,13 +114,13 @@
                             <option value="8" selected>100</option>
                         </select>
                         <label class="control-label">Sharpness</label>
-                        <select v-model="sharpness" class="form-control">
+                        <select v-model="settings.sharpness" class="form-control">
                             <option value="0">High</option>
                             <option value="1" selected>Medium</option>
                             <option value="2">Low</option>
                         </select>
                         <label class="control-label">Exposure</label>
-                        <select v-model="exposure" class="form-control">
+                        <select v-model="settings.exposure" class="form-control">
                             <option value="8">-2.0</option>
                             <option value="7">-1.5</option>
                             <option value="6">-1.0</option>
@@ -132,7 +132,7 @@
                             <option value="0">2.0</option>
                         </select>
                         <label class="control-label">Orientation</label><br />
-                        <select v-model="orientation" class="form-control">
+                        <select v-model="settings.orientation" class="form-control">
                             <option value="1" selected>Up</option>
                             <option value="2">Down</option>
                         </select>
@@ -150,11 +150,7 @@
     export default {
         data() {
             return {
-                type: '0', protune: '1', format: '0',
-                resolution: '1', fps: '8', fov: '0',
-                colorTemp: '2', colorProfile: '1',
-                shutter: '13', iso: '8', sharpness: '1',
-                exposure: '4', orientation: '1'
+                settings: this.$root.shared.settings
             }
         },
         methods: {
@@ -174,25 +170,20 @@
             },
             saveSettings() {
                 var data = {
-                    'type' : this.type,
-                    'protune' : this.protune,
-                    'format' : this.format,
-                    'resolution' : this.resolution,
-                    'fps' : this.fps,
-                    'fov' : this.fov,
-                    'colorTemp' : this.colorTemp,
-                    'colorProfile' : this.colorProfile,
-                    'shutter' : this.shuttter,
-                    'iso' : this.iso,
-                    'sharpness' : this.sharpness,
-                    'exposure' : this.exposure,
-                    'orientation' : this.orientation
+                    '68' : this.settings.type, '10' : this.settings.protune, '57' : this.settings.format,
+                    '2' : this.settings.resolution, '3' : this.settings.fps, '4' : this.settings.fov,
+                    '11' : this.settings.colorTemp, '12' : this.settings.colorProfile,
+                    '73' : this.settings.shuttter, '13' : this.settings.iso, '14' : this.settings.sharpness,
+                    '15' : this.settings.exposure, '52' : this.settings.orientation
                 }
                 axios.post('/api/group/1/settings', data).then((response) => {
                         console.log(response.data);
                     }, (error) => {
                         console.log(error.response.data);
                     });
+            },
+            format() {
+                //
             }
         }
     }

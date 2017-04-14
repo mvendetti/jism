@@ -27182,7 +27182,14 @@ var routes = [{ path: '/', name: 'home', component: PageHome }, { path: '/assign
 var Store = {
     state: {
         cameras: [],
-        pods: []
+        pods: [],
+        settings: {
+            type: '0', protune: '1', format: '0',
+            resolution: '1', fps: '8', fov: '0',
+            colorTemp: '2', colorProfile: '1',
+            shutter: '13', iso: '8', sharpness: '1',
+            exposure: '4', orientation: '1'
+        }
     }
 };
 
@@ -28105,6 +28112,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = {
     methods: {
         startRecording: function startRecording() {
+            // this.$root.shared.pushSettings or something before record
             axios.post('/api/group/1/record').then(function (response) {
                 console.log(response.data);
             }, function (error) {
@@ -28865,6 +28873,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = {
+    computed: {
+        pod: function pod() {
+            //
+        }
+    },
     methods: {
         sleep: function sleep() {
             axios.post('/api/pod/' + this.podId + '/sleep').then(function (response) {
@@ -29086,11 +29099,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
         return {
-            type: '0', protune: '1', format: '0',
-            resolution: '1', fps: '8', fov: '0',
-            colorTemp: '2', colorProfile: '1',
-            shutter: '13', iso: '8', sharpness: '1',
-            exposure: '4', orientation: '1'
+            settings: this.$root.shared.settings
         };
     },
 
@@ -29111,25 +29120,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         saveSettings: function saveSettings() {
             var data = {
-                'type': this.type,
-                'protune': this.protune,
-                'format': this.format,
-                'resolution': this.resolution,
-                'fps': this.fps,
-                'fov': this.fov,
-                'colorTemp': this.colorTemp,
-                'colorProfile': this.colorProfile,
-                'shutter': this.shuttter,
-                'iso': this.iso,
-                'sharpness': this.sharpness,
-                'exposure': this.exposure,
-                'orientation': this.orientation
+                '68': this.settings.type, '10': this.settings.protune, '57': this.settings.format,
+                '2': this.settings.resolution, '3': this.settings.fps, '4': this.settings.fov,
+                '11': this.settings.colorTemp, '12': this.settings.colorProfile,
+                '73': this.settings.shuttter, '13': this.settings.iso, '14': this.settings.sharpness,
+                '15': this.settings.exposure, '52': this.settings.orientation
             };
             axios.post('/api/group/1/settings', data).then(function (response) {
                 console.log(response.data);
             }, function (error) {
                 console.log(error.response.data);
             });
+        },
+        format: function format() {
+            //
         }
     }
 };
@@ -31659,13 +31663,7 @@ exports = module.exports = __webpack_require__(2)();
 exports.push([module.i, "", ""]);
 
 /***/ }),
-/* 185 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "", ""]);
-
-/***/ }),
+/* 185 */,
 /* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -50031,17 +50029,13 @@ module.exports = Component.exports
 /* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/* styles */
-__webpack_require__(266)
-
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(174),
   /* template */
   __webpack_require__(239),
   /* scopeId */
-  "data-v-22e49750",
+  null,
   /* cssModules */
   null
 )
@@ -50383,18 +50377,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('button', {
     staticClass: "btn btn-default",
     on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.sleep($event)
-      }
+      "click": _vm.sleep
     }
   }, [_vm._v("Sleep")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-default",
     on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.wake($event)
-      }
+      "click": _vm.wake
     }
   }, [_vm._v("Wake")])])])])], 1)
 },staticRenderFns: []}
@@ -50550,8 +50538,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.type),
-      expression: "type"
+      value: (_vm.settings.type),
+      expression: "settings.type"
     }],
     staticClass: "form-control",
     on: {
@@ -50562,7 +50550,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.type = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.settings.type = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
@@ -50590,8 +50578,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.protune),
-      expression: "protune"
+      value: (_vm.settings.protune),
+      expression: "settings.protune"
     }],
     staticClass: "form-control",
     on: {
@@ -50602,7 +50590,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.protune = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.settings.protune = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
@@ -50622,8 +50610,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.format),
-      expression: "format"
+      value: (_vm.settings.format),
+      expression: "settings.format"
     }],
     staticClass: "form-control",
     on: {
@@ -50634,7 +50622,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.format = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.settings.format = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
@@ -50658,8 +50646,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.resolution),
-      expression: "resolution"
+      value: (_vm.settings.resolution),
+      expression: "settings.resolution"
     }],
     staticClass: "form-control",
     on: {
@@ -50670,7 +50658,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.resolution = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.settings.resolution = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
@@ -50688,8 +50676,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.fps),
-      expression: "fps"
+      value: (_vm.settings.fps),
+      expression: "settings.fps"
     }],
     staticClass: "form-control",
     on: {
@@ -50700,7 +50688,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.fps = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.settings.fps = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
@@ -50730,8 +50718,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.fov),
-      expression: "fov"
+      value: (_vm.settings.fov),
+      expression: "settings.fov"
     }],
     staticClass: "form-control",
     on: {
@@ -50742,7 +50730,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.fov = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.settings.fov = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
@@ -50768,8 +50756,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.colorTemp),
-      expression: "colorTemp"
+      value: (_vm.settings.colorTemp),
+      expression: "settings.colorTemp"
     }],
     staticClass: "form-control",
     on: {
@@ -50780,7 +50768,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.colorTemp = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.settings.colorTemp = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
@@ -50822,8 +50810,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.colorProfile),
-      expression: "colorProfile"
+      value: (_vm.settings.colorProfile),
+      expression: "settings.colorProfile"
     }],
     staticClass: "form-control",
     on: {
@@ -50834,7 +50822,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.colorProfile = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.settings.colorProfile = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
@@ -50854,8 +50842,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.shutter),
-      expression: "shutter"
+      value: (_vm.settings.shutter),
+      expression: "settings.shutter"
     }],
     staticClass: "form-control",
     on: {
@@ -50866,7 +50854,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.shutter = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.settings.shutter = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
@@ -50944,8 +50932,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.iso),
-      expression: "iso"
+      value: (_vm.settings.iso),
+      expression: "settings.iso"
     }],
     staticClass: "form-control",
     on: {
@@ -50956,7 +50944,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.iso = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.settings.iso = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
@@ -50994,8 +50982,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.sharpness),
-      expression: "sharpness"
+      value: (_vm.settings.sharpness),
+      expression: "settings.sharpness"
     }],
     staticClass: "form-control",
     on: {
@@ -51006,7 +50994,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.sharpness = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.settings.sharpness = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
@@ -51028,8 +51016,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.exposure),
-      expression: "exposure"
+      value: (_vm.settings.exposure),
+      expression: "settings.exposure"
     }],
     staticClass: "form-control",
     on: {
@@ -51040,7 +51028,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.exposure = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.settings.exposure = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
@@ -51086,8 +51074,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.orientation),
-      expression: "orientation"
+      value: (_vm.settings.orientation),
+      expression: "settings.orientation"
     }],
     staticClass: "form-control",
     on: {
@@ -51098,7 +51086,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.orientation = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.settings.orientation = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
@@ -54169,32 +54157,7 @@ if(false) {
 }
 
 /***/ }),
-/* 266 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(185);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("4395fa58", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-22e49750&scoped=true!./../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!./../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./podSettings.vue", function() {
-     var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-22e49750&scoped=true!./../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!./../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./podSettings.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 266 */,
 /* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
