@@ -28417,12 +28417,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     computed: {
         cameras: function cameras() {
             return this.$root.shared.cameras;
+        },
+        pods: function pods() {
+            return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
         },
         durationSort: function durationSort() {
             return this.sort('status.parsed.status.remaining_video_duration.value');
@@ -28431,7 +28433,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return _.first(this.durationSort);
         },
         batterySort: function batterySort() {
-            return this.sort('status.parsed.status.internal_batter_level.gopro_subid');
+            return this.sort('status.parsed.status.internal_battery_level.gopro_subid');
         },
         batteryFirst: function batteryFirst() {
             return _.first(this.batterySort);
@@ -28449,13 +28451,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.$route.name === 'camera';
         }
     },
-    data: function data() {
-        return {
-            pods: [],
-            recordingStatus: 0
-        };
-    },
-
     methods: {
         sort: function sort(key, order) {
             if (typeof order === 'undefined') {
@@ -28731,22 +28726,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    data: function data() {
-        return {
-            camId: 0
-        };
+    computed: {
+        pod: function pod() {
+            var pod_id = this.$route.params.pod_id,
+                queryFn = function queryFn(pod) {
+                return pod.number == pod_id;
+            };
+            return _.find(this.$root.shared.pods, queryFn);
+        },
+        cameraLeftId: function cameraLeftId() {
+            return this.pod.camera_left_id;
+        },
+        cameraRightId: function cameraRightId() {
+            return this.pod.camera_right_id;
+        }
     },
-
     methods: {
         sleep: function sleep() {
-            axios.post('/api/camera/' + this.camId + '/sleep').then(function (response) {
-                console.log(response.data);
-            }, function (error) {
-                console.log(error.response.data);
-            });
+            var camParam = this.$route.params.cam_id;
+            if (camParam === 'left') {
+                this.sleepOrWakePost(this.cameraLeftId, 'sleep');
+            } else if (camParam === 'right') {
+                this.sleepOrWakePost(this.cameraRightId, 'sleep');
+            }
         },
         wake: function wake() {
-            axios.post('/api/camera/' + this.camId + '/wake').then(function (response) {
+            //
+        },
+        sleepOrWakePost: function sleepOrWakePost(id, state) {
+            axios.post('/api/camera/' + id + '/' + state).then(function (response) {
                 console.log(response.data);
             }, function (error) {
                 console.log(error.response.data);
@@ -29066,14 +29074,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
         return {
+            type: '0', protune: '1', format: '0',
             resolution: '1', fps: '8', fov: '0',
             colorTemp: '2', colorProfile: '1',
-            shutter: '13', iso: '8',
-            sharpness: '1', exposure: '4', orientation: '1'
+            shutter: '13', iso: '8', sharpness: '1',
+            exposure: '4', orientation: '1'
         };
     },
 
@@ -29094,6 +29111,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         saveSettings: function saveSettings() {
             var data = {
+                'type': this.type,
+                'protune': this.protune,
+                'format': this.format,
                 'resolution': this.resolution,
                 'fps': this.fps,
                 'fov': this.fov,
@@ -29102,7 +29122,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'shutter': this.shuttter,
                 'iso': this.iso,
                 'sharpness': this.sharpness,
-                'exposure': this.exposure
+                'exposure': this.exposure,
+                'orientation': this.orientation
             };
             axios.post('/api/group/1/settings', data).then(function (response) {
                 console.log(response.data);
@@ -31659,13 +31680,7 @@ exports = module.exports = __webpack_require__(2)();
 exports.push([module.i, "", ""]);
 
 /***/ }),
-/* 188 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "", ""]);
-
-/***/ }),
+/* 188 */,
 /* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31680,13 +31695,7 @@ exports = module.exports = __webpack_require__(2)();
 exports.push([module.i, "", ""]);
 
 /***/ }),
-/* 191 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "", ""]);
-
-/***/ }),
+/* 191 */,
 /* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -49878,17 +49887,13 @@ module.exports = Component.exports
 /* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/* styles */
-__webpack_require__(272)
-
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(170),
   /* template */
   __webpack_require__(246),
   /* scopeId */
-  "data-v-5c6359c8",
+  null,
   /* cssModules */
   null
 )
@@ -50102,17 +50107,13 @@ module.exports = Component.exports
 /* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/* styles */
-__webpack_require__(269)
-
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(176),
   /* template */
   __webpack_require__(243),
   /* scopeId */
-  "data-v-43ee0803",
+  null,
   /* cssModules */
   null
 )
@@ -50545,21 +50546,107 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-md-4 col-xs-4"
   }, [_c('label', {
     staticClass: "control-label"
-  }, [_vm._v("Video:\n                        "), _c('label', {
-    staticClass: "label label-default"
-  }, [_vm._v("ON")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Type")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.type),
+      expression: "type"
+    }],
+    staticClass: "form-control",
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.type = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "0",
+      "selected": ""
+    }
+  }, [_vm._v("Video")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v("TimeLapse Video")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "2"
+    }
+  }, [_vm._v("Video+Photo")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "3"
+    }
+  }, [_vm._v("Looping")])])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 col-xs-4"
   }, [_c('label', {
     staticClass: "control-label"
-  }, [_vm._v("Pro-Tune:\n                        "), _c('label', {
-    staticClass: "label label-default"
-  }, [_vm._v("ON")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Protune")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.protune),
+      expression: "protune"
+    }],
+    staticClass: "form-control",
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.protune = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "1",
+      "selected": ""
+    }
+  }, [_vm._v("On")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v("Off")])])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 col-xs-4"
   }, [_c('label', {
     staticClass: "control-label"
-  }, [_vm._v("Format:\n                        "), _c('label', {
-    staticClass: "label label-default"
-  }, [_vm._v("NTSC")])])])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+  }, [_vm._v("Format")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.format),
+      expression: "format"
+    }],
+    staticClass: "form-control",
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.format = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "0",
+      "selected": ""
+    }
+  }, [_vm._v("NTSC")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v("PAL")])])])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('div', {
     staticClass: "row"
@@ -51117,18 +51204,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Flip")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-default",
     on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.sleep($event)
-      }
+      "click": _vm.sleep
     }
   }, [_vm._v("Sleep")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-default",
     on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.wake($event)
-      }
+      "click": _vm.wake
     }
   }, [_vm._v("Wake")])], 1)])])], 1)
 },staticRenderFns: []}
@@ -51325,22 +51406,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "data-toggle": "dropdown"
     }
-  }, [(_vm.batteryFirst.status.parsed.status.internal_batter_level.gopro_subid === 1) ? _c('i', {
+  }, [(_vm.batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 1) ? _c('i', {
     staticClass: "fa fa-battery-quarter",
     attrs: {
       "aria-hidden": "true"
     }
-  }) : _vm._e(), _vm._v(" "), (_vm.batteryFirst.status.parsed.status.internal_batter_level.gopro_subid === 2) ? _c('i', {
+  }) : _vm._e(), _vm._v(" "), (_vm.batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 2) ? _c('i', {
     staticClass: "fa fa-battery-half",
     attrs: {
       "aria-hidden": "true"
     }
-  }) : _vm._e(), _vm._v(" "), (_vm.batteryFirst.status.parsed.status.internal_batter_level.gopro_subid === 3) ? _c('i', {
+  }) : _vm._e(), _vm._v(" "), (_vm.batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 3) ? _c('i', {
     staticClass: "fa fa-battery-full",
     attrs: {
       "aria-hidden": "true"
     }
-  }) : _vm._e(), _vm._v(" "), (_vm.batteryFirst.status.parsed.status.internal_batter_level.gopro_subid === 4) ? _c('i', {
+  }) : _vm._e(), _vm._v(" "), (_vm.batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 4) ? _c('i', {
     staticClass: "fa fa-bolt",
     attrs: {
       "aria-hidden": "true"
@@ -51348,22 +51429,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu"
   }, _vm._l((_vm.batterySort), function(battery) {
-    return _c('li', [(battery.status.parsed.status.internal_batter_level.gopro_subid === 1) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
+    return _c('li', [(battery.status.parsed.status.internal_battery_level.gopro_subid === 1) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
       staticClass: "fa fa-battery-quarter",
       attrs: {
         "aria-hidden": "true"
       }
-    })]) : _vm._e(), _vm._v(" "), (battery.status.parsed.status.internal_batter_level.gopro_subid === 2) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
+    })]) : _vm._e(), _vm._v(" "), (battery.status.parsed.status.internal_battery_level.gopro_subid === 2) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
       staticClass: "fa fa-battery-half",
       attrs: {
         "aria-hidden": "true"
       }
-    })]) : _vm._e(), _vm._v(" "), (battery.status.parsed.status.internal_batter_level.gopro_subid === 3) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
+    })]) : _vm._e(), _vm._v(" "), (battery.status.parsed.status.internal_battery_level.gopro_subid === 3) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
       staticClass: "fa fa-battery-full",
       attrs: {
         "aria-hidden": "true"
       }
-    })]) : _vm._e(), _vm._v(" "), (battery.status.parsed.status.internal_batter_level.gopro_subid === 4) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
+    })]) : _vm._e(), _vm._v(" "), (battery.status.parsed.status.internal_battery_level.gopro_subid === 4) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
       staticClass: "fa fa-bolt",
       attrs: {
         "aria-hidden": "true"
@@ -51378,7 +51459,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "data-toggle": "dropdown"
     }
-  }, [_vm._v(" " + _vm._s(_vm._f("secondsToHours")(_vm.durationFirst.status.parsed.status.remaining_video_duration.value)) + " hours\n                    ")]) : _vm._e(), _vm._v(" "), _c('ul', {
+  }, [_vm._v("\n                        " + _vm._s(_vm._f("secondsToHours")(_vm.durationFirst.status.parsed.status.remaining_video_duration.value)) + " hours\n                    ")]) : _vm._e(), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu"
   }, _vm._l((_vm.durationSort), function(duration) {
     return _c('li', [_c('a', [_vm._v("P" + _vm._s(duration.pod_id) + "/" + _vm._s(duration.pod_side) + ": " + _vm._s(_vm._f("secondsToHours")(duration.status.parsed.status.remaining_video_duration.value)) + " hours")])])
@@ -51404,11 +51485,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "to": {
           name: 'pod',
           params: {
-            pod_id: pod.id
+            pod_id: pod.number
           }
         }
       }
-    }, [_vm._v(_vm._s(pod.name))])], 1) : _vm._e()
+    }, [_vm._v("P" + _vm._s(pod.number))])], 1) : _vm._e()
   }), _vm._v(" "), (_vm.podRoute || _vm.camRoute) ? _c('li', {
     staticClass: "list-item"
   }, [_c('router-link', {
@@ -54166,32 +54247,7 @@ if(false) {
 }
 
 /***/ }),
-/* 269 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(188);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("77f276b7", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-43ee0803&scoped=true!./../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!./../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./settings.vue", function() {
-     var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-43ee0803&scoped=true!./../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!./../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./settings.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 269 */,
 /* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -54244,32 +54300,7 @@ if(false) {
 }
 
 /***/ }),
-/* 272 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(191);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("3931d40c", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-5c6359c8&scoped=true!./../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!./../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./cameraSettings.vue", function() {
-     var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-5c6359c8&scoped=true!./../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!./../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./cameraSettings.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 272 */,
 /* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
