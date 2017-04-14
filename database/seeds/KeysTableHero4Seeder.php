@@ -45,7 +45,7 @@ class KeysTableHero4Seeder extends Seeder
             [
                 'model_number' => 13,
                 'keytype' => 'status',
-                'slug' => 'internal_batter_level',
+                'slug' => 'internal_battery_level',
                 'gopro_id' => 2,
                 'value' => 'Internal Battery Level',
                 'datatype' => 'opts',
