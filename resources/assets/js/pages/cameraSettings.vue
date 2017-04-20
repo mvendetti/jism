@@ -27,19 +27,27 @@
             },
             cameraRightId() {
                 return this.pod.camera_right_id;
+            },
+            camId() {
+                return this.$route.params.cam_id;
             }
         },
         methods: {
             sleep() {
-                var camParam = this.$route.params.cam_id;
-                if(camParam === 'left') {
-                    this.sleepOrWakePost(this.cameraLeftId, 'sleep');
-                } else if(camParam === 'right') {
-                    this.sleepOrWakePost(this.cameraRightId, 'sleep');
+                var sleep = 'sleep';
+                if(this.camId === 'left') {
+                    this.sleepOrWakePost(this.cameraLeftId, sleep);
+                } else if(this.camId === 'right') {
+                    this.sleepOrWakePost(this.cameraRightId, sleep);
                 }
             },
             wake() {
-                //
+                var wake = 'wake';
+                if(this.camId === 'left') {
+                    this.sleepOrWakePost(this.cameraLeftId, wake);
+                } else if(this.camId === 'right') {
+                    this.sleepOrWakePost(this.cameraRightId, wake)
+                }
             },
             sleepOrWakePost(id, state) {
                 axios.post('/api/camera/' + id + '/' + state).then((response) => {

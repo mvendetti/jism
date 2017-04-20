@@ -28112,7 +28112,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = {
     methods: {
         startRecording: function startRecording() {
-            // this.$root.shared.pushSettings or something before record
             axios.post('/api/group/1/record').then(function (response) {
                 console.log(response.data);
             }, function (error) {
@@ -28747,19 +28746,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         cameraRightId: function cameraRightId() {
             return this.pod.camera_right_id;
+        },
+        camId: function camId() {
+            return this.$route.params.cam_id;
         }
     },
     methods: {
         sleep: function sleep() {
-            var camParam = this.$route.params.cam_id;
-            if (camParam === 'left') {
-                this.sleepOrWakePost(this.cameraLeftId, 'sleep');
-            } else if (camParam === 'right') {
-                this.sleepOrWakePost(this.cameraRightId, 'sleep');
+            var sleep = 'sleep';
+            if (this.camId === 'left') {
+                this.sleepOrWakePost(this.cameraLeftId, sleep);
+            } else if (this.camId === 'right') {
+                this.sleepOrWakePost(this.cameraRightId, sleep);
             }
         },
         wake: function wake() {
-            //
+            var wake = 'wake';
+            if (this.camId === 'left') {
+                this.sleepOrWakePost(this.cameraLeftId, wake);
+            } else if (this.camId === 'right') {
+                this.sleepOrWakePost(this.cameraRightId, wake);
+            }
         },
         sleepOrWakePost: function sleepOrWakePost(id, state) {
             axios.post('/api/camera/' + id + '/' + state).then(function (response) {
@@ -28874,8 +28881,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = {
     computed: {
-        pod: function pod() {
-            //
+        podId: function podId() {
+            return this.$route.params.pod_id;
         }
     },
     methods: {
@@ -31729,13 +31736,7 @@ exports = module.exports = __webpack_require__(2)();
 exports.push([module.i, "", ""]);
 
 /***/ }),
-/* 197 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "", ""]);
-
-/***/ }),
+/* 197 */,
 /* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -49809,17 +49810,13 @@ module.exports = Component.exports
 /* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/* styles */
-__webpack_require__(278)
-
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(168),
   /* template */
   __webpack_require__(252),
   /* scopeId */
-  "data-v-7a2fd005",
+  null,
   /* cssModules */
   null
 )
@@ -54394,32 +54391,7 @@ if(false) {
 }
 
 /***/ }),
-/* 278 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(197);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("ea55b54c", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-7a2fd005&scoped=true!./../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!./../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./camera.vue", function() {
-     var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-7a2fd005&scoped=true!./../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!./../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./camera.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 278 */,
 /* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
