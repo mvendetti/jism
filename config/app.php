@@ -179,7 +179,7 @@ return [
 
         Collective\Remote\RemoteServiceProvider::class,
 
-        kelixlabs\KelixNetTools\kelixNetToolsServiceProvider::class,
+        kelixlabs\KelixNetTools\KelixNetToolsServiceProvider::class,
 
     ],
 
