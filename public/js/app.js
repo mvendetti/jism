@@ -28419,11 +28419,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     computed: {
@@ -28479,10 +28474,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
 //
 //
 //
@@ -31744,7 +31735,7 @@ exports.push([module.i, "\n.fa-circle[data-v-833ffa5a] {\n  color: firebrick;\n}
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.top-status-bar {\n  padding: 0.25em;\n  text-align: center;\n}\n.top-status-bar i {\n    margin-right: 75px;\n}\n.top-status-bar i.green {\n      color: green;\n}\n.top-status-bar i.red {\n      color: red;\n}\n.top-status-bar i.yellow {\n      color: yellow;\n}\n.top-status-bar i.gray {\n      color: gray;\n}\n.top-status-bar button {\n    border: none;\n    background-color: transparent;\n}\n.pod-ordered-list {\n  border-radius: 0;\n  border-top: 1px solid #222;\n  border-bottom: 1px solid #222;\n  background-color: #e2e2e2;\n  padding: 0.75em;\n}\n.pod-ordered-list li::before {\n    padding: 0 15px;\n}\n.pod-ordered-list li a.active {\n    color: #777;\n}\n.pod-ordered-list li a:hover, .pod-ordered-list li a:focus {\n    text-decoration: none;\n}\n.pod-ordered-list .list-item {\n    font-weight: 900;\n    font-size: 1.1em;\n}\n", ""]);
+exports.push([module.i, "\n.top-status-bar {\n  padding: 0.25em;\n  text-align: center;\n}\n.top-status-bar i {\n    margin-right: 75px;\n}\n.top-status-bar i.green {\n      color: green;\n}\n.top-status-bar i.red {\n      color: red;\n}\n.top-status-bar i.yellow {\n      color: yellow;\n}\n.top-status-bar i.gray {\n      color: gray;\n}\n.top-status-bar button {\n    border: none;\n    background-color: transparent;\n}\n.pod-ordered-list {\n  border-radius: 0;\n  border-top: 1px solid #222;\n  border-bottom: 1px solid #222;\n  background-color: #e2e2e2;\n  padding: 0.75em;\n}\n.pod-ordered-list li::before {\n    padding: 0 15px;\n}\n.pod-ordered-list li a.active {\n    color: #777;\n}\n.pod-ordered-list li a:hover, .pod-ordered-list li a:focus {\n    text-decoration: none;\n}\n.pod-ordered-list .list-item {\n    font-weight: 900;\n    font-size: 1.1em;\n}\n.dropdown-menu.duration {\n  left: auto;\n  right: 0;\n  float: right;\n}\n", ""]);
 
 /***/ }),
 /* 196 */
@@ -51368,8 +51359,6 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('header', [_c('div', {
     staticClass: "row top-status-bar"
-  }, [_c('div', {
-    staticClass: "col-xs-4"
   }, [_c('span', {
     staticClass: "dropdown"
   }, [_vm._m(0), _vm._v(" "), _c('ul', {
@@ -51378,9 +51367,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('li', [_c('a', [_vm._v("P" + _vm._s(camera.pod_id) + "/" + _vm._s(camera.pod_side) + ": "), _c('i', {
       class: ['fa fa-circle', !camera.online ? 'gray' : 'green']
     })])])
-  }))])]), _vm._v(" "), _c('div', {
-    staticClass: "col-xs-4"
-  }, [_c('span', {
+  }))]), _vm._v(" "), _c('span', {
     staticClass: "dropdown"
   }, [(_vm.batteryFirst) ? _c('button', {
     staticClass: "dropdown-toggle",
@@ -51407,7 +51394,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "aria-hidden": "true"
     }
-  }) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('ul', {
+  }) : _c('i', {
+    staticClass: "fa fa-ban",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]) : _vm._e(), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu"
   }, _vm._l((_vm.batterySort), function(battery) {
     return _c('li', [(battery.status.parsed.status.internal_battery_level.gopro_subid === 1) ? _c('a', [_vm._v("P" + _vm._s(battery.pod_id) + "/" + _vm._s(battery.pod_side) + ": "), _c('i', {
@@ -51431,20 +51423,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "aria-hidden": "true"
       }
     })]) : _vm._e()])
-  }))])]), _vm._v(" "), _c('div', {
-    staticClass: "col-xs-4"
-  }, [_c('span', {
+  }))]), _vm._v(" "), _c('span', {
     staticClass: "dropdown"
   }, [(_vm.durationFirst) ? _c('button', {
     staticClass: "dropdown-toggle",
     attrs: {
       "data-toggle": "dropdown"
     }
-  }, [_vm._v("\n                        " + _vm._s(_vm._f("secondsToHours")(_vm.durationFirst.status.parsed.status.remaining_video_duration.value)) + " hours\n                    ")]) : _vm._e(), _vm._v(" "), _c('ul', {
-    staticClass: "dropdown-menu"
+  }, [_vm._v("\n                    " + _vm._s(_vm._f("secondsToHours")(_vm.durationFirst.status.parsed.status.remaining_video_duration.value)) + " hours\n                ")]) : _vm._e(), _vm._v(" "), _c('ul', {
+    staticClass: "dropdown-menu duration"
   }, _vm._l((_vm.durationSort), function(duration) {
     return _c('li', [_c('a', [_vm._v("P" + _vm._s(duration.pod_id) + "/" + _vm._s(duration.pod_side) + ": " + _vm._s(_vm._f("secondsToHours")(duration.status.parsed.status.remaining_video_duration.value)) + " hours")])])
-  }))])])]), _vm._v(" "), _c('div', {
+  }))])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-12"
@@ -51711,9 +51701,9 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('jism-header'), _vm._v(" "), _c('div', {
+  return _c('div', {
     staticClass: "container wrapper"
-  }, [_vm._t("default")], 2), _vm._v(" "), _c('jism-footer')], 1)
+  }, [_vm._t("default")], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
