@@ -1,10 +1,6 @@
 <template>
-    <div>
-        <jism-header></jism-header>
-        <div class="container wrapper">
-            <slot></slot>
-        </div>
-        <jism-footer></jism-footer>
+    <div class="container wrapper">
+        <slot></slot>
     </div>
 </template>
 
