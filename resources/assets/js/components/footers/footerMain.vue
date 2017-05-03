@@ -6,13 +6,3 @@
         <router-link :to="{ name: 'settings' }"><i class="fa fa-cog" aria-hidden="true"></i></router-link>
     </div>
 </template>
-
-<script>
-    export default {
-        //
-    }
-</script>
-
-<style lang="sass">
-
-</style>

@@ -8,13 +8,3 @@
         <router-link :to="{ name: 'cam-settings' }"><i class="fa fa-arrow-left" aria-hidden="true"></i></router-link>
     </div>
 </template>
-
-<script>
-    export default {
-        //
-    }
-</script>
-
-<style lang="sass">
-
-</style>

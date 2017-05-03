@@ -9,13 +9,3 @@
         <router-link v-if="$route.params.cam_id === 'right'" :to="{ path: '/pod/' + $route.params.pod_id +'/cam/' + $route.params.cam_id + '/settings' }"><i class="fa fa-cog" aria-hidden="true"></i></router-link>
     </div>
 </template>
-
-<script>
-    export default {
-        //
-    }
-</script>
-
-<style lang="sass" scoped>
-
-</style>

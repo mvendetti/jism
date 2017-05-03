@@ -9,13 +9,3 @@
         <router-link v-if="$route.name === 'disable'" :to="{ name: 'assign' }"><i class="fa fa-arrow-left" aria-hidden="true"></i></router-link>
     </div>
 </template>
-
-<script>
-    export default {
-        //
-    }
-</script>
-
-<style lang="sass">
-
-</style>
