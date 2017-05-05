@@ -1,16 +1,12 @@
 <template>
-    <i @click="startRecording" class="fa fa-circle" aria-hidden="true"></i>
+    <i v-on:click="start" class="fa fa-circle" aria-hidden="true"></i>
 </template>
 
 <script>
     export default {
         methods: {
-            startRecording : function() {
-                axios.post('/api/group/1/record').then((response) => {
-                    console.log(response.data);
-                }, (error) => {
-                    console.log(error.response.data);
-                });
+            start() {
+                this.$emit('record');
             }
         }
     }

@@ -1,17 +1,9 @@
 <template>
     <div>
         <header>
+            <h1 @click="idle_perfect">asgasgasg</h1>
             <div class="row top-status-bar">
-                <span class="dropdown">
-                    <button class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-circle green"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li v-for="camera in cameras">
-                            <a>P{{ camera.pod_id }}/{{ camera.pod_side }}: <i :class="['fa fa-circle', !camera.online ? 'gray' : 'green']"></i></a>
-                        </li>
-                    </ul>
-                </span>
+                <i :class="['fa fa-circle', this.isOnline ? 'green' : 'yellow']"></i></span>
                 <span class="dropdown">
                     <button v-if="batteryFirst" class="dropdown-toggle" data-toggle="dropdown">
                         <i v-if="batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 1" class="fa fa-battery-quarter" aria-hidden="true"></i>
@@ -106,12 +98,58 @@
                 return this.$route.name === 'camera';
             }
         },
+        data() {
+            return {
+                isOnline: false,
+                isRecording: false,
+            }
+        },
         methods: {
             sort(key, order) {
                 if(typeof order === 'undefined') {
                     order = 'asc';
                 }
                 return _.orderBy(this.cameras, [key], [order]);
+            },
+            is_recording(callback) {
+                axios.get('/api/group/1/status').then((response) => {
+                    var isRecording = response.data.is_recording;
+                    if(isRecording) {
+                        var self = this;
+                        setTimeout(function() {
+                            self.is_recording(callback);
+                        }, 5000);
+                    } else {
+                        this.isRecording = false
+                        // change status icon
+                        return false;
+                    }
+                }, (error) => {
+                    console.log(error.response.data);
+                });
+            },
+            idle_perfect() {
+                _.forEach(this.cameras, function(value, key) {
+                    var isOnline = value.online,
+                        hasSdCard = value.status.parsed.status.card_inserted.value,
+                        timeLeft = value.status.parsed.status.remaining_video_duration.value,
+                        hasBattery = value.status.parsed.status.internal_battery.value,
+                        batteryLeft = value.status.parsed.status.internal_battery_level.value;
+                });
+            },
+            idle_update() {
+                axios.get('/api/group/1/status').then((response) => {
+                    var timestamp = response.data;
+                }, (error) => {
+                    console.log(error.response.data);
+                });
+            },
+            startRecording() {
+                axios.post('/api/group/1/record').then((response) => {
+                    //
+                }, (error) => {
+                    console.log(error.response.data);
+                });
             }
         },
         filters: {
@@ -129,13 +167,13 @@
         i
             margin-right: 75px
             &.green
-                color: green
+                color: #6AA84F
             &.red
-                color: red
+                color: #CC0000
             &.yellow
-                color: yellow
+                color: #FFD966
             &.gray
-                color: gray
+                color: #CCCCCC
         button
             border: none
             background-color: transparent

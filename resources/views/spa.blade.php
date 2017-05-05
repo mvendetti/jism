@@ -9,9 +9,7 @@
     </head>
     <body>
         <div id="jism-app">
-            <jism-header></jism-header>
             <router-view></router-view>
-            <jism-footer></jism-footer>
         </div>
     </body>
     <script src="/js/app.js"></script>
