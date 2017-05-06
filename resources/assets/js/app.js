@@ -1,11 +1,14 @@
 require('./bootstrap');
 
+import store from './store';
+
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 const LayoutPrimary = require('./layouts/primary.vue')
 
 const Header = require('./components/header.vue')
+const HeaderTimer = require('./components/header/timer.vue')
 
 const PageHome = require('./pages/home.vue')
 const Settings = require('./pages/settings.vue')
@@ -38,6 +41,7 @@ const FooterReview = require('./components/footers/footerReview.vue')
 Vue.component('jism-layout-primary', LayoutPrimary);
 
 Vue.component('jism-header', Header);
+Vue.component('jism-header-timer', HeaderTimer);
 
 Vue.component('jism-page-home', PageHome);
 Vue.component('jism-settings', Settings);
@@ -98,12 +102,13 @@ var Store = {
 const router = new VueRouter({
     routes, // short for routes: routes
     linkActiveClass: 'active'
-})
+});
 
-const app = new Vue({
+Jism.Vue = new Vue({
     el: '#jism-app',
     data: {
         shared: Store.state
     },
-    router
+    router,
+    store
 });

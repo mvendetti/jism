@@ -1,4 +1,3 @@
-
 window._ = require('lodash');
 
 /**
@@ -56,5 +55,4 @@ window.axios = require('axios');
 //     key: 'your-pusher-key'
 // });
 
-require('./lib/Cameras');
-require('./lib/Pods');
+require('./lib/bootstrap');

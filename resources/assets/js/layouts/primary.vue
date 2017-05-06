@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        created() {
+        mounted() {
             var myCameras = new Cameras(),
                 self = this;
             myCameras.getAll();
@@ -19,6 +19,10 @@
             setTimeout(function() {
                 self.$root.shared.pods = myPods.pods;
             }, 500);
+
+
+            this.$store.dispatch('status/LOAD');
+
         }
     }
 </script>

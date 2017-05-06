@@ -1,7 +1,6 @@
 <template>
     <div>
         <header>
-            <h1 @click="idle_perfect">asgasgasg</h1>
             <div class="row top-status-bar">
                 <i :class="['fa fa-circle', this.isOnline ? 'green' : 'yellow']"></i></span>
                 <span class="dropdown">
@@ -21,16 +20,7 @@
                         </li>
                     </ul>
                 </span>
-                <span class="dropdown">
-                    <button v-if="durationFirst" class="dropdown-toggle" data-toggle="dropdown">
-                        {{ durationFirst.status.parsed.status.remaining_video_duration.value | secondsToHours }} hours
-                    </button>
-                    <ul class="dropdown-menu duration">
-                        <li v-for="duration in durationSort">
-                            <a>P{{ duration.pod_id }}/{{ duration.pod_side }}: {{ duration.status.parsed.status.remaining_video_duration.value | secondsToHours }} hours</a>
-                        </li>
-                    </ul>
-                </span>
+                <jism-header-timer></jism-header-timer>
             </div>
 
             <div class="row">
@@ -72,12 +62,6 @@
             },
             pods() {
                 return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
-            },
-            durationSort() {
-                return this.sort('status.parsed.status.remaining_video_duration.value');
-            },
-            durationFirst() {
-                return _.first(this.durationSort);
             },
             batterySort() {
                 return this.sort('status.parsed.status.internal_battery_level.gopro_subid');
@@ -150,11 +134,6 @@
                 }, (error) => {
                     console.log(error.response.data);
                 });
-            }
-        },
-        filters: {
-            secondsToHours(value) {
-                return moment.duration(value, 'seconds').asHours().toFixed(2);
             }
         }
     };
