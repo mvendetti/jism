@@ -2,24 +2,8 @@
     <div>
         <header>
             <div class="row top-status-bar">
-                <i :class="['fa fa-circle', this.isOnline ? 'green' : 'yellow']"></i></span>
-                <span class="dropdown">
-                    <button v-if="batteryFirst" class="dropdown-toggle" data-toggle="dropdown">
-                        <i v-if="batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 1" class="fa fa-battery-quarter" aria-hidden="true"></i>
-                        <i v-if="batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 2" class="fa fa-battery-half" aria-hidden="true"></i>
-                        <i v-if="batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 3" class="fa fa-battery-full" aria-hidden="true"></i>
-                        <i v-if="batteryFirst.status.parsed.status.internal_battery_level.gopro_subid === 4" class="fa fa-bolt" aria-hidden="true"></i>
-                        <i v-else class="fa fa-ban" aria-hidden="true"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li v-for="battery in batterySort">
-                            <a v-if="battery.status.parsed.status.internal_battery_level.gopro_subid === 1">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-battery-quarter" aria-hidden="true"></i></a>
-                            <a v-if="battery.status.parsed.status.internal_battery_level.gopro_subid === 2">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-battery-half" aria-hidden="true"></i></a>
-                            <a v-if="battery.status.parsed.status.internal_battery_level.gopro_subid === 3">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-battery-full" aria-hidden="true"></i></a>
-                            <a v-if="battery.status.parsed.status.internal_battery_level.gopro_subid === 4">P{{ battery.pod_id }}/{{ battery.pod_side }}: <i class="fa fa-bolt" aria-hidden="true"></i></a>
-                        </li>
-                    </ul>
-                </span>
+                <jism-header-status></jism-header-status>
+                <jism-header-battery></jism-header-battery>
                 <jism-header-timer></jism-header-timer>
             </div>
 
@@ -80,12 +64,6 @@
             },
             camRoute() {
                 return this.$route.name === 'camera';
-            }
-        },
-        data() {
-            return {
-                isOnline: false,
-                isRecording: false,
             }
         },
         methods: {

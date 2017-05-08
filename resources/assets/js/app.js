@@ -9,67 +9,71 @@ const LayoutPrimary = require('./layouts/primary.vue')
 
 const Header = require('./components/header.vue')
 const HeaderTimer = require('./components/header/timer.vue')
+const HeaderStatus = require('./components/header/status.vue')
+const HeaderBattery = require('./components/header/battery.vue')
 
-const PageHome = require('./pages/home.vue')
-const Settings = require('./pages/settings.vue')
-const Camera = require('./pages/camera.vue')
-const CameraSettings = require('./pages/cameraSettings.vue')
 const Pod = require('./pages/pod.vue')
+const Add = require('./pages/add.vue')
+const PageHome = require('./pages/home.vue')
+const Camera = require('./pages/camera.vue')
+const Remove = require('./pages/remove.vue')
+const Disable = require('./pages/disable.vue')
+const Settings = require('./pages/settings.vue')
 const PodSettings = require('./pages/podSettings.vue')
 const AssignCamera = require('./pages/assignCamera.vue')
 const CameraReview = require('./pages/cameraReview.vue')
-const Add = require('./pages/add.vue')
-const Remove = require('./pages/remove.vue')
-const Disable = require('./pages/disable.vue')
+const CameraSettings = require('./pages/cameraSettings.vue')
 
 const StopButton = require('./components/buttons/stop.vue')
-const RecordButton = require('./components/buttons/record.vue')
-const BackwardButton = require('./components/buttons/backward.vue')
 const PauseButton = require('./components/buttons/pause.vue')
+const RecordButton = require('./components/buttons/record.vue')
 const ForwardButton = require('./components/buttons/forward.vue')
+const BackwardButton = require('./components/buttons/backward.vue')
 const ReferenceButton = require('./components/buttons/reference.vue')
 
 const Footer = require('./components/footers/footer.vue')
-const FooterDefault = require('./components/footers/footerDefault.vue')
-const FooterMain = require('./components/footers/footerMain.vue')
-const FooterMainSettings = require('./components/footers/footerMainSettings.vue')
-const FooterAssign = require('./components/footers/footerAssign.vue')
 const FooterPod = require('./components/footers/footerPod.vue')
+const FooterMain = require('./components/footers/footerMain.vue')
+const FooterAssign = require('./components/footers/footerAssign.vue')
 const FooterCamera = require('./components/footers/footerCamera.vue')
 const FooterReview = require('./components/footers/footerReview.vue')
+const FooterDefault = require('./components/footers/footerDefault.vue')
+const FooterMainSettings = require('./components/footers/footerMainSettings.vue')
 
 Vue.component('jism-layout-primary', LayoutPrimary);
 
 Vue.component('jism-header', Header);
 Vue.component('jism-header-timer', HeaderTimer);
+Vue.component('jism-header-status', HeaderStatus);
+Vue.component('jism-header-battery', HeaderBattery);
 
-Vue.component('jism-page-home', PageHome);
-Vue.component('jism-settings', Settings);
-Vue.component('jism-camera', Camera);
-Vue.component('jism-camera-settings', CameraSettings);
 Vue.component('jism-pod', Pod);
+Vue.component('jism-add', Add);
+Vue.component('jism-camera', Camera);
+Vue.component('jism-remove', Remove);
+Vue.component('jism-disable', Disable);
+Vue.component('jism-settings', Settings);
+Vue.component('jism-page-home', PageHome);
 Vue.component('jism-pod-settings', PodSettings);
 Vue.component('jism-assign-camera', AssignCamera);
 Vue.component('jism-camera-review', CameraReview);
-Vue.component('jism-add', Add);
-Vue.component('jism-remove', Remove);
-Vue.component('jism-disable', Disable);
+Vue.component('jism-camera-settings', CameraSettings);
 
 Vue.component('jism-button-stop', StopButton);
-Vue.component('jism-button-record', RecordButton);
-Vue.component('jism-button-backward', BackwardButton);
 Vue.component('jism-button-pause', PauseButton);
+Vue.component('jism-button-record', RecordButton);
 Vue.component('jism-button-forward', ForwardButton);
+Vue.component('jism-button-backward', BackwardButton);
 Vue.component('jism-button-reference', ReferenceButton);
 
 Vue.component('jism-footer', Footer);
-Vue.component('jism-footer-default', FooterDefault);
-Vue.component('jism-footer-main', FooterMain);
-Vue.component('jism-footer-main-settings', FooterMainSettings);
-Vue.component('jism-footer-assign', FooterAssign);
 Vue.component('jism-footer-pod', FooterPod);
+Vue.component('jism-footer-main', FooterMain);
+Vue.component('jism-footer-assign', FooterAssign);
 Vue.component('jism-footer-camera', FooterCamera);
 Vue.component('jism-footer-review', FooterReview);
+Vue.component('jism-footer-default', FooterDefault);
+Vue.component('jism-footer-main-settings', FooterMainSettings);
 
 const routes = [
     { path: '/', name: 'home', component: PageHome },

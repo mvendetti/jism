@@ -1,15 +1,20 @@
 <template>
     <span class="dropdown">
         <button class="dropdown-toggle" data-toggle="dropdown">
-            {{ remainingVideoDuration | secondsToHours }}
+            {{ videoDuration | secondsToHours }}
         </button>
+        <!-- <ul class="dropdown-menu duration">
+            <li v-for="duration in videoDurations">
+                <a>{{ duration }} hours</a>
+            </li>
+        </ul> -->
     </span>
 </template>
 
 <script>
     import { mapGetters } from 'vuex'
     export default {
-        computed: mapGetters('status', ['remainingVideoDuration']),
+        computed: mapGetters('status', ['videoDuration']),
         filters: {
             secondsToHours(value) {
                 var mom = moment.duration(value, 'seconds'),
