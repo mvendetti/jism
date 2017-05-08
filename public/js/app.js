@@ -37207,85 +37207,11 @@ module.exports = function(module) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(181);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(256);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__router__ = __webpack_require__(287);
 __webpack_require__(172);
 
 
 
-
-Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
-
-var LayoutPrimary = __webpack_require__(215);
-
-var Header = __webpack_require__(212);
-var HeaderTimer = __webpack_require__(214);
-var HeaderStatus = __webpack_require__(284);
-var HeaderBattery = __webpack_require__(213);
-
-var Pod = __webpack_require__(223);
-var Add = __webpack_require__(216);
-var PageHome = __webpack_require__(222);
-var Camera = __webpack_require__(218);
-var Remove = __webpack_require__(225);
-var Disable = __webpack_require__(221);
-var Settings = __webpack_require__(226);
-var PodSettings = __webpack_require__(224);
-var AssignCamera = __webpack_require__(217);
-var CameraReview = __webpack_require__(219);
-var CameraSettings = __webpack_require__(220);
-
-var StopButton = __webpack_require__(203);
-var PauseButton = __webpack_require__(200);
-var RecordButton = __webpack_require__(201);
-var ForwardButton = __webpack_require__(199);
-var BackwardButton = __webpack_require__(198);
-var ReferenceButton = __webpack_require__(202);
-
-var Footer = __webpack_require__(204);
-var FooterPod = __webpack_require__(210);
-var FooterMain = __webpack_require__(208);
-var FooterAssign = __webpack_require__(205);
-var FooterCamera = __webpack_require__(206);
-var FooterReview = __webpack_require__(211);
-var FooterDefault = __webpack_require__(207);
-var FooterMainSettings = __webpack_require__(209);
-
-Vue.component('jism-layout-primary', LayoutPrimary);
-
-Vue.component('jism-header', Header);
-Vue.component('jism-header-timer', HeaderTimer);
-Vue.component('jism-header-status', HeaderStatus);
-Vue.component('jism-header-battery', HeaderBattery);
-
-Vue.component('jism-pod', Pod);
-Vue.component('jism-add', Add);
-Vue.component('jism-camera', Camera);
-Vue.component('jism-remove', Remove);
-Vue.component('jism-disable', Disable);
-Vue.component('jism-settings', Settings);
-Vue.component('jism-page-home', PageHome);
-Vue.component('jism-pod-settings', PodSettings);
-Vue.component('jism-assign-camera', AssignCamera);
-Vue.component('jism-camera-review', CameraReview);
-Vue.component('jism-camera-settings', CameraSettings);
-
-Vue.component('jism-button-stop', StopButton);
-Vue.component('jism-button-pause', PauseButton);
-Vue.component('jism-button-record', RecordButton);
-Vue.component('jism-button-forward', ForwardButton);
-Vue.component('jism-button-backward', BackwardButton);
-Vue.component('jism-button-reference', ReferenceButton);
-
-Vue.component('jism-footer', Footer);
-Vue.component('jism-footer-pod', FooterPod);
-Vue.component('jism-footer-main', FooterMain);
-Vue.component('jism-footer-assign', FooterAssign);
-Vue.component('jism-footer-camera', FooterCamera);
-Vue.component('jism-footer-review', FooterReview);
-Vue.component('jism-footer-default', FooterDefault);
-Vue.component('jism-footer-main-settings', FooterMainSettings);
-
-var routes = [{ path: '/', name: 'home', component: PageHome }, { path: '/assign', name: 'assign', component: AssignCamera }, { path: '/assign/add', name: 'add', component: Add }, { path: '/assign/remove', name: 'remove', component: Remove }, { path: '/assign/disable', name: 'disable', component: Disable }, { path: '/settings', name: 'settings', component: Settings }, { path: '/pod/:pod_id', name: 'pod', component: Pod }, { path: '/pod/:pod_id/cam/:cam_id', name: 'camera', component: Camera }, { path: '/pod/:pod_id/settings', name: 'pod-settings', component: PodSettings }, { path: '/pod/:pod_id/cam/:cam_id/review', name: 'review', component: CameraReview }, { path: '/pod/:pod_id/cam/:cam_id/settings', name: 'cam-settings', component: CameraSettings }];
 
 var Store = {
     state: {
@@ -37301,17 +37227,12 @@ var Store = {
     }
 };
 
-var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
-    routes: routes, // short for routes: routes
-    linkActiveClass: 'active'
-});
-
 Jism.Vue = new Vue({
     el: '#jism-app',
     data: {
         shared: Store.state
     },
-    router: router,
+    router: __WEBPACK_IMPORTED_MODULE_1__router__["a" /* router */],
     store: __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */]
 });
 
@@ -64783,6 +64704,77 @@ if (false) {
      require("vue-hot-reload-api").rerender("data-v-a3b904a0", module.exports)
   }
 }
+
+/***/ }),
+/* 286 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Components; });
+
+
+var Components = {
+    LayoutPrimary: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-layout-primary', __webpack_require__(215)),
+
+    Header: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-header', __webpack_require__(212)),
+    HeaderTimer: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-header-timer', __webpack_require__(214)),
+    HeaderStatus: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-header-status', __webpack_require__(284)),
+    HeaderBattery: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-header-battery', __webpack_require__(213)),
+
+    Pod: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-pod', __webpack_require__(223)),
+    Add: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-add', __webpack_require__(216)),
+    Camera: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-camera', __webpack_require__(218)),
+    Remove: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-remove', __webpack_require__(225)),
+    Disable: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-disable', __webpack_require__(221)),
+    PageHome: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-page-home', __webpack_require__(222)),
+    Settings: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-settings', __webpack_require__(226)),
+    PodSettings: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-pod-settings', __webpack_require__(224)),
+    AssignCamera: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-assign-camera', __webpack_require__(217)),
+    CameraReview: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-camera-review', __webpack_require__(219)),
+    CameraSettings: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-camera-settings', __webpack_require__(220)),
+
+    StopButton: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-button-stop', __webpack_require__(203)),
+    PauseButton: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-button-pause', __webpack_require__(200)),
+    RecordButton: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-button-record', __webpack_require__(201)),
+    ForwardButton: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-button-forward', __webpack_require__(199)),
+    BackwardButton: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-button-backward', __webpack_require__(198)),
+    ReferenceButton: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-button-reference', __webpack_require__(202)),
+
+    Footer: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer', __webpack_require__(204)),
+    FooterPod: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-pod', __webpack_require__(210)),
+    FooterMain: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-main', __webpack_require__(208)),
+    FooterAssign: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-assign', __webpack_require__(205)),
+    FooterCamera: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-camera', __webpack_require__(206)),
+    FooterReview: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-review', __webpack_require__(211)),
+    FooterDefault: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-default', __webpack_require__(207)),
+    FooterMainSettings: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-main-settings', __webpack_require__(209))
+};
+
+/***/ }),
+/* 287 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(256);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components__ = __webpack_require__(286);
+/* unused harmony export routes */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return router; });
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
+
+var routes = [{ path: '/', name: 'home', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PageHome }, { path: '/assign', name: 'assign', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].AssignCamera }, { path: '/assign/add', name: 'add', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Add }, { path: '/assign/remove', name: 'remove', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Remove }, { path: '/assign/disable', name: 'disable', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Disable }, { path: '/settings', name: 'settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Settings }, { path: '/pod/:pod_id', name: 'pod', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Pod }, { path: '/pod/:pod_id/settings', name: 'pod-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodSettings }, { path: '/pod/:pod_id/cam/:cam_id', name: 'camera', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Camera }, { path: '/pod/:pod_id/cam/:cam_id/review', name: 'review', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraReview }, { path: '/pod/:pod_id/cam/:cam_id/settings', name: 'cam-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraSettings }];
+
+var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
+    routes: routes,
+    linkActiveClass: 'active'
+});
 
 /***/ })
 /******/ ]);
