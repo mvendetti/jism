@@ -31,14 +31,42 @@ const landlord = {
                 return true;
             });
         },
-        videoDurations: state => {
+        online: state => {
+            var e = _.first(_.orderBy(state.all, ['online'], ['asc']));
+
+            if(e !== undefined) {
+                return e.online;
+            }
+            return 0;
+        },
+        batteryDurations: state => {
             var stati = Jism.vuexGet('landlord/status'),
-                path = 'status.parsed.status.remaining_video_duration.value',
-                ordered = _.orderBy(stati, [path], ['asc']);
+                battery_level_path = 'status.parsed.status.internal_battery_level.gopro_subid',
+                ordered = _.orderBy(stati, [battery_level_path], ['asc']);
 
             return _.map(ordered, (elem) => {
-                var current_video_duration = _.result(elem, 'status.parsed.status.current_video_duration.value'),
-                    remaining_video_duration = _.result(elem, 'status.parsed.status.remaining_video_duration.value');
+                var battery_level_id = _.result(elem, battery_level_path);
+
+                return {
+                    'pod_id': elem.pod_id,
+                    'pod_side': elem.pod_side,
+                    'serial_number': elem.serial_number,
+                    'battery_level_id': battery_level_id
+                }
+            });
+        },
+        batteryDuration: state => {
+            return _.first(Jism.vuexGet('landlord/batteryDurations'));
+        },
+        videoDurations: state => {
+            var stati = Jism.vuexGet('landlord/status'),
+                remaining_video_path = 'status.parsed.status.remaining_video_duration.value',
+                current_video_path = 'status.parsed.status.current_video_duration.value',
+                ordered = _.orderBy(stati, [remaining_video_path], ['asc']);
+
+            return _.map(ordered, (elem) => {
+                var current_video_duration = _.result(elem, current_video_path),
+                    remaining_video_duration = _.result(elem, remaining_video_path);
 
                 remaining_video_duration = remaining_video_duration - current_video_duration;
 
