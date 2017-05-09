@@ -13,9 +13,9 @@ export const routes = [
     { path: '/settings', name: 'settings', component: Components.Settings },
     { path: '/pod/:pod_id', name: 'pod', component: Components.Pod },
     { path: '/pod/:pod_id/settings', name: 'pod-settings', component: Components.PodSettings },
-    { path: '/pod/:pod_id/cam/:cam_id', name: 'camera', component: Components.Camera },
-    { path: '/pod/:pod_id/cam/:cam_id/review', name: 'review', component: Components.CameraReview },
-    { path: '/pod/:pod_id/cam/:cam_id/settings', name: 'cam-settings', component: Components.CameraSettings }
+    { path: '/pod/:pod_id/camera/:camera_id', name: 'camera', component: Components.Camera },
+    { path: '/pod/:pod_id/camera/:camera_id/review', name: 'review', component: Components.CameraReview },
+    { path: '/pod/:pod_id/camera/:camera_id/settings', name: 'camera-settings', component: Components.CameraSettings }
 ];
 
 export const router = new VueRouter({

@@ -2,6 +2,8 @@
  * Jism http
  */
 module.exports = {
+    jism : {},
+
     get(url, mutation) {
         return axios.get(Jism.scopeUrl(url))
             .then((response) => {

@@ -23,12 +23,12 @@
                         </li>
 
                         <li v-if="podRoute || camRoute" class="list-item">
-                            <router-link v-if="this.camId !== 'left'" :to="{ name: 'camera', params: { pod_id: this.podId, cam_id: 'left' } }">Left</router-link>
+                            <router-link v-if="this.camId !== 'left'" :to="{ name: 'camera', params: { pod_id: this.podId, camera_id: 'left' } }">Left</router-link>
                             <span v-if="this.camId === 'left'">Left</span>
                         </li>
 
                         <li v-if="podRoute || camRoute" class="list-item">
-                            <router-link v-if="this.camId !== 'right'" :to="{ name: 'camera', params: { pod_id: this.podId, cam_id: 'right' } }">Right</router-link>
+                            <router-link v-if="this.camId !== 'right'" :to="{ name: 'camera', params: { pod_id: this.podId, camera_id: 'right' } }">Right</router-link>
                             <span v-if="this.camId === 'right'">Right</span>
                         </li>
                     </ol>
@@ -47,17 +47,11 @@
             pods() {
                 return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
             },
-            batterySort() {
-                return this.sort('status.parsed.status.internal_battery_level.gopro_subid');
-            },
-            batteryFirst() {
-                return _.first(this.batterySort);
-            },
             podId() {
                 return this.$route.params.pod_id;
             },
             camId() {
-                return this.$route.params.cam_id;
+                return this.$route.params.camera_id;
             },
             podRoute() {
                 return this.$route.name === 'pod';

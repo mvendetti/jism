@@ -8,7 +8,7 @@
             <jism-footer-camera v-if="$route.name === 'camera'"></jism-footer-camera>
             <jism-footer-review v-if="$route.name === 'review'"></jism-footer-review>
             <jism-footer-default v-if="$route.name === 'pod-settings'"></jism-footer-default>
-            <jism-footer-default v-if="$route.name === 'cam-settings'"></jism-footer-default>
+            <jism-footer-default v-if="$route.name === 'camera-settings'"></jism-footer-default>
             <jism-footer-default v-if="$route.name === 'add'"></jism-footer-default>
             <jism-footer-default v-if="$route.name === 'remove'"></jism-footer-default>
             <jism-footer-default v-if="$route.name === 'disable'"></jism-footer-default>
