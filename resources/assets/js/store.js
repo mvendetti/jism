@@ -2,11 +2,13 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
 
+import landlord from './store/landlord';
 import status from './store/status';
 
 const store = new Vuex.Store({
     modules: {
-        status: status,
+        landlord: landlord,
+        status: status
     }
 });
 

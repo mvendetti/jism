@@ -19,8 +19,6 @@
             setTimeout(function() {
                 self.$root.shared.pods = myPods.pods;
             }, 500);
-
-            this.$store.dispatch('status/LOAD');
         }
     }
 </script>

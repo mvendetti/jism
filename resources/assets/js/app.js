@@ -25,3 +25,26 @@ Jism.Vue = new Vue({
     router,
     store
 });
+
+/*
+ * Perform initial launch of status loading. WARNING. This runs for infiniti;
+ */
+Jism.Vue.$store.dispatch('status/LOAD');
+
+/*
+ * Update the data in landlord
+ */
+Jism.Vue.$store.dispatch('landlord/UPDATE', Jism.Vue.$route);
+router.beforeEach((to, from, next) => {
+    Jism.Vue.$store.dispatch('landlord/UPDATE', to);
+    next();
+});
+
+/*
+ * Update the breadcrumb stuff
+ */
+Jism.Vue.$store.dispatch('landlord/BREAD', Jism.Vue.$route.name);
+router.beforeEach((to, from, next) => {
+    Jism.Vue.$store.dispatch('landlord/BREAD', to.name);
+    next();
+});
