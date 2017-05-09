@@ -29,7 +29,7 @@
                 return this.pod.camera_right_id;
             },
             camId() {
-                return this.$route.params.cam_id;
+                return this.$route.params.camera_id;
             }
         },
         methods: {

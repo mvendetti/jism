@@ -38646,7 +38646,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.pod.camera_right_id;
         },
         camId: function camId() {
-            return this.$route.params.cam_id;
+            return this.$route.params.camera_id;
         }
     },
     methods: {
