@@ -27,11 +27,13 @@ const obj = {
         },
     },
     getters: {
-        all: state => id => {
-            return _.filter(state.all, function(elem) { return elem.tenancy_id == id; });
-        },
-        find: state => id => {
-            return _.find(state.all, function(elem) { return elem.id == id; });
+        online: state => {
+            var e = _.first(_.orderBy(state.all, ['online'], ['asc']));
+
+            if(e !== undefined) {
+                return e.online;
+            }
+            return 0;
         },
         videoDuration: state => {
             var e = _.first(_.orderBy(state.all, ['status.parsed.status.remaining_video_duration.value'], ['asc']));
