@@ -41,9 +41,6 @@
 <script>
     export default {
         computed: {
-            cameras() {
-                return this.$root.shared.cameras;
-            },
             pods() {
                 return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
             },

@@ -39,12 +39,3 @@ router.beforeEach((to, from, next) => {
     Jism.Vue.$store.dispatch('landlord/UPDATE', to);
     next();
 });
-
-/*
- * Update the breadcrumb stuff
- */
-Jism.Vue.$store.dispatch('landlord/BREAD', Jism.Vue.$route.name);
-router.beforeEach((to, from, next) => {
-    Jism.Vue.$store.dispatch('landlord/BREAD', to.name);
-    next();
-});
