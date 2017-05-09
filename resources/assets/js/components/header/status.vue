@@ -5,6 +5,6 @@
 <script>
     import { mapGetters } from 'vuex'
     export default {
-        computed: mapGetters('status', ['online']),
+        computed: mapGetters('landlord', ['online']),
     }
 </script>
