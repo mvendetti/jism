@@ -7,12 +7,6 @@
 <script>
     export default {
         mounted() {
-            var myCameras = new Cameras(),
-                self = this;
-            myCameras.getAll();
-            setTimeout(function() {
-                self.$root.shared.cameras = myCameras.cameras;
-            }, 500);
             var myPods = new Pods(),
                 self = this;
             myPods.getAll();

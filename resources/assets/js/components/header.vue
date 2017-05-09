@@ -56,54 +56,6 @@
             camRoute() {
                 return this.$route.name === 'camera';
             }
-        },
-        methods: {
-            sort(key, order) {
-                if(typeof order === 'undefined') {
-                    order = 'asc';
-                }
-                return _.orderBy(this.cameras, [key], [order]);
-            },
-            is_recording(callback) {
-                axios.get('/api/group/1/status').then((response) => {
-                    var isRecording = response.data.is_recording;
-                    if(isRecording) {
-                        var self = this;
-                        setTimeout(function() {
-                            self.is_recording(callback);
-                        }, 5000);
-                    } else {
-                        this.isRecording = false
-                        // change status icon
-                        return false;
-                    }
-                }, (error) => {
-                    console.log(error.response.data);
-                });
-            },
-            idle_perfect() {
-                _.forEach(this.cameras, function(value, key) {
-                    var isOnline = value.online,
-                        hasSdCard = value.status.parsed.status.card_inserted.value,
-                        timeLeft = value.status.parsed.status.remaining_video_duration.value,
-                        hasBattery = value.status.parsed.status.internal_battery.value,
-                        batteryLeft = value.status.parsed.status.internal_battery_level.value;
-                });
-            },
-            idle_update() {
-                axios.get('/api/group/1/status').then((response) => {
-                    var timestamp = response.data;
-                }, (error) => {
-                    console.log(error.response.data);
-                });
-            },
-            startRecording() {
-                axios.post('/api/group/1/record').then((response) => {
-                    //
-                }, (error) => {
-                    console.log(error.response.data);
-                });
-            }
         }
     };
 </script>

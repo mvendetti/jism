@@ -37250,15 +37250,6 @@ __WEBPACK_IMPORTED_MODULE_1__router__["a" /* router */].beforeEach((to, from, ne
     next();
 });
 
-/*
- * Update the breadcrumb stuff
- */
-Jism.Vue.$store.dispatch('landlord/BREAD', Jism.Vue.$route.name);
-__WEBPACK_IMPORTED_MODULE_1__router__["a" /* router */].beforeEach((to, from, next) => {
-    Jism.Vue.$store.dispatch('landlord/BREAD', to.name);
-    next();
-});
-
 /***/ }),
 /* 133 */
 /***/ (function(module, exports) {
@@ -38272,54 +38263,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         camRoute() {
             return this.$route.name === 'camera';
         }
-    },
-    methods: {
-        sort(key, order) {
-            if (typeof order === 'undefined') {
-                order = 'asc';
-            }
-            return _.orderBy(this.cameras, [key], [order]);
-        },
-        is_recording(callback) {
-            axios.get('/api/group/1/status').then(response => {
-                var isRecording = response.data.is_recording;
-                if (isRecording) {
-                    var self = this;
-                    setTimeout(function () {
-                        self.is_recording(callback);
-                    }, 5000);
-                } else {
-                    this.isRecording = false;
-                    // change status icon
-                    return false;
-                }
-            }, error => {
-                console.log(error.response.data);
-            });
-        },
-        idle_perfect() {
-            _.forEach(this.cameras, function (value, key) {
-                var isOnline = value.online,
-                    hasSdCard = value.status.parsed.status.card_inserted.value,
-                    timeLeft = value.status.parsed.status.remaining_video_duration.value,
-                    hasBattery = value.status.parsed.status.internal_battery.value,
-                    batteryLeft = value.status.parsed.status.internal_battery_level.value;
-            });
-        },
-        idle_update() {
-            axios.get('/api/group/1/status').then(response => {
-                var timestamp = response.data;
-            }, error => {
-                console.log(error.response.data);
-            });
-        },
-        startRecording() {
-            axios.post('/api/group/1/record').then(response => {
-                //
-            }, error => {
-                console.log(error.response.data);
-            });
-        }
     }
 };
 
@@ -38349,11 +38292,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    computed: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('status', ['batteryDuration'])
+    computed: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['batteryDurations', 'batteryDuration'])
 };
 
 /***/ }),
@@ -38370,7 +38312,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    computed: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('status', ['online'])
+    computed: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['online'])
 };
 
 /***/ }),
@@ -38396,7 +38338,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    computed: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['videoDuration']),
+    computed: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['videoDurations', 'videoDuration']),
     filters: {
         secondsToHours(value) {
             var mom = moment.duration(value, 'seconds'),
@@ -38423,12 +38365,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = {
     mounted() {
-        var myCameras = new Cameras(),
-            self = this;
-        myCameras.getAll();
-        setTimeout(function () {
-            self.$root.shared.cameras = myCameras.cameras;
-        }, 500);
         var myPods = new Pods(),
             self = this;
         myPods.getAll();
@@ -39587,14 +39523,42 @@ const landlord = {
                 return true;
             });
         },
-        videoDurations: state => {
+        online: state => {
+            var e = _.first(_.orderBy(state.all, ['online'], ['asc']));
+
+            if (e !== undefined) {
+                return e.online;
+            }
+            return 0;
+        },
+        batteryDurations: state => {
             var stati = Jism.vuexGet('landlord/status'),
-                path = 'status.parsed.status.remaining_video_duration.value',
-                ordered = _.orderBy(stati, [path], ['asc']);
+                battery_level_path = 'status.parsed.status.internal_battery_level.gopro_subid',
+                ordered = _.orderBy(stati, [battery_level_path], ['asc']);
 
             return _.map(ordered, elem => {
-                var current_video_duration = _.result(elem, 'status.parsed.status.current_video_duration.value'),
-                    remaining_video_duration = _.result(elem, 'status.parsed.status.remaining_video_duration.value');
+                var battery_level_id = _.result(elem, battery_level_path);
+
+                return {
+                    'pod_id': elem.pod_id,
+                    'pod_side': elem.pod_side,
+                    'serial_number': elem.serial_number,
+                    'battery_level_id': battery_level_id
+                };
+            });
+        },
+        batteryDuration: state => {
+            return _.first(Jism.vuexGet('landlord/batteryDurations'));
+        },
+        videoDurations: state => {
+            var stati = Jism.vuexGet('landlord/status'),
+                remaining_video_path = 'status.parsed.status.remaining_video_duration.value',
+                current_video_path = 'status.parsed.status.current_video_duration.value',
+                ordered = _.orderBy(stati, [remaining_video_path], ['asc']);
+
+            return _.map(ordered, elem => {
+                var current_video_duration = _.result(elem, current_video_path),
+                    remaining_video_duration = _.result(elem, remaining_video_path);
 
                 remaining_video_duration = remaining_video_duration - current_video_duration;
 
@@ -39642,30 +39606,6 @@ const obj = {
             return _.find(state.all, function (elem) {
                 return elem.pod_id == pod_id && elem.pod_side == pod_side;
             });
-        },
-        online: state => {
-            var e = _.first(_.orderBy(state.all, ['online'], ['asc']));
-
-            if (e !== undefined) {
-                return e.online;
-            }
-            return 0;
-        },
-        videoDuration: state => {
-            var e = _.first(_.orderBy(state.all, ['status.parsed.status.remaining_video_duration.value'], ['asc']));
-
-            if (e !== undefined) {
-                return e.status.parsed.status.remaining_video_duration.value;
-            }
-            return 0;
-        },
-        batteryDuration: state => {
-            var e = _.first(_.orderBy(state.all, ['status.parsed.status.internal_battery_level.gopro_subid'], ['asc']));
-
-            if (e !== undefined) {
-                return e.status.parsed.status.internal_battery_level.gopro_subid;
-            }
-            return 0;
         }
     }
 };
@@ -61666,37 +61606,56 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "dropdown"
-  }, [(_vm.batteryDuration) ? _c('button', {
+  }, [_c('button', {
     staticClass: "dropdown-toggle",
     attrs: {
       "data-toggle": "dropdown"
     }
-  }, [(_vm.batteryDuration === 1) ? _c('i', {
+  }, [(_vm.batteryDuration.battery_level_id === 1) ? _c('i', {
     staticClass: "fa fa-battery-quarter",
     attrs: {
       "aria-hidden": "true"
     }
-  }) : _vm._e(), _vm._v(" "), (_vm.batteryDuration === 2) ? _c('i', {
+  }) : _vm._e(), _vm._v(" "), (_vm.batteryDuration.battery_level_id === 2) ? _c('i', {
     staticClass: "fa fa-battery-half",
     attrs: {
       "aria-hidden": "true"
     }
-  }) : _vm._e(), _vm._v(" "), (_vm.batteryDuration === 3) ? _c('i', {
+  }) : _vm._e(), _vm._v(" "), (_vm.batteryDuration.battery_level_id === 3) ? _c('i', {
     staticClass: "fa fa-battery-full",
     attrs: {
       "aria-hidden": "true"
     }
-  }) : _vm._e(), _vm._v(" "), (_vm.batteryDuration === 4) ? _c('i', {
+  }) : _vm._e(), _vm._v(" "), (_vm.batteryDuration.battery_level_id === 4) ? _c('i', {
     staticClass: "fa fa-bolt",
     attrs: {
       "aria-hidden": "true"
     }
-  }) : _vm._e()]) : _c('i', {
-    staticClass: "fa fa-ban",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])
+  }) : _vm._e()]), _vm._v(" "), _c('ul', {
+    staticClass: "dropdown-menu"
+  }, _vm._l((_vm.batteryDurations), function(status) {
+    return _c('li', [(status.battery_level_id === 1) ? _c('a', [_vm._v("P" + _vm._s(status.pod_id) + "/" + _vm._s(status.pod_side) + ": "), _c('i', {
+      staticClass: "fa fa-battery-quarter",
+      attrs: {
+        "aria-hidden": "true"
+      }
+    })]) : _vm._e(), _vm._v(" "), (status.battery_level_id === 2) ? _c('a', [_vm._v("P" + _vm._s(status.pod_id) + "/" + _vm._s(status.pod_side) + ": "), _c('i', {
+      staticClass: "fa fa-battery-half",
+      attrs: {
+        "aria-hidden": "true"
+      }
+    })]) : _vm._e(), _vm._v(" "), (status.battery_level_id === 3) ? _c('a', [_vm._v("P" + _vm._s(status.pod_id) + "/" + _vm._s(status.pod_side) + ": "), _c('i', {
+      staticClass: "fa fa-battery-full",
+      attrs: {
+        "aria-hidden": "true"
+      }
+    })]) : _vm._e(), _vm._v(" "), (status.battery_level_id === 4) ? _c('a', [_vm._v("P" + _vm._s(status.pod_id) + "/" + _vm._s(status.pod_side) + ": "), _c('i', {
+      staticClass: "fa fa-bolt",
+      attrs: {
+        "aria-hidden": "true"
+      }
+    })]) : _vm._e()])
+  }))])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -62054,7 +62013,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "data-toggle": "dropdown"
     }
-  }, [_vm._v("\n        " + _vm._s(_vm._f("secondsToHours")(_vm.videoDuration.duration)) + "\n    ")])])
+  }, [_vm._v("\n        " + _vm._s(_vm._f("secondsToHours")(_vm.videoDuration.duration)) + "\n    ")]), _vm._v(" "), _c('ul', {
+    staticClass: "dropdown-menu duration"
+  }, _vm._l((_vm.videoDurations), function(status) {
+    return _c('li', [_c('a', [_vm._v("P" + _vm._s(status.pod_id) + "/" + _vm._s(status.pod_side) + ": " + _vm._s(_vm._f("secondsToHours")(status.duration)))])])
+  }))])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
