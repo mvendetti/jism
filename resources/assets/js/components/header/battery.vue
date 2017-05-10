@@ -1,5 +1,5 @@
 <template>
-    <span class="dropdown">
+    <span class="dropdown" v-if="batteryDuration">
         <button class="dropdown-toggle" data-toggle="dropdown">
             <i v-if="batteryDuration.battery_level_id === 1" class="fa fa-battery-quarter" aria-hidden="true"></i>
             <i v-if="batteryDuration.battery_level_id === 2" class="fa fa-battery-half" aria-hidden="true"></i>

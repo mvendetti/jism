@@ -1,5 +1,5 @@
 <template>
-    <span class="dropdown">
+    <span class="dropdown" v-if="videoDuration">
         <button class="dropdown-toggle" data-toggle="dropdown">
             {{ videoDuration.duration | secondsToHours }}
         </button>

@@ -29,11 +29,10 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
     export default {
         computed: {
-            pods() {
-                return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
-            },
+            ...mapGetters('landlord', ['pods']),
             podId() {
                 return this.$route.params.pod_id;
             },

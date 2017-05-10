@@ -14,17 +14,9 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
     export default {
-        computed: {
-            pods : function() {
-                return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
-            },
-        },
-        data() {
-            return {
-                //
-            }
-        },
+        computed: mapGetters('landlord', ['pods']),
         methods: {
             removePod : function(id) {
                 axios.delete('/api/pod/' + id).then((response) => {

@@ -51,13 +51,12 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
     export default {
         computed: {
+            ...mapGetters('landlord', ['pods']),
             cameras() {
                 return this.$root.shared.cameras;
-            },
-            pods() {
-                return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
             },
             errorPod() {
                 return this.hasError('number');

@@ -4,11 +4,13 @@ Vue.use(Vuex);
 
 import landlord from './store/landlord';
 import status from './store/status';
+import pod from './store/pod';
 
 const store = new Vuex.Store({
     modules: {
         landlord: landlord,
-        status: status
+        status: status,
+        pod: pod,
     }
 });
 

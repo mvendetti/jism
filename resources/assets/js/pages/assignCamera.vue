@@ -9,7 +9,7 @@
                 </li>
             </ul>
 
-            <h1>Cameras</h1>
+            <!-- <h1>Cameras</h1>
             <ul class="list-group">
                 <li v-for="camera in cameras" class="list-group-item">
                     <router-link v-if="camera.online" :to="{ name: 'add' }">
@@ -20,20 +20,14 @@
                     </router-link>
                 </li>
                 <li v-if="!cameras.length" class="list-group-item">No cameras detected</li>
-            </ul>
+            </ul> -->
         </jism-layout-primary>
     </div>
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
     export default {
-        computed: {
-            cameras() {
-                return this.$root.shared.cameras;
-            },
-            pods() {
-                return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
-            },
-        }
+        computed: mapGetters('landlord', ['pods']),
     };
 </script>

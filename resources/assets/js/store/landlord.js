@@ -7,6 +7,7 @@ const landlord = {
     },
     actions: {
         UPDATE: function ({ commit, state }, route) {
+            Jism.Vue.$store.dispatch('pod/LOAD');
             commit('STORE_POD_ID', route.params.pod_id);
             commit('STORE_CAMERA_ID', route.params.camera_id);
         },
@@ -17,7 +18,7 @@ const landlord = {
         },
         STORE_CAMERA_ID: (state, id) => {
             state.camera_id = id;
-        },
+        }
     },
     getters: {
         status: state => {
@@ -30,6 +31,12 @@ const landlord = {
                 }
                 return true;
             });
+        },
+        pods: state => {
+            return Jism.vuexGet('pod/all');
+        },
+        pod: state => {
+            return Jism.vuexGet('pod/all', state.pod_id);
         },
         online: state => {
             var e = _.first(_.orderBy(state.all, ['online'], ['asc']));
