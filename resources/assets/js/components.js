@@ -3,7 +3,9 @@ import Vue from 'vue';
 export const Components = {
     LayoutPrimary : Vue.component('jism-layout-primary', require('./layouts/primary.vue')),
 
-    Header : Vue.component('jism-header', require('./components/header.vue')),
+    Breadcrumb : Vue.component('jism-breadcrumb', require('./components/nav/breadcrumb.vue')),
+
+    Header : Vue.component('jism-header', require('./components/header/header.vue')),
     HeaderTimer : Vue.component('jism-header-timer', require('./components/header/timer.vue')),
     HeaderStatus : Vue.component('jism-header-status', require('./components/header/status.vue')),
     HeaderBattery : Vue.component('jism-header-battery', require('./components/header/battery.vue')),

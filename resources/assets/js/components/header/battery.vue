@@ -5,6 +5,7 @@
             <i v-if="batteryDuration.battery_level_id === 2" class="fa fa-battery-half" aria-hidden="true"></i>
             <i v-if="batteryDuration.battery_level_id === 3" class="fa fa-battery-full" aria-hidden="true"></i>
             <i v-if="batteryDuration.battery_level_id === 4" class="fa fa-bolt" aria-hidden="true"></i>
+            <i v-if="batteryDuration.battery_level_id === 0" class="fa fa-ban" aria-hidden="true"></i>
         </button>
         <ul class="dropdown-menu">
             <li v-for="status in batteryDurations">

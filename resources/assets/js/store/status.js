@@ -10,8 +10,8 @@ const obj = {
         LOAD: (state, { data }) => {
             state.all = data;
             setTimeout(() => {
-                    Jism.Vue.$store.dispatch('status/LOAD')
-                }, 2500);
+                Jism.Vue.$store.dispatch('status/LOAD');
+            }, 2500);
         },
     },
     getters: {

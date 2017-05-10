@@ -21,7 +21,7 @@ const landlord = {
     },
     getters: {
         status: state => {
-            return _.filter( Jism.vuexGet('status/all') , function(elem) {
+            return _.filter(Jism.vuexGet('status/all'), (elem) => {
                 if(state.pod_id && state.camera_id) {
                     return elem.pod_id == state.pod_id && elem.pod_side == state.camera_id;
                 }

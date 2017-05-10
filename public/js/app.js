@@ -38200,79 +38200,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 158 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = {
-    computed: {
-        pods() {
-            return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
-        },
-        podId() {
-            return this.$route.params.pod_id;
-        },
-        camId() {
-            return this.$route.params.camera_id;
-        },
-        podRoute() {
-            return this.$route.name === 'pod';
-        },
-        camRoute() {
-            return this.$route.name === 'camera';
-        }
-    }
-};
-
-/***/ }),
+/* 158 */,
 /* 159 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(8);
+//
 //
 //
 //
@@ -39061,7 +38996,9 @@ __webpack_require__(177);
 const Components = {
     LayoutPrimary: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-layout-primary', __webpack_require__(212)),
 
-    Header: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-header', __webpack_require__(208)),
+    Breadcrumb: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-breadcrumb', __webpack_require__(274)),
+
+    Header: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-header', __webpack_require__(278)),
     HeaderTimer: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-header-timer', __webpack_require__(211)),
     HeaderStatus: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-header-status', __webpack_require__(210)),
     HeaderBattery: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-header-battery', __webpack_require__(209)),
@@ -39513,7 +39450,7 @@ const landlord = {
     },
     getters: {
         status: state => {
-            return _.filter(Jism.vuexGet('status/all'), function (elem) {
+            return _.filter(Jism.vuexGet('status/all'), elem => {
                 if (state.pod_id && state.camera_id) {
                     return elem.pod_id == state.pod_id && elem.pod_side == state.camera_id;
                 }
@@ -42003,13 +41940,7 @@ exports = module.exports = __webpack_require__(4)();
 exports.push([module.i, "\n.fa-circle[data-v-833ffa5a] {\n  color: firebrick;\n}\n", ""]);
 
 /***/ }),
-/* 189 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(4)();
-exports.push([module.i, "\n.top-status-bar {\n  padding: 0.25em;\n  text-align: center;\n}\n.top-status-bar i {\n    margin-right: 75px;\n}\n.top-status-bar i.green {\n      color: #6AA84F;\n}\n.top-status-bar i.red {\n      color: #CC0000;\n}\n.top-status-bar i.yellow {\n      color: #FFD966;\n}\n.top-status-bar i.gray {\n      color: #CCCCCC;\n}\n.top-status-bar button {\n    border: none;\n    background-color: transparent;\n}\n.pod-ordered-list {\n  border-radius: 0;\n  border-top: 1px solid #222;\n  border-bottom: 1px solid #222;\n  background-color: #e2e2e2;\n  padding: 0.75em;\n}\n.pod-ordered-list li::before {\n    padding: 0 15px;\n}\n.pod-ordered-list li a.active {\n    color: #777;\n}\n.pod-ordered-list li a:hover, .pod-ordered-list li a:focus {\n    text-decoration: none;\n}\n.pod-ordered-list .list-item {\n    font-weight: 900;\n    font-size: 1.1em;\n}\n.dropdown-menu.duration {\n  left: auto;\n  right: 0;\n  float: right;\n}\n", ""]);
-
-/***/ }),
+/* 189 */,
 /* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -59853,44 +59784,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 208 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(256)
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(158),
-  /* template */
-  __webpack_require__(245),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/sites/jism.dev/resources/assets/js/components/header.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] header.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-89e6607e", Component.options)
-  } else {
-    hotAPI.reload("data-v-89e6607e", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 208 */,
 /* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -61631,6 +61525,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "aria-hidden": "true"
     }
+  }) : _vm._e(), _vm._v(" "), (_vm.batteryDuration.battery_level_id === 0) ? _c('i', {
+    staticClass: "fa fa-ban",
+    attrs: {
+      "aria-hidden": "true"
+    }
   }) : _vm._e()]), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu"
   }, _vm._l((_vm.batteryDurations), function(status) {
@@ -61708,82 +61607,7 @@ if (false) {
 }
 
 /***/ }),
-/* 245 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('header', [_c('div', {
-    staticClass: "row top-status-bar"
-  }, [_c('jism-header-status'), _vm._v(" "), _c('jism-header-battery'), _vm._v(" "), _c('jism-header-timer')], 1), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('ol', {
-    staticClass: "breadcrumb pod-ordered-list"
-  }, [_c('li', {
-    staticClass: "list-item"
-  }, [_c('router-link', {
-    attrs: {
-      "to": {
-        name: 'home'
-      }
-    }
-  }, [_vm._v("All")])], 1), _vm._v(" "), _vm._l((_vm.pods), function(pod) {
-    return (!_vm.podRoute && !_vm.camRoute) ? _c('li', {
-      staticClass: "list-item"
-    }, [_c('router-link', {
-      attrs: {
-        "to": {
-          name: 'pod',
-          params: {
-            pod_id: pod.number
-          }
-        }
-      }
-    }, [_vm._v("P" + _vm._s(pod.number))])], 1) : _vm._e()
-  }), _vm._v(" "), (_vm.podRoute || _vm.camRoute) ? _c('li', {
-    staticClass: "list-item"
-  }, [_c('router-link', {
-    attrs: {
-      "to": {
-        name: 'pod'
-      }
-    }
-  }, [_vm._v("P" + _vm._s(this.podId))])], 1) : _vm._e(), _vm._v(" "), (_vm.podRoute || _vm.camRoute) ? _c('li', {
-    staticClass: "list-item"
-  }, [(this.camId !== 'left') ? _c('router-link', {
-    attrs: {
-      "to": {
-        name: 'camera',
-        params: {
-          pod_id: this.podId,
-          camera_id: 'left'
-        }
-      }
-    }
-  }, [_vm._v("Left")]) : _vm._e(), _vm._v(" "), (this.camId === 'left') ? _c('span', [_vm._v("Left")]) : _vm._e()], 1) : _vm._e(), _vm._v(" "), (_vm.podRoute || _vm.camRoute) ? _c('li', {
-    staticClass: "list-item"
-  }, [(this.camId !== 'right') ? _c('router-link', {
-    attrs: {
-      "to": {
-        name: 'camera',
-        params: {
-          pod_id: this.podId,
-          camera_id: 'right'
-        }
-      }
-    }
-  }, [_vm._v("Right")]) : _vm._e(), _vm._v(" "), (this.camId === 'right') ? _c('span', [_vm._v("Right")]) : _vm._e()], 1) : _vm._e()], 2)])])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-89e6607e", module.exports)
-  }
-}
-
-/***/ }),
+/* 245 */,
 /* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -64376,32 +64200,7 @@ if(false) {
 }
 
 /***/ }),
-/* 256 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(189);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(6)("448f4848", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-89e6607e!./../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!./../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./header.vue", function() {
-     var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-89e6607e!./../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!./../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./header.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 256 */,
 /* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -64493,6 +64292,296 @@ module.exports = function listToStyles (parentId, list) {
 __webpack_require__(132);
 module.exports = __webpack_require__(133);
 
+
+/***/ }),
+/* 261 */,
+/* 262 */,
+/* 263 */,
+/* 264 */,
+/* 265 */,
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    computed: {
+        pods() {
+            return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
+        },
+        podId() {
+            return this.$route.params.pod_id;
+        },
+        camId() {
+            return this.$route.params.camera_id;
+        },
+        podRoute() {
+            return this.$route.name === 'pod';
+        },
+        camRoute() {
+            return this.$route.name === 'camera';
+        }
+    }
+};
+
+/***/ }),
+/* 274 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(273),
+  /* template */
+  __webpack_require__(275),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/sites/jism.dev/resources/assets/js/components/nav/breadcrumb.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] breadcrumb.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-37d8b6ba", Component.options)
+  } else {
+    hotAPI.reload("data-v-37d8b6ba", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 275 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('ol', {
+    staticClass: "breadcrumb pod-ordered-list"
+  }, [_c('li', {
+    staticClass: "list-item"
+  }, [_c('router-link', {
+    attrs: {
+      "to": {
+        name: 'home'
+      }
+    }
+  }, [_vm._v("All")])], 1), _vm._v(" "), _vm._l((_vm.pods), function(pod) {
+    return (!_vm.podRoute && !_vm.camRoute) ? _c('li', {
+      staticClass: "list-item"
+    }, [_c('router-link', {
+      attrs: {
+        "to": {
+          name: 'pod',
+          params: {
+            pod_id: pod.number
+          }
+        }
+      }
+    }, [_vm._v("P" + _vm._s(pod.number))])], 1) : _vm._e()
+  }), _vm._v(" "), (_vm.podRoute || _vm.camRoute) ? _c('li', {
+    staticClass: "list-item"
+  }, [_c('router-link', {
+    attrs: {
+      "to": {
+        name: 'pod'
+      }
+    }
+  }, [_vm._v("P" + _vm._s(this.podId))])], 1) : _vm._e(), _vm._v(" "), (_vm.podRoute || _vm.camRoute) ? _c('li', {
+    staticClass: "list-item"
+  }, [(this.camId !== 'left') ? _c('router-link', {
+    attrs: {
+      "to": {
+        name: 'camera',
+        params: {
+          pod_id: this.podId,
+          camera_id: 'left'
+        }
+      }
+    }
+  }, [_vm._v("Left")]) : _vm._e(), _vm._v(" "), (this.camId === 'left') ? _c('span', [_vm._v("Left")]) : _vm._e()], 1) : _vm._e(), _vm._v(" "), (_vm.podRoute || _vm.camRoute) ? _c('li', {
+    staticClass: "list-item"
+  }, [(this.camId !== 'right') ? _c('router-link', {
+    attrs: {
+      "to": {
+        name: 'camera',
+        params: {
+          pod_id: this.podId,
+          camera_id: 'right'
+        }
+      }
+    }
+  }, [_vm._v("Right")]) : _vm._e(), _vm._v(" "), (this.camId === 'right') ? _c('span', [_vm._v("Right")]) : _vm._e()], 1) : _vm._e()], 2)])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-37d8b6ba", module.exports)
+  }
+}
+
+/***/ }),
+/* 276 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    //
+};
+
+/***/ }),
+/* 277 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)();
+exports.push([module.i, "\n.top-status-bar {\n  padding: 0.25em;\n  text-align: center;\n}\n.top-status-bar i {\n    margin-right: 75px;\n}\n.top-status-bar i.green {\n      color: #6AA84F;\n}\n.top-status-bar i.red {\n      color: #CC0000;\n}\n.top-status-bar i.yellow {\n      color: #FFD966;\n}\n.top-status-bar i.gray {\n      color: #CCCCCC;\n}\n.top-status-bar button {\n    border: none;\n    background-color: transparent;\n}\n.pod-ordered-list {\n  border-radius: 0;\n  border-top: 1px solid #222;\n  border-bottom: 1px solid #222;\n  background-color: #e2e2e2;\n  padding: 0.75em;\n}\n.pod-ordered-list li::before {\n    padding: 0 15px;\n}\n.pod-ordered-list li a.active {\n    color: #777;\n}\n.pod-ordered-list li a:hover, .pod-ordered-list li a:focus {\n    text-decoration: none;\n}\n.pod-ordered-list .list-item {\n    font-weight: 900;\n    font-size: 1.1em;\n}\n.dropdown-menu.duration {\n  left: auto;\n  right: 0;\n  float: right;\n}\n", ""]);
+
+/***/ }),
+/* 278 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(280)
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(276),
+  /* template */
+  __webpack_require__(279),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/sites/jism.dev/resources/assets/js/components/header/header.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] header.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1539cacb", Component.options)
+  } else {
+    hotAPI.reload("data-v-1539cacb", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 279 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('header', [_c('div', {
+    staticClass: "row top-status-bar"
+  }, [_c('jism-header-status'), _vm._v(" "), _c('jism-header-battery'), _vm._v(" "), _c('jism-header-timer')], 1), _vm._v(" "), _c('jism-breadcrumb')], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-1539cacb", module.exports)
+  }
+}
+
+/***/ }),
+/* 280 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(277);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(6)("bdaf4926", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!./../../../../../node_modules/css-loader/index.js!./../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-1539cacb!./../../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!./../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./header.vue", function() {
+     var newContent = require("!!./../../../../../node_modules/css-loader/index.js!./../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-1539cacb!./../../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!./../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./header.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);
