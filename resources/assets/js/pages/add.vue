@@ -3,12 +3,11 @@
         <jism-layout-primary>
             <h1>New Pod</h1>
             <form @submit.prevent="addPod" >
-                <div :class="['form-group', errorPod ? 'has-error' : '']">
-                    <select v-model="podNumber" class="form-control">
+                <div class="form-group">
+                    <select v-model="number" class="form-control">
                         <option v-for="n in 5">{{ n }}</option>
-                    </select>
-                    <p v-for="error in errors.number" class="error-message">{{ error }}</p><p></p>
-                    <button type="submit" class="btn btn-primary">Create</button>
+                    </select><br />
+                    <button type="submit" class="btn btn-primary btn-block">Create</button>
                 </div>
             </form>
             <h3>Pods</h3>
@@ -57,27 +56,24 @@
             ...mapGetters('landlord', ['pods']),
             cameras() {
                 return this.$root.shared.cameras;
-            },
-            errorPod() {
-                return this.hasError('number');
             }
         },
         data() {
             return {
-                errors: {},
-                podNumber: 1
+                number: 1
             }
         },
         methods: {
             addPod() {
-                var data = {
-                    'number': this.podNumber
-                };
-                axios.post('/api/pod', data).then((response) => {
-                    //
-                }, (error) => {
-                    this.errors = error.response.data;
-                });
+                var that = this,
+                    data = { 'number': this.number };
+
+                this.$store.dispatch('pod/STORE', data)
+                    .then(function() {
+                        if(form.successful) {
+                            that.$router.push({ name: 'add' });
+                        }
+                    });
             },
             assignCameraToPod(pod, side, event) {
                 var camera_id = `${event.target.value}`;
@@ -87,13 +83,6 @@
                 }, (error) => {
                     this.errors = error.response.data;
                 });
-            },
-            hasError(field) {
-                if(typeof this.errors[field] != 'undefined' && this.errors[field].length > 0)
-                {
-                    return true;
-                }
-                return false;
             }
         }
     }

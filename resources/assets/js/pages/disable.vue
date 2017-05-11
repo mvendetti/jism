@@ -14,22 +14,20 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
     export default {
-        computed: {
-            pods() {
-                return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
-            },
-        },
+        computed: mapGetters('landlord', ['pods']),
         methods: {
             disable(id, state) {
-                var data = {
-                    'disabled': state
-                };
-                axios.patch('/api/pod/' + id, data).then((response) => {
-                    console.log(response.data);
-                }, (error) => {
-                    console.log(error.response.data);
-                });
+                var that = this,
+                    data = { 'disabled': state, id };
+
+                this.$store.dispatch('pod/UPDATE', data)
+                    .then(function() {
+                        if(form.successful) {
+                            that.$router.push({ name: 'disable' });
+                        }
+                    });
             }
         }
     }

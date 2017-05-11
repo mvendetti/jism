@@ -19,10 +19,13 @@
         computed: mapGetters('landlord', ['pods']),
         methods: {
             removePod : function(id) {
-                axios.delete('/api/pod/' + id).then((response) => {
-                        console.log(response.data);
-                    }, (error) => {
-                        console.log(error.response.data);
+                var that = this;
+
+                this.$store.dispatch('pod/DESTROY', id)
+                    .then(function() {
+                        if(form.successful) {
+                            that.$router.push({ name: 'remove' });
+                        }
                     });
             }
         }

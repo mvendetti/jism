@@ -38444,33 +38444,28 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
     computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['pods']), {
         cameras() {
             return this.$root.shared.cameras;
-        },
-        errorPod() {
-            return this.hasError('number');
         }
     }),
     data() {
         return {
-            errors: {},
-            podNumber: 1
+            number: 1
         };
     },
     methods: {
         addPod() {
-            var data = {
-                'number': this.podNumber
-            };
-            axios.post('/api/pod', data).then(response => {
-                //
-            }, error => {
-                this.errors = error.response.data;
+            var that = this,
+                data = { 'number': this.number };
+
+            this.$store.dispatch('pod/STORE', data).then(function () {
+                if (form.successful) {
+                    that.$router.push({ name: 'add' });
+                }
             });
         },
         assignCameraToPod(pod, side, event) {
@@ -38481,12 +38476,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }, error => {
                 this.errors = error.response.data;
             });
-        },
-        hasError(field) {
-            if (typeof this.errors[field] != 'undefined' && this.errors[field].length > 0) {
-                return true;
-            }
-            return false;
         }
     }
 };
@@ -38652,6 +38641,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
 //
 //
 //
@@ -38668,21 +38658,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = {
-    computed: {
-        pods() {
-            return _.orderBy(this.$root.shared.pods, 'number', ['asc']);
-        }
-    },
+    computed: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['pods']),
     methods: {
         disable(id, state) {
-            var data = {
-                'disabled': state
-            };
-            axios.patch('/api/pod/' + id, data).then(response => {
-                console.log(response.data);
-            }, error => {
-                console.log(error.response.data);
+            var that = this,
+                data = { 'disabled': state, id };
+
+            this.$store.dispatch('pod/UPDATE', data).then(function () {
+                if (form.successful) {
+                    that.$router.push({ name: 'disable' });
+                }
             });
         }
     }
@@ -38780,10 +38767,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['pods']),
     methods: {
         removePod: function (id) {
-            axios.delete('/api/pod/' + id).then(response => {
-                console.log(response.data);
-            }, error => {
-                console.log(error.response.data);
+            var that = this;
+
+            this.$store.dispatch('pod/DESTROY', id).then(function () {
+                if (form.successful) {
+                    that.$router.push({ name: 'remove' });
+                }
             });
         }
     }
@@ -39550,11 +39539,26 @@ const obj = {
     actions: {
         LOAD: function ({ commit }) {
             return Jism.get('/api/pod', 'pod/LOAD');
+        },
+        STORE: function ({ commit, state }, data) {
+            return Jism.post('/api/pod', data, 'pod/STORE');
+        },
+        UPDATE: function ({ commit, state }, data) {
+            return Jism.patch('/api/pod/' + data.id, data, 'pod/STORE');
+        },
+        DESTROY: function ({ commit, state }, id) {
+            return Jism.destroy('/api/pod/' + id, 'pod/DESTROY');
         }
     },
     mutations: {
         LOAD: (state, { data }) => {
             state.all = Jism.massMergeModels(state.all, data);
+        },
+        STORE: (state, { item }) => {
+            state.all = Jism.massMergeModels(state.all, [item]);
+        },
+        DESTROY: (state, { id }) => {
+            state.all = Jism.removeModel(state.all, id);
         }
     },
     getters: {
@@ -60589,13 +60593,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('div', {
-    class: ['form-group', _vm.errorPod ? 'has-error' : '']
+    staticClass: "form-group"
   }, [_c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.podNumber),
-      expression: "podNumber"
+      value: (_vm.number),
+      expression: "number"
     }],
     staticClass: "form-control",
     on: {
@@ -60606,21 +60610,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.podNumber = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.number = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, _vm._l((5), function(n) {
     return _c('option', [_vm._v(_vm._s(n))])
-  })), _vm._v(" "), _vm._l((_vm.errors.number), function(error) {
-    return _c('p', {
-      staticClass: "error-message"
-    }, [_vm._v(_vm._s(error))])
-  }), _c('p'), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-primary",
+  })), _c('br'), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary btn-block",
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("Create")])], 2)]), _vm._v(" "), _c('h3', [_vm._v("Pods")]), _vm._v(" "), _c('ul', {
+  }, [_vm._v("Create")])])]), _vm._v(" "), _c('h3', [_vm._v("Pods")]), _vm._v(" "), _c('ul', {
     staticClass: "list-group"
   }, [_vm._l((_vm.pods), function(pod) {
     return _c('li', {
