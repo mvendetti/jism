@@ -39483,7 +39483,7 @@ const landlord = {
             return Jism.vuexGet('pod/all');
         },
         pod: state => {
-            return Jism.vuexGet('pod/all', state.pod_id);
+            return Jism.vuexGet('pod/find', state.pod_id);
         },
         online: state => {
             var e = _.first(_.orderBy(state.all, ['online'], ['asc']));
