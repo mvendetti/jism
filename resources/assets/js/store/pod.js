@@ -31,7 +31,7 @@ const obj = {
             return state.all;
         },
         find: state => number => {
-            return _.find(state.all, function(elem) { return elem.pod_id == number; });
+            return _.find(state.all, function(elem) { return elem.number == number; });
         },
     }
 };
