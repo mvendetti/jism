@@ -13,7 +13,7 @@ export const routes = [
     { path: '/pod/:pod_id/settings', name: 'pod-settings', component: Components.PodEdit },
     { path: '/pod/:pod_id/camera/:camera_id', name: 'camera', component: Components.Camera },
     { path: '/pod/:pod_id/camera/:camera_id/review', name: 'review', component: Components.CameraReview },
-    { path: '/pod/:pod_id/camera/:camera_id/settings', name: 'camera-settings', component: Components.CameraSettings }
+    { path: '/pod/:pod_id/camera/:camera_id/settings', name: 'camera-settings', component: Components.CameraEdit }
 ];
 
 export const router = new VueRouter({
