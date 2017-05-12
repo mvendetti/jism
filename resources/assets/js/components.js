@@ -20,7 +20,6 @@ export const Components = {
 
     CameraEdit : Vue.component('jism-camera-edit', require('./pages/camera/edit.vue')),
     CameraIndex : Vue.component('jism-camera-index', require('./pages/camera/index.vue')),
-    CameraAssign : Vue.component('jism-camera-assign', require('./pages/camera/assign.vue')),
     CameraReview : Vue.component('jism-camera-review', require('./pages/camera/review.vue')),
 
     StopButton : Vue.component('jism-button-stop', require('./components/buttons/stop.vue')),
@@ -33,7 +32,7 @@ export const Components = {
     Footer : Vue.component('jism-footer', require('./components/footer/footer.vue')),
     FooterPod : Vue.component('jism-footer-pod', require('./components/footer/footerPod.vue')),
     FooterMain : Vue.component('jism-footer-main', require('./components/footer/footerMain.vue')),
-    FooterAssign : Vue.component('jism-footer-assign', require('./components/footer/footerAssign.vue')),
+    FooterAdd : Vue.component('jism-footer-add', require('./components/footer/footerAdd.vue')),
     FooterCamera : Vue.component('jism-footer-camera', require('./components/footer/footerCamera.vue')),
     FooterReview : Vue.component('jism-footer-review', require('./components/footer/footerReview.vue')),
     FooterDefault : Vue.component('jism-footer-default', require('./components/footer/footerDefault.vue')),

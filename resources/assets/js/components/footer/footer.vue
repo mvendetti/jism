@@ -3,13 +3,12 @@
         <footer>
             <jism-footer-main v-if="$route.name === 'home'"></jism-footer-main>
             <jism-footer-main-settings v-if="$route.name === 'settings'"></jism-footer-main-settings>
-            <jism-footer-assign v-if="$route.name === 'assign'"></jism-footer-assign>
+            <jism-footer-add v-if="$route.name === 'add'"></jism-footer-add>
             <jism-footer-pod v-if="$route.name === 'pod'"></jism-footer-pod>
             <jism-footer-camera v-if="$route.name === 'camera'"></jism-footer-camera>
             <jism-footer-review v-if="$route.name === 'review'"></jism-footer-review>
             <jism-footer-default v-if="$route.name === 'pod-settings'"></jism-footer-default>
             <jism-footer-default v-if="$route.name === 'camera-settings'"></jism-footer-default>
-            <jism-footer-default v-if="$route.name === 'add'"></jism-footer-default>
             <jism-footer-default v-if="$route.name === 'remove'"></jism-footer-default>
         </footer>
     </div>

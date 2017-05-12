@@ -38348,6 +38348,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
@@ -38681,7 +38685,6 @@ const Components = {
 
     CameraEdit: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-camera-edit', __webpack_require__(340)),
     CameraIndex: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-camera-index', __webpack_require__(333)),
-    CameraAssign: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-camera-assign', __webpack_require__(336)),
     CameraReview: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-camera-review', __webpack_require__(341)),
 
     StopButton: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-button-stop', __webpack_require__(199)),
@@ -38694,7 +38697,7 @@ const Components = {
     Footer: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer', __webpack_require__(315)),
     FooterPod: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-pod', __webpack_require__(321)),
     FooterMain: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-main', __webpack_require__(319)),
-    FooterAssign: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-assign', __webpack_require__(316)),
+    FooterAdd: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-add', __webpack_require__(344)),
     FooterCamera: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-camera', __webpack_require__(317)),
     FooterReview: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-review', __webpack_require__(322)),
     FooterDefault: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-default', __webpack_require__(318)),
@@ -39001,7 +39004,7 @@ module.exports = {
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
 
-const routes = [{ path: '/', name: 'home', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PageHome }, { path: '/assign', name: 'assign', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraAssign }, { path: '/assign/add', name: 'add', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodCreate }, { path: '/assign/remove', name: 'remove', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodDelete }, { path: '/settings', name: 'settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Settings }, { path: '/pod/:pod_id', name: 'pod', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodIndex }, { path: '/pod/:pod_id/settings', name: 'pod-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodEdit }, { path: '/pod/:pod_id/camera/:camera_id', name: 'camera', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Camera }, { path: '/pod/:pod_id/camera/:camera_id/review', name: 'review', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraReview }, { path: '/pod/:pod_id/camera/:camera_id/settings', name: 'camera-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraSettings }];
+const routes = [{ path: '/', name: 'home', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PageHome }, { path: '/settings', name: 'settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Settings }, { path: '/pod/add', name: 'add', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodCreate }, { path: '/pod/remove', name: 'remove', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodDelete }, { path: '/pod/:pod_id', name: 'pod', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodIndex }, { path: '/pod/:pod_id/settings', name: 'pod-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodEdit }, { path: '/pod/:pod_id/camera/:camera_id', name: 'camera', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Camera }, { path: '/pod/:pod_id/camera/:camera_id/review', name: 'review', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraReview }, { path: '/pod/:pod_id/camera/:camera_id/settings', name: 'camera-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraSettings }];
 /* unused harmony export routes */
 
 
@@ -59617,7 +59620,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }
-  }, [_vm._v("Right")]) : _vm._e(), _vm._v(" "), (this.camId === 'right') ? _c('span', [_vm._v("Right")]) : _vm._e()], 1) : _vm._e()], 2)])])
+  }, [_vm._v("Right")]) : _vm._e(), _vm._v(" "), (this.camId === 'right') ? _c('span', [_vm._v("Right")]) : _vm._e()], 1) : _vm._e(), _vm._v(" "), (this.$route.name !== 'add' && this.$route.name !== 'pod' && this.$route.name !== 'camera') ? _c('li', {
+    staticClass: "list-item"
+  }, [_c('router-link', {
+    attrs: {
+      "to": {
+        name: 'add'
+      }
+    }
+  }, [_vm._v("+")])], 1) : _vm._e()], 2)])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -63535,40 +63546,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 316 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  null,
-  /* template */
-  __webpack_require__(323),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/sites/jism.dev/resources/assets/js/components/footer/footerAssign.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] footerAssign.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1b40aa5a", Component.options)
-  } else {
-    hotAPI.reload("data-v-1b40aa5a", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 316 */,
 /* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -63773,59 +63751,12 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 323 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('jism-button-stop'), _vm._v(" "), _c('jism-button-record'), _vm._v(" "), _c('router-link', {
-    attrs: {
-      "to": {
-        name: 'add'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-plus",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })]), _vm._v(" "), _c('router-link', {
-    attrs: {
-      "to": {
-        name: 'remove'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-minus",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })]), _vm._v(" "), _c('router-link', {
-    attrs: {
-      "to": {
-        name: 'settings'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-arrow-left",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-1b40aa5a", module.exports)
-  }
-}
-
-/***/ }),
+/* 323 */,
 /* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('footer', [(_vm.$route.name === 'home') ? _c('jism-footer-main') : _vm._e(), _vm._v(" "), (_vm.$route.name === 'settings') ? _c('jism-footer-main-settings') : _vm._e(), _vm._v(" "), (_vm.$route.name === 'assign') ? _c('jism-footer-assign') : _vm._e(), _vm._v(" "), (_vm.$route.name === 'pod') ? _c('jism-footer-pod') : _vm._e(), _vm._v(" "), (_vm.$route.name === 'camera') ? _c('jism-footer-camera') : _vm._e(), _vm._v(" "), (_vm.$route.name === 'review') ? _c('jism-footer-review') : _vm._e(), _vm._v(" "), (_vm.$route.name === 'pod-settings') ? _c('jism-footer-default') : _vm._e(), _vm._v(" "), (_vm.$route.name === 'camera-settings') ? _c('jism-footer-default') : _vm._e(), _vm._v(" "), (_vm.$route.name === 'add') ? _c('jism-footer-default') : _vm._e(), _vm._v(" "), (_vm.$route.name === 'remove') ? _c('jism-footer-default') : _vm._e()], 1)])
+  return _c('div', [_c('footer', [(_vm.$route.name === 'home') ? _c('jism-footer-main') : _vm._e(), _vm._v(" "), (_vm.$route.name === 'settings') ? _c('jism-footer-main-settings') : _vm._e(), _vm._v(" "), (_vm.$route.name === 'add') ? _c('jism-footer-add') : _vm._e(), _vm._v(" "), (_vm.$route.name === 'pod') ? _c('jism-footer-pod') : _vm._e(), _vm._v(" "), (_vm.$route.name === 'camera') ? _c('jism-footer-camera') : _vm._e(), _vm._v(" "), (_vm.$route.name === 'review') ? _c('jism-footer-review') : _vm._e(), _vm._v(" "), (_vm.$route.name === 'pod-settings') ? _c('jism-footer-default') : _vm._e(), _vm._v(" "), (_vm.$route.name === 'camera-settings') ? _c('jism-footer-default') : _vm._e(), _vm._v(" "), (_vm.$route.name === 'remove') ? _c('jism-footer-default') : _vm._e()], 1)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -63932,21 +63863,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "aria-hidden": "true"
     }
-  })]) : _vm._e(), _vm._v(" "), (_vm.$route.name === 'add') ? _c('router-link', {
-    attrs: {
-      "to": {
-        name: 'assign'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-arrow-left",
-    attrs: {
-      "aria-hidden": "true"
-    }
   })]) : _vm._e(), _vm._v(" "), (_vm.$route.name === 'remove') ? _c('router-link', {
     attrs: {
       "to": {
-        name: 'assign'
+        name: 'add'
       }
     }
   }, [_c('i', {
@@ -64062,11 +63982,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', [_c('jism-button-stop'), _vm._v(" "), _c('jism-button-record'), _vm._v(" "), _c('router-link', {
     attrs: {
       "to": {
-        name: 'assign'
+        name: 'add'
       }
     }
   }, [_c('i', {
-    staticClass: "fa fa-camera",
+    staticClass: "fa fa-plus",
     attrs: {
       "aria-hidden": "true"
     }
@@ -64194,109 +64114,9 @@ if (false) {
 }
 
 /***/ }),
-/* 335 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = {
-    computed: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['pods'])
-};
-
-/***/ }),
-/* 336 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(335),
-  /* template */
-  __webpack_require__(337),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/sites/jism.dev/resources/assets/js/pages/camera/assign.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] assign.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-106f592e", Component.options)
-  } else {
-    hotAPI.reload("data-v-106f592e", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 337 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('jism-layout-primary', [_c('h1', [_vm._v("Pods")]), _vm._v(" "), _c('ul', {
-    staticClass: "list-group"
-  }, [_vm._l((_vm.pods), function(pod) {
-    return _c('li', {
-      staticClass: "list-group-item"
-    }, [_vm._v("P" + _vm._s(pod.number))])
-  }), _vm._v(" "), (!_vm.pods.length) ? _c('li', {
-    staticClass: "list-group-item"
-  }, [_c('router-link', {
-    attrs: {
-      "to": {
-        name: 'add'
-      }
-    }
-  }, [_vm._v("Add pod here")])], 1) : _vm._e()], 2)])], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-106f592e", module.exports)
-  }
-}
-
-/***/ }),
+/* 335 */,
+/* 336 */,
+/* 337 */,
 /* 338 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -64511,6 +64331,77 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-87e4a8f8", module.exports)
+  }
+}
+
+/***/ }),
+/* 344 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  null,
+  /* template */
+  __webpack_require__(345),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/sites/jism.dev/resources/assets/js/components/footer/footerAdd.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] footerAdd.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-8aa37574", Component.options)
+  } else {
+    hotAPI.reload("data-v-8aa37574", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 345 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('jism-button-stop'), _vm._v(" "), _c('jism-button-record'), _vm._v(" "), _c('router-link', {
+    attrs: {
+      "to": {
+        name: 'remove'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-minus",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('router-link', {
+    attrs: {
+      "to": {
+        name: 'settings'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-arrow-left",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-8aa37574", module.exports)
   }
 }
 

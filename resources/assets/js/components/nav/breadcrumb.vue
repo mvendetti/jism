@@ -23,6 +23,10 @@
                     <router-link v-if="this.camId !== 'right'" :to="{ name: 'camera', params: { pod_id: this.podId, camera_id: 'right' } }">Right</router-link>
                     <span v-if="this.camId === 'right'">Right</span>
                 </li>
+
+                <li v-if="this.$route.name !== 'add' && this.$route.name !== 'pod' && this.$route.name !== 'camera'" class="list-item">
+                    <router-link :to="{ name: 'add' }">+</router-link>
+                </li>
             </ol>
         </div>
     </div>
