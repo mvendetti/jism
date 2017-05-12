@@ -11,7 +11,6 @@
             <jism-footer-default v-if="$route.name === 'camera-settings'"></jism-footer-default>
             <jism-footer-default v-if="$route.name === 'add'"></jism-footer-default>
             <jism-footer-default v-if="$route.name === 'remove'"></jism-footer-default>
-            <jism-footer-default v-if="$route.name === 'disable'"></jism-footer-default>
         </footer>
     </div>
 </template>
