@@ -2,7 +2,7 @@
  * Jism http
  */
 module.exports = {
-    jism : {},
+    landlord : {},
 
     get(url, mutation) {
         return axios.get(Jism.scopeUrl(url))
@@ -46,6 +46,8 @@ module.exports = {
     },
 
     scopeUrl(url) {
-        return url; // Going todo stuff here later. So, STFU and GTFO.
+        var p = Jism.Vue.$route.params;
+        url = _.replace(url, ':pod_id', Jism.landlord.pod_id);
+        return url;
     }
 };

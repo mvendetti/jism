@@ -9,10 +9,10 @@ const obj = {
             return Jism.post('/api/pod', data, 'pod/STORE');
         },
         UPDATE: function ({ commit, state }, data) {
-            return Jism.patch('/api/pod/' + data.id, data, 'pod/STORE');
+            return Jism.patch('/api/pod/:pod_id', data, 'pod/STORE');
         },
         DESTROY: function ({ commit, state }, id) {
-            return Jism.destroy('/api/pod/' + id, 'pod/DESTROY');
+            return Jism.destroy('/api/pod/:pod_id', 'pod/DESTROY');
         },
     },
     mutations: {

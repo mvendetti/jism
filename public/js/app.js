@@ -39300,7 +39300,7 @@ window.JismForm = function (data) {
  * Jism http
  */
 module.exports = {
-    jism: {},
+    landlord: {},
 
     get(url, mutation) {
         return axios.get(Jism.scopeUrl(url)).then(response => {
@@ -39341,7 +39341,9 @@ module.exports = {
     },
 
     scopeUrl(url) {
-        return url; // Going todo stuff here later. So, STFU and GTFO.
+        var p = Jism.Vue.$route.params;
+        url = _.replace(url, ':pod_id', Jism.landlord.pod_id);
+        return url;
     }
 };
 
@@ -39544,10 +39546,10 @@ const obj = {
             return Jism.post('/api/pod', data, 'pod/STORE');
         },
         UPDATE: function ({ commit, state }, data) {
-            return Jism.patch('/api/pod/' + data.id, data, 'pod/STORE');
+            return Jism.patch('/api/pod/:pod_id', data, 'pod/STORE');
         },
         DESTROY: function ({ commit, state }, id) {
-            return Jism.destroy('/api/pod/' + id, 'pod/DESTROY');
+            return Jism.destroy('/api/pod/:pod_id', 'pod/DESTROY');
         }
     },
     mutations: {
