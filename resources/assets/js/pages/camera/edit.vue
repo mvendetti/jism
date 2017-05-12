@@ -1,7 +1,7 @@
 <template>
     <div>
         <jism-layout-primary>
-            <h1>Camera Settings</h1>
+            <h1>Camera {{ this.$route.params.camera_id | capitalize }}</h1>
             <div class="row">
                 <div class="col-md-12 col-xs-12">
                     <router-link :to="{ name: 'review' }"><button class="btn btn-primary">Review</button></router-link>
@@ -15,13 +15,10 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
     export default {
         computed: {
-            pod() {
-                var pod_id = this.$route.params.pod_id,
-                    queryFn = function(pod) { return pod.number == pod_id; };
-                return _.find(this.$root.shared.pods, queryFn);
-            },
+            ...mapGetters('landlord', ['pods', 'pod']),
             cameraLeftId() {
                 return this.pod.camera_left_id;
             },
@@ -56,6 +53,9 @@
                     console.log(error.response.data);
                 });
             }
+        },
+        filters: {
+            capitalize(string) { return _.capitalize(string); }
         }
     }
 </script>

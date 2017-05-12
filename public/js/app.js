@@ -38352,6 +38352,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
@@ -39004,7 +39014,7 @@ module.exports = {
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
 
-const routes = [{ path: '/', name: 'home', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PageHome }, { path: '/settings', name: 'settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Settings }, { path: '/pod/add', name: 'add', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodCreate }, { path: '/pod/remove', name: 'remove', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodDelete }, { path: '/pod/:pod_id', name: 'pod', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodIndex }, { path: '/pod/:pod_id/settings', name: 'pod-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodEdit }, { path: '/pod/:pod_id/camera/:camera_id', name: 'camera', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Camera }, { path: '/pod/:pod_id/camera/:camera_id/review', name: 'review', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraReview }, { path: '/pod/:pod_id/camera/:camera_id/settings', name: 'camera-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraSettings }];
+const routes = [{ path: '/', name: 'home', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PageHome }, { path: '/settings', name: 'settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Settings }, { path: '/pod/add', name: 'add', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodCreate }, { path: '/pod/remove', name: 'remove', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodDelete }, { path: '/pod/:pod_id', name: 'pod', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodIndex }, { path: '/pod/:pod_id/settings', name: 'pod-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodEdit }, { path: '/pod/:pod_id/camera/:camera_id', name: 'camera', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Camera }, { path: '/pod/:pod_id/camera/:camera_id/review', name: 'review', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraReview }, { path: '/pod/:pod_id/camera/:camera_id/settings', name: 'camera-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraEdit }];
 /* unused harmony export routes */
 
 
@@ -39188,7 +39198,7 @@ const obj = {
         },
         find: state => number => {
             return _.find(state.all, function (elem) {
-                return elem.pod_id == number;
+                return elem.number == number;
             });
         }
     }
@@ -59575,7 +59585,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         name: 'home'
       }
     }
-  }, [_vm._v("All")])], 1), _vm._v(" "), _vm._l((_vm.pods), function(pod) {
+  }, [_vm._v("\n                    All\n                ")])], 1), _vm._v(" "), _vm._l((_vm.pods), function(pod) {
     return (!_vm.podRoute && !_vm.camRoute) ? _c('li', {
       staticClass: "list-item"
     }, [_c('router-link', {
@@ -59587,7 +59597,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }
       }
-    }, [_vm._v("P" + _vm._s(pod.number))])], 1) : _vm._e()
+    }, [_vm._v("\n                    P" + _vm._s(pod.number) + "\n                ")])], 1) : _vm._e()
   }), _vm._v(" "), (_vm.podRoute || _vm.camRoute) ? _c('li', {
     staticClass: "list-item"
   }, [_c('router-link', {
@@ -59596,7 +59606,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         name: 'pod'
       }
     }
-  }, [_vm._v("P" + _vm._s(this.podId))])], 1) : _vm._e(), _vm._v(" "), (_vm.podRoute || _vm.camRoute) ? _c('li', {
+  }, [_vm._v("\n                    P" + _vm._s(this.podId) + "\n                ")])], 1) : _vm._e(), _vm._v(" "), (_vm.podRoute || _vm.camRoute) ? _c('li', {
     staticClass: "list-item"
   }, [(this.camId !== 'left') ? _c('router-link', {
     attrs: {
@@ -59608,7 +59618,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }
-  }, [_vm._v("Left")]) : _vm._e(), _vm._v(" "), (this.camId === 'left') ? _c('span', [_vm._v("Left")]) : _vm._e()], 1) : _vm._e(), _vm._v(" "), (_vm.podRoute || _vm.camRoute) ? _c('li', {
+  }, [_vm._v("\n                    Left\n                ")]) : _vm._e(), _vm._v(" "), (this.camId === 'left') ? _c('span', [_vm._v("Left")]) : _vm._e()], 1) : _vm._e(), _vm._v(" "), (_vm.podRoute || _vm.camRoute) ? _c('li', {
     staticClass: "list-item"
   }, [(this.camId !== 'right') ? _c('router-link', {
     attrs: {
@@ -59620,7 +59630,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }
-  }, [_vm._v("Right")]) : _vm._e(), _vm._v(" "), (this.camId === 'right') ? _c('span', [_vm._v("Right")]) : _vm._e()], 1) : _vm._e(), _vm._v(" "), (this.$route.name !== 'add' && this.$route.name !== 'pod' && this.$route.name !== 'camera') ? _c('li', {
+  }, [_vm._v("\n                    Right\n                ")]) : _vm._e(), _vm._v(" "), (this.camId === 'right') ? _c('span', [_vm._v("Right")]) : _vm._e()], 1) : _vm._e(), _vm._v(" "), (this.$route.name === 'home') ? _c('li', {
     staticClass: "list-item"
   }, [_c('router-link', {
     attrs: {
@@ -64122,6 +64132,9 @@ if (false) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -64139,15 +64152,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = {
-    computed: {
-        pod() {
-            var pod_id = this.$route.params.pod_id,
-                queryFn = function (pod) {
-                return pod.number == pod_id;
-            };
-            return _.find(this.$root.shared.pods, queryFn);
-        },
+    computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['pods', 'pod']), {
         cameraLeftId() {
             return this.pod.camera_left_id;
         },
@@ -64157,7 +64164,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         camId() {
             return this.$route.params.camera_id;
         }
-    },
+    }),
     methods: {
         sleep() {
             var sleep = 'sleep';
@@ -64181,6 +64188,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }, error => {
                 console.log(error.response.data);
             });
+        }
+    },
+    filters: {
+        capitalize(string) {
+            return _.capitalize(string);
         }
     }
 };
@@ -64300,7 +64312,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('jism-layout-primary', [_c('h1', [_vm._v("Camera Settings")]), _vm._v(" "), _c('div', {
+  return _c('div', [_c('jism-layout-primary', [_c('h1', [_vm._v("Camera " + _vm._s(_vm._f("capitalize")(this.$route.params.camera_id)))]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-12 col-xs-12"
