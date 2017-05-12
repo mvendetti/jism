@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 
 export const routes = [
     { path: '/', name: 'home', component: Components.PageHome },
-    { path: '/assign', name: 'assign', component: Components.AssignCamera },
+    { path: '/assign', name: 'assign', component: Components.CameraAssign },
     { path: '/assign/add', name: 'add', component: Components.PodCreate },
     { path: '/assign/remove', name: 'remove', component: Components.PodDelete },
     { path: '/settings', name: 'settings', component: Components.Settings },
