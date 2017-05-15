@@ -33,3 +33,4 @@ Route::resource('group.wake', 'GroupWakeController', ['only' => ['store']]);
 // Route::resource('pod.wake', 'PodWakeController', ['only' => ['store']]);
 // Route::resource('camera.wake', 'CameraWakeController', ['only' => ['store']]);
 Route::resource('pod', 'PodController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+Route::resource('camera', 'CameraController', ['only' => ['index', 'show']]);
