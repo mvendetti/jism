@@ -8,6 +8,7 @@ const landlord = {
     actions: {
         UPDATE: function ({ commit, state }, route) {
             Jism.Vue.$store.dispatch('pod/LOAD');
+            Jism.Vue.$store.dispatch('camera/LOAD');
             commit('STORE_POD_ID', route.params.pod_id);
             commit('STORE_CAMERA_ID', route.params.camera_id);
         },
@@ -37,6 +38,9 @@ const landlord = {
         },
         pod: state => {
             return Jism.vuexGet('pod/find', state.pod_id);
+        },
+        cameras: state => {
+            return Jism.vuexGet('camera/all');
         },
         online: state => {
             var e = _.first(_.orderBy(state.all, ['online'], ['asc']));

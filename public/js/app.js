@@ -39834,9 +39834,11 @@ const router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store_landlord__ = __webpack_require__(194);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store_status__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store_pod__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__store_camera__ = __webpack_require__(309);
 
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
+
 
 
 
@@ -39846,7 +39848,8 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     modules: {
         landlord: __WEBPACK_IMPORTED_MODULE_2__store_landlord__["a" /* default */],
         status: __WEBPACK_IMPORTED_MODULE_3__store_status__["a" /* default */],
-        pod: __WEBPACK_IMPORTED_MODULE_4__store_pod__["a" /* default */]
+        pod: __WEBPACK_IMPORTED_MODULE_4__store_pod__["a" /* default */],
+        camera: __WEBPACK_IMPORTED_MODULE_5__store_camera__["a" /* default */]
     }
 });
 
@@ -39873,6 +39876,7 @@ const landlord = {
     actions: {
         UPDATE: function ({ commit, state }, route) {
             Jism.Vue.$store.dispatch('pod/LOAD');
+            Jism.Vue.$store.dispatch('camera/LOAD');
             commit('STORE_POD_ID', route.params.pod_id);
             commit('STORE_CAMERA_ID', route.params.camera_id);
         }
@@ -39902,6 +39906,9 @@ const landlord = {
         },
         pod: state => {
             return Jism.vuexGet('pod/find', state.pod_id);
+        },
+        cameras: state => {
+            return Jism.vuexGet('camera/all');
         },
         online: state => {
             var e = _.first(_.orderBy(state.all, ['online'], ['asc']));
@@ -66086,6 +66093,49 @@ module.exports = function listToStyles (parentId, list) {
 __webpack_require__(140);
 module.exports = __webpack_require__(141);
 
+
+/***/ }),
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const obj = {
+    namespaced: true,
+    state: { all: [] },
+    actions: {
+        LOAD: function ({ commit }) {
+            return Jism.get('/api/camera', 'camera/LOAD');
+        }
+    },
+    mutations: {
+        LOAD: (state, { data }) => {
+            state.all = Jism.massMergeModels(state.all, data);
+        }
+    },
+    getters: {
+        all: state => {
+            return state.all;
+        },
+        find: state => serial_number => {
+            return _.find(state.all, function (elem) {
+                return elem.serial_number == serial_number;
+            });
+        }
+    }
+};
+/* harmony default export */ __webpack_exports__["a"] = obj;
 
 /***/ })
 /******/ ]);
