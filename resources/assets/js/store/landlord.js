@@ -33,7 +33,7 @@ const landlord = {
             });
         },
         pods: state => {
-            return Jism.vuexGet('pod/all');
+            return _.orderBy(Jism.vuexGet('pod/all'), ['number'], ['asc']);
         },
         pod: state => {
             return Jism.vuexGet('pod/find', state.pod_id);
