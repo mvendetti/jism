@@ -1,50 +1,7 @@
 <template>
     <div>
         <jism-layout-primary>
-            <h1>New Pod</h1>
-            <form @submit.prevent="addPod" >
-                <div class="form-group">
-                    <select v-model="number" class="form-control">
-                        <option v-for="n in 5">{{ n }}</option>
-                    </select><br />
-                    <button type="submit" class="btn btn-primary btn-block">Create</button>
-                </div>
-            </form>
-            <h3>Pods</h3>
-            <ul class="list-group">
-                <li v-for="pod in pods" class="list-group-item">
-                    <div class="row">
-                        <div class="col-xs-2 col-md-2">
-                            <strong>P{{ pod.number }}</strong>
-                        </div>
-                        <div class="col-xs-5 col-md-5">
-                            <select class="form-control" @change="assignCameraToPod(pod, 'left', $event)">
-                                <option value="">unassigned</option>
-                                <option
-                                    v-for="camera in cameras"
-                                    :value="camera.serial_number"
-                                    :selected="camera.serial_number == pod.camera_left_id"
-                                >
-                                {{ camera.ssid }}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="col-xs-5 col-md-5">
-                            <select class="form-control" @change="assignCameraToPod(pod, 'right', $event)">
-                                <option value="">unassigned</option>
-                                <option
-                                    v-for="camera in cameras"
-                                    :value="camera.serial_number"
-                                    :selected="camera.serial_number == pod.camera_right_id"
-                                >
-                                {{ camera.ssid }}
-                            </option>
-                            </select>
-                        </div>
-                    </div>
-                </li>
-                <li v-if="!pods.length" class="list-group-item">No pods added</li>
-            </ul>
+            <jism-pod-form @submit="submit"></jism-pod-form>
         </jism-layout-primary>
     </div>
 </template>
@@ -52,37 +9,17 @@
 <script>
     import { mapGetters } from 'vuex'
     export default {
-        computed: {
-            ...mapGetters('landlord', ['pods']),
-            cameras() {
-                return this.$root.shared.cameras;
-            }
-        },
-        data() {
-            return {
-                number: 1
-            }
-        },
+        computed: mapGetters('landlord', ['pods']),
         methods: {
-            addPod() {
-                var that = this,
-                    data = { 'number': this.number };
+            submit(form) {
+                var that = this;
 
-                this.$store.dispatch('pod/STORE', data)
+                this.$store.dispatch('pod/STORE', form)
                     .then(function() {
                         if(form.successful) {
                             that.$router.push({ name: 'add' });
                         }
                     });
-            },
-            assignCameraToPod(pod, side, event) {
-                var camera_id = `${event.target.value}`;
-                pod['camera_' + side + '_id'] = camera_id;
-                axios.patch('/api/pod/' + pod.id, pod).then((response) => {
-                    console.log(response.data);
-                }, (error) => {
-                    this.errors = error.response.data;
-                });
             }
         }
     }

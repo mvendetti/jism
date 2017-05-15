@@ -5,6 +5,8 @@ export const Components = {
 
     Breadcrumb : Vue.component('jism-breadcrumb', require('./components/nav/breadcrumb.vue')),
 
+    FormDropdown : Vue.component('jism-form-dropdown', require('./components/forms/dropdown.vue')),
+
     Header : Vue.component('jism-header', require('./components/header/header.vue')),
     HeaderTimer : Vue.component('jism-header-timer', require('./components/header/timer.vue')),
     HeaderStatus : Vue.component('jism-header-status', require('./components/header/status.vue')),
@@ -13,6 +15,7 @@ export const Components = {
     PageHome : Vue.component('jism-page-home', require('./pages/home.vue')),
     Settings : Vue.component('jism-settings', require('./pages/settings.vue')),
 
+    PodForm : Vue.component('jism-pod-form', require('./pages/pod/form.vue')),
     PodEdit : Vue.component('jism-pod-edit', require('./pages/pod/edit.vue')),
     PodIndex : Vue.component('jism-pod-index', require('./pages/pod/index.vue')),
     PodCreate : Vue.component('jism-pod-add', require('./pages/pod/create.vue')),
