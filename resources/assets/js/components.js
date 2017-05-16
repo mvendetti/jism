@@ -15,11 +15,12 @@ export const Components = {
     PageHome : Vue.component('jism-page-home', require('./pages/home.vue')),
     Settings : Vue.component('jism-settings', require('./pages/settings.vue')),
 
-    PodForm : Vue.component('jism-pod-form', require('./pages/pod/form.vue')),
     PodEdit : Vue.component('jism-pod-edit', require('./pages/pod/edit.vue')),
     PodIndex : Vue.component('jism-pod-index', require('./pages/pod/index.vue')),
     PodCreate : Vue.component('jism-pod-add', require('./pages/pod/create.vue')),
     PodDelete : Vue.component('jism-pod-delete', require('./pages/pod/delete.vue')),
+    PodCreateForm : Vue.component('jism-pod-create-form', require('./pages/pod/forms/form-create.vue')),
+    PodDeleteForm : Vue.component('jism-pod-delete-form', require('./pages/pod/forms/form-delete.vue')),
 
     CameraEdit : Vue.component('jism-camera-edit', require('./pages/camera/edit.vue')),
     CameraIndex : Vue.component('jism-camera-index', require('./pages/camera/index.vue')),
