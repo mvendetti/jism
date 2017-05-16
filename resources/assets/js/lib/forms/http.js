@@ -34,6 +34,7 @@ module.exports = {
      * Foo Bar Fish Taco
      */
     request(method, url, form, mutation) {
+        form.startProcessing();
         return axios[method](Jism.scopeUrl(url), JSON.parse(JSON.stringify(form)))
             .then((response) => {
                 form.finishProcessing(response);

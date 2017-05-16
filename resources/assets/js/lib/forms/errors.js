@@ -87,7 +87,7 @@ window.JismFormErrors = function () {
      */
     this.set = function (errors) {
         if (typeof errors === 'object') {
-            this.errors = errors;
+            this.errors = _.clone(errors);
         } else {
             this.errors = {'form': ['Something went wrong. Please try again or contact customer support.']};
         }
@@ -104,5 +104,6 @@ window.JismFormErrors = function () {
         } else {
             Vue.delete(this.errors, field);
         }
+        this.unread = _.clone(this.errors);
     };
 };
