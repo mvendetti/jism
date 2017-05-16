@@ -1,7 +1,7 @@
 <template>
     <div>
         <jism-layout-primary>
-            <jism-pod-form @submit="submit"></jism-pod-form>
+            <jism-pod-create-form @submit="submit"></jism-pod-create-form>
         </jism-layout-primary>
     </div>
 </template>
