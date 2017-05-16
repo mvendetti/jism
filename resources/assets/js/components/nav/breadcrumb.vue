@@ -34,7 +34,7 @@
                     <span v-if="this.camId === 'right'">Right</span>
                 </li>
 
-                <li v-if="this.$route.name === 'home'" class="list-item">
+                <li v-if="this.$route.name === 'home' && this.pods.length <= 2" class="list-item">
                     <router-link :to="{ name: 'add' }">+</router-link>
                 </li>
             </ol>
