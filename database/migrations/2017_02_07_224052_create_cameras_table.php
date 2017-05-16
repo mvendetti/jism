@@ -25,6 +25,7 @@ class CreateCamerasTable extends Migration
             $table->string('firmware_version');
             $table->boolean('online')->default(false)->index();
             $table->boolean('is_recording')->default(false)->index();
+            $table->text('settings');
             $table->timestamps();
         });
     }

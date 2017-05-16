@@ -38,7 +38,8 @@ class Camera extends Model
         'model_number',
         'model_name',
         'firmware_version',
-        'online'
+        'online',
+        'settings'
     ];
 
     /**
@@ -49,6 +50,7 @@ class Camera extends Model
     protected $casts = [
         'online' => 'bool',
         'is_recording' => 'bool',
+        'settings' => 'array',
     ];
 
     public function setSerialNumberAttribute($value)

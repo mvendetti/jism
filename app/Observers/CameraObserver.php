@@ -9,9 +9,9 @@ use App\Lib\ParseGoProData;
 class CameraObserver
 {
     /**
-     * Listen to the User created event.
+     * Listen to the Camera loaded event.
      *
-     * @param  User  $user
+     * @param  Camera  $camera
      * @return void
      */
     public function loaded(Camera $camera)
@@ -21,5 +21,16 @@ class CameraObserver
                 ->first();
 
         $camera->setRelation('status', $cs);
+    }
+
+    /**
+     * Listen to the Camera creating event.
+     *
+     * @param  Camera  $camera
+     * @return void
+     */
+    public function creating(Camera $camera)
+    {
+        $camera->settings = '{}';
     }
 }
