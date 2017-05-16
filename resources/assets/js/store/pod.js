@@ -12,7 +12,7 @@ const obj = {
             return Jism.patch('/api/pod/:pod_id', data, 'pod/STORE');
         },
         DESTROY: function ({ commit, state }, id) {
-            return Jism.destroy('/api/pod/:pod_id', 'pod/DESTROY');
+            return Jism.destroy('/api/pod/:pod_id', 'pod/DESTROY', id);
         },
     },
     mutations: {
