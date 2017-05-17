@@ -4,6 +4,7 @@ Vue.use(Vuex);
 
 import landlord from './store/landlord';
 import status from './store/status';
+import group from './store/group';
 import pod from './store/pod';
 import camera from './store/camera';
 
@@ -11,6 +12,7 @@ const store = new Vuex.Store({
     modules: {
         landlord: landlord,
         status: status,
+        group: group,
         pod: pod,
         camera: camera,
     }

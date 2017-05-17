@@ -1,12 +1,13 @@
 <template>
-    <i v-on:click="start" class="fa fa-circle" aria-hidden="true"></i>
+    <i v-on:click="record" class="fa fa-circle" aria-hidden="true"></i>
 </template>
 
 <script>
     export default {
         methods: {
-            start() {
-                this.$emit('record');
+            record() {
+                this.$store.dispatch('group/RECORD')
+                    .then(function() {});
             }
         }
     }
