@@ -17,6 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::resource('group.settings', 'GroupSettingsController', ['only' => ['index', 'store']]);
 Route::resource('group.status', 'GroupStatusController', ['only' => ['index']]);
 Route::resource('pod.status', 'PodStatusController', ['only' => ['index']]);
 Route::resource('camera.status', 'CameraStatusController', ['only' => ['index']]);
