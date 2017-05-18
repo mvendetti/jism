@@ -6,8 +6,8 @@
             :placeholder="placeholder"
             v-on:input="$emit('input', $event.target.value)"
         >
-            <option disabled selected hidden>You must choose...</option>
-            <option v-for="option in options" :value="option.value">{{ option.title }}</option>
+            <option disabled hidden>You must choose...</option>
+            <option v-for="option in options" :selected="selected" :value="option.value">{{ option.title }}</option>
         </select>
         <span class="help-block" v-show="hasError">
             {{ errorMsg }}
@@ -17,6 +17,6 @@
 
 <script>
     export default {
-        props: ['value', 'options', 'hasError', 'errorMsg', 'label', 'placeholder'],
+        props: ['value', 'options', 'selected', 'hasError', 'errorMsg', 'label', 'placeholder'],
     }
 </script>

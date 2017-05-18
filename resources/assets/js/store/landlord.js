@@ -7,6 +7,7 @@ const landlord = {
     },
     actions: {
         UPDATE: function ({ commit, state }, route) {
+            Jism.Vue.$store.dispatch('keys/LOAD');
             Jism.Vue.$store.dispatch('pod/LOAD');
             Jism.Vue.$store.dispatch('camera/LOAD');
             commit('STORE_POD_ID', route.params.pod_id);
@@ -91,6 +92,9 @@ const landlord = {
         },
         videoDuration: state => {
             return _.first(Jism.vuexGet('landlord/videoDurations'));
+        },
+        keys: state => {
+            return Jism.vuexGet('keys/all');
         },
     }
 };

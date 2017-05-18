@@ -14,6 +14,7 @@ export const Components = {
 
     PageHome : Vue.component('jism-page-home', require('./pages/home.vue')),
     Settings : Vue.component('jism-settings', require('./pages/settings.vue')),
+    SettingsForm : Vue.component('jism-settings-form', require('./pages/forms/form-settings.vue')),
 
     PodEdit : Vue.component('jism-pod-edit', require('./pages/pod/edit.vue')),
     PodIndex : Vue.component('jism-pod-index', require('./pages/pod/index.vue')),

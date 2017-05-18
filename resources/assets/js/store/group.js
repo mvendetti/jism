@@ -16,9 +16,6 @@ const obj = {
         all: state => {
             return state.all;
         },
-        find: state => {
-            //
-        },
     }
 };
 export default obj;
