@@ -19,6 +19,7 @@
                         v-model="form.current_sub_mode_video"
                         v-bind:hasError="form.errors.has('current_sub_mode_video')"
                         v-bind:errorMsg="form.errors.get('current_sub_mode_video')"
+                        v-bind:selected="0"
                         label="Type"
                         v-bind:options="current_sub_mode_video"
                     ></jism-form-dropdown>
@@ -29,6 +30,7 @@
                         v-model="form.protune"
                         v-bind:hasError="form.errors.has('protune')"
                         v-bind:errorMsg="form.errors.get('protune')"
+                        v-bind:selected="1"
                         label="Protune"
                         v-bind:options="protune"
                     ></jism-form-dropdown>
@@ -39,6 +41,7 @@
                         v-model="form.video_format"
                         v-bind:hasError="form.errors.has('video_format')"
                         v-bind:errorMsg="form.errors.get('video_format')"
+                        v-bind:selected="0"
                         label="Format"
                         v-bind:options="video_format"
                     ></jism-form-dropdown>
@@ -54,6 +57,7 @@
                         v-model="form.video_resolution"
                         v-bind:hasError="form.errors.has('video_resolution')"
                         v-bind:errorMsg="form.errors.get('video_resolution')"
+                        v-bind:selected="1"
                         label="Resolution"
                         v-bind:options="video_resolution"
                     ></jism-form-dropdown>
@@ -63,6 +67,7 @@
                         v-model="form.frame_rate"
                         v-bind:hasError="form.errors.has('frame_rate')"
                         v-bind:errorMsg="form.errors.get('frame_rate')"
+                        v-bind:selected="8"
                         label="FPS"
                         v-bind:options="frame_rate"
                     ></jism-form-dropdown>
@@ -72,6 +77,7 @@
                         v-model="form.fov_video"
                         v-bind:hasError="form.errors.has('fov_video')"
                         v-bind:errorMsg="form.errors.get('fov_video')"
+                        v-bind:selected="0"
                         label="FOV"
                         v-bind:options="fov_video"
                     ></jism-form-dropdown>
@@ -81,6 +87,7 @@
                         v-model="form.white_balance"
                         v-bind:hasError="form.errors.has('white_balance')"
                         v-bind:errorMsg="form.errors.get('white_balance')"
+                        v-bind:selected="2"
                         label="White Balance"
                         v-bind:options="white_balance"
                     ></jism-form-dropdown>
@@ -90,6 +97,7 @@
                         v-model="form.color"
                         v-bind:hasError="form.errors.has('color')"
                         v-bind:errorMsg="form.errors.get('color')"
+                        v-bind:selected="1"
                         label="Color Profile"
                         v-bind:options="color"
                     ></jism-form-dropdown>
@@ -101,6 +109,7 @@
                         v-model="form.manual_exposure"
                         v-bind:hasError="form.errors.has('manual_exposure')"
                         v-bind:errorMsg="form.errors.get('manual_exposure')"
+                        v-bind:selected="13"
                         label="Manual Exposure"
                         v-bind:options="manual_exposure"
                     ></jism-form-dropdown>
@@ -110,7 +119,7 @@
                         v-model="form.iso_limit"
                         v-bind:hasError="form.errors.has('iso_limit')"
                         v-bind:errorMsg="form.errors.get('iso_limit')"
-                        v-bind:selected="true"
+                        v-bind:selected="3"
                         label="ISO"
                         v-bind:options="iso_limit"
                     ></jism-form-dropdown>
@@ -120,6 +129,7 @@
                         v-model="form.sharpness"
                         v-bind:hasError="form.errors.has('sharpness')"
                         v-bind:errorMsg="form.errors.get('sharpness')"
+                        v-bind:selected="1"
                         label="Sharpness"
                         v-bind:options="sharpness"
                     ></jism-form-dropdown>
@@ -129,6 +139,7 @@
                         v-model="form.ev_comp"
                         v-bind:hasError="form.errors.has('ev_comp')"
                         v-bind:errorMsg="form.errors.get('ev_comp')"
+                        v-bind:selected="4"
                         label="EV Comp"
                         v-bind:options="ev_comp"
                     ></jism-form-dropdown>
@@ -138,6 +149,7 @@
                         v-model="form.orientation"
                         v-bind:hasError="form.errors.has('orientation')"
                         v-bind:errorMsg="form.errors.get('orientation')"
+                        v-bind:selected="1"
                         label="Orientation"
                         v-bind:options="orientation"
                     ></jism-form-dropdown>
@@ -256,19 +268,19 @@
         data() {
             return {
                 form: new JismForm({
-                    current_sub_mode_video: 0,
-                    protune: 1,
-                    video_format: 0,
-                    video_resolution: 1,
-                    manual_exposure: 13,
-                    frame_rate: 8,
-                    iso_limit: 3,
-                    fov_video: 0,
-                    sharpness: 1,
-                    white_balance: 2,
-                    ev_comp: 4,
-                    color: 1,
-                    orientation: 1,
+                    current_sub_mode_video: null,
+                    protune: null,
+                    video_format: null,
+                    video_resolution: null,
+                    manual_exposure: null,
+                    frame_rate: null,
+                    iso_limit: null,
+                    fov_video: null,
+                    sharpness: null,
+                    white_balance: null,
+                    ev_comp: null,
+                    color: null,
+                    orientation: null,
                 })
             }
         },

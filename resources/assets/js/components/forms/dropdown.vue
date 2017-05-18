@@ -6,8 +6,7 @@
             :placeholder="placeholder"
             v-on:input="$emit('input', $event.target.value)"
         >
-            <option disabled hidden>You must choose...</option>
-            <option v-for="option in options" :selected="selected" :value="option.value">{{ option.title }}</option>
+            <option v-for="option in options" :selected="selected === option.value ? true : false" :value="option.value">{{ option.title }}</option>
         </select>
         <span class="help-block" v-show="hasError">
             {{ errorMsg }}

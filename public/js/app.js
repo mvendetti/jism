@@ -38200,7 +38200,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     props: ['value', 'options', 'selected', 'hasError', 'errorMsg', 'label', 'placeholder']
@@ -60441,19 +60440,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.$emit('input', $event.target.value)
       }
     }
-  }, [_c('option', {
-    attrs: {
-      "disabled": "",
-      "hidden": ""
-    }
-  }, [_vm._v("You must choose...")]), _vm._v(" "), _vm._l((_vm.options), function(option) {
+  }, _vm._l((_vm.options), function(option) {
     return _c('option', {
       domProps: {
-        "selected": _vm.selected,
+        "selected": _vm.selected === option.value ? true : false,
         "value": option.value
       }
     }, [_vm._v(_vm._s(option.title))])
-  })], 2), _vm._v(" "), _c('span', {
+  })), _vm._v(" "), _c('span', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -64150,6 +64144,18 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
@@ -64249,19 +64255,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     data() {
         return {
             form: new JismForm({
-                current_sub_mode_video: 0,
-                protune: 1,
-                video_format: 0,
-                video_resolution: 1,
-                manual_exposure: 13,
-                frame_rate: 8,
-                iso_limit: 3,
-                fov_video: 0,
-                sharpness: 1,
-                white_balance: 2,
-                ev_comp: 4,
-                color: 1,
-                orientation: 1
+                current_sub_mode_video: null,
+                protune: null,
+                video_format: null,
+                video_resolution: null,
+                manual_exposure: null,
+                frame_rate: null,
+                iso_limit: null,
+                fov_video: null,
+                sharpness: null,
+                white_balance: null,
+                ev_comp: null,
+                color: null,
+                orientation: null
             })
         };
     },
@@ -64348,6 +64354,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "hasError": _vm.form.errors.has('current_sub_mode_video'),
       "errorMsg": _vm.form.errors.get('current_sub_mode_video'),
+      "selected": 0,
       "label": "Type",
       "options": _vm.current_sub_mode_video
     },
@@ -64364,6 +64371,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "hasError": _vm.form.errors.has('protune'),
       "errorMsg": _vm.form.errors.get('protune'),
+      "selected": 1,
       "label": "Protune",
       "options": _vm.protune
     },
@@ -64380,6 +64388,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "hasError": _vm.form.errors.has('video_format'),
       "errorMsg": _vm.form.errors.get('video_format'),
+      "selected": 0,
       "label": "Format",
       "options": _vm.video_format
     },
@@ -64400,6 +64409,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "hasError": _vm.form.errors.has('video_resolution'),
       "errorMsg": _vm.form.errors.get('video_resolution'),
+      "selected": 1,
       "label": "Resolution",
       "options": _vm.video_resolution
     },
@@ -64414,6 +64424,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "hasError": _vm.form.errors.has('frame_rate'),
       "errorMsg": _vm.form.errors.get('frame_rate'),
+      "selected": 8,
       "label": "FPS",
       "options": _vm.frame_rate
     },
@@ -64428,6 +64439,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "hasError": _vm.form.errors.has('fov_video'),
       "errorMsg": _vm.form.errors.get('fov_video'),
+      "selected": 0,
       "label": "FOV",
       "options": _vm.fov_video
     },
@@ -64442,6 +64454,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "hasError": _vm.form.errors.has('white_balance'),
       "errorMsg": _vm.form.errors.get('white_balance'),
+      "selected": 2,
       "label": "White Balance",
       "options": _vm.white_balance
     },
@@ -64456,6 +64469,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "hasError": _vm.form.errors.has('color'),
       "errorMsg": _vm.form.errors.get('color'),
+      "selected": 1,
       "label": "Color Profile",
       "options": _vm.color
     },
@@ -64472,6 +64486,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "hasError": _vm.form.errors.has('manual_exposure'),
       "errorMsg": _vm.form.errors.get('manual_exposure'),
+      "selected": 13,
       "label": "Manual Exposure",
       "options": _vm.manual_exposure
     },
@@ -64486,7 +64501,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "hasError": _vm.form.errors.has('iso_limit'),
       "errorMsg": _vm.form.errors.get('iso_limit'),
-      "selected": true,
+      "selected": 3,
       "label": "ISO",
       "options": _vm.iso_limit
     },
@@ -64501,6 +64516,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "hasError": _vm.form.errors.has('sharpness'),
       "errorMsg": _vm.form.errors.get('sharpness'),
+      "selected": 1,
       "label": "Sharpness",
       "options": _vm.sharpness
     },
@@ -64515,6 +64531,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "hasError": _vm.form.errors.has('ev_comp'),
       "errorMsg": _vm.form.errors.get('ev_comp'),
+      "selected": 4,
       "label": "EV Comp",
       "options": _vm.ev_comp
     },
@@ -64529,6 +64546,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "hasError": _vm.form.errors.has('orientation'),
       "errorMsg": _vm.form.errors.get('orientation'),
+      "selected": 1,
       "label": "Orientation",
       "options": _vm.orientation
     },
