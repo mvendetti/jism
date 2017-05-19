@@ -155,13 +155,26 @@
                     ></jism-form-dropdown>
 
                 </div>
+                <div class="panel-body" v-show="form.errors.hasUnreadErrors()">
+                    <div class="alert alert-danger" role="alert" v-for="error in form.errors.flattenUnread()">{{ error }}</div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <button @click="submit" class="btn btn-primary btn-block save-button">Save</button>
+                    <button
+                        type="submit"
+                        class="btn btn-primary btn-block save-button"
+                        :disabled="form.busy"
+                        @click="submit"
+                    >Save</button>
                 </div>
                 <div class="col-md-1 col-xs-1">
-                    <button @click="format" class="btn btn-danger format-button">FORMAT</button>
+                    <button
+                        type="submit"
+                        class="btn btn-danger format-button"
+                        :disabled="form.busy"
+                        @click="format"
+                    >FORMAT</button>
                 </div>
             </div>
         </div>
