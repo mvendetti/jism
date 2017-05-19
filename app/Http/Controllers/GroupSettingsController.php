@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Key;
 use App\Camera;
 use Illuminate\Http\Request;
 
@@ -13,26 +12,9 @@ class GroupSettingsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($group_id)
     {
-        $keys = Key::where('keytype', 'settings')->get();
-        $keys->each(function($key) use (&$values) {
-            $opts = collect($key->opts)->map(function($opt, $idx) {
-                return [ 'id' => $idx, 'title' => $opt ];
-            });
-            $opts = [];
-            foreach($key->opts as $idx => $opt)
-            {
-                $opts[] = [ 'id' => $idx, 'title' => $opt ];
-            }
-            $values[$key->slug] = [
-                'id' => $key->id,
-                'gopro_id' => $key->gopro_id,
-                'title' => $key->value,
-                'opts' => $opts
-            ];
-        });
-        return response()->json($values);
+        return response()->json(Camera::all());
     }
 
     /**
@@ -46,13 +28,16 @@ class GroupSettingsController extends Controller
         /**
          * Groups not yet implemented in data schema
          */
-        $settings = $request->except(['errors', 'response', 'busy', 'successful']);
-        $txn = \DB::transaction(function () use ($settings) {
-            foreach(Camera::all() as $camera)
-            {
-                $camera->update(['settings' => $settings]);
-            }
-        });
-        return response()->json($txn);
+        // $settings = $request->except(['errors', 'response', 'busy', 'successful']);
+        // $txn = \DB::transaction(function () use ($settings) {
+        //     foreach(Camera::all() as $camera)
+        //     {
+        //         $camera->update(['settings' => $settings]);
+        //     }
+        // });
+        // return response()->json($txn);
+
+        $settings = json_encode($request->except(['errors', 'response', 'busy', 'successful']));
+        return response()->json(\DB::table('cameras')->update(['settings' => $settings]));
     }
 }
