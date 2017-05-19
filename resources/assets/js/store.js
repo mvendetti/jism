@@ -8,6 +8,7 @@ import keys from './store/keys';
 import group from './store/group';
 import pod from './store/pod';
 import camera from './store/camera';
+import settings from './store/settings'
 
 const store = new Vuex.Store({
     modules: {
@@ -17,6 +18,7 @@ const store = new Vuex.Store({
         group: group,
         pod: pod,
         camera: camera,
+        settings: settings,
     }
 });
 

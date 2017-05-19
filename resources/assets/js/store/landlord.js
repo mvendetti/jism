@@ -10,6 +10,7 @@ const landlord = {
             Jism.Vue.$store.dispatch('keys/LOAD');
             Jism.Vue.$store.dispatch('pod/LOAD');
             Jism.Vue.$store.dispatch('camera/LOAD');
+            Jism.Vue.$store.dispatch('settings/LOAD');
             commit('STORE_POD_ID', route.params.pod_id);
             commit('STORE_CAMERA_ID', route.params.camera_id);
         },
