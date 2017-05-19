@@ -41,8 +41,18 @@ class GroupSettingsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $group_id)
     {
-        return response()->json(Camera::create($request->all()));
+        /**
+         * Groups not yet implemented in data schema
+         */
+        $settings = $request->except(['errors', 'response', 'busy', 'successful']);
+        $txn = \DB::transaction(function () use ($settings) {
+            foreach(Camera::all() as $camera)
+            {
+                $camera->update(['settings' => $settings]);
+            }
+        });
+        return response()->json($txn);
     }
 }
