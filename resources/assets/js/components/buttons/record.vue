@@ -4,9 +4,16 @@
 
 <script>
     export default {
+        data() {
+            return {
+                action: new JismForm({
+                    record: 'record',
+                })
+            }
+        },
         methods: {
             record() {
-                this.$store.dispatch('group/RECORD')
+                this.$store.dispatch('group/RECORD', this.action)
                     .then(function() {});
             }
         }

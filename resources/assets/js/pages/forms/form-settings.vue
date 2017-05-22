@@ -4,8 +4,8 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-md-12 col-xs-12">
-                    <button @click.prevent="sleep" class="btn btn-default">Sleep</button>
-                    <button @click.prevent="wake" class="btn btn-default">Wake</button>
+                    <button @click="sleep" class="btn btn-default">Sleep</button>
+                    <button @click="wake" class="btn btn-default">Wake</button>
                     <button class="btn btn-primary pull-right">Take Images</button>
                 </div>
             </div>
@@ -294,12 +294,22 @@
                     ev_comp: '4',
                     color: '1',
                     orientation: '1',
+                }),
+                action: new JismForm({
+                    sleep: 'sleep',
+                    wake: 'wake',
                 })
             }
         },
         methods: {
             submit() {
                 this.$emit('submit', this.form);
+            },
+            sleep() {
+                this.$emit('sleep', this.action);
+            },
+            wake() {
+                this.$emit('wake', this.action);
             },
             format() {
                 //

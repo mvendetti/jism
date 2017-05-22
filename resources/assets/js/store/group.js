@@ -2,15 +2,23 @@ const obj = {
     namespaced: true,
     state: { all: [] },
     actions: {
-        RECORD: function ({ commit }) {
-            return Jism.post('/api/group/1/record', 'group/RECORD');
+        RECORD: function ({ commit, state }, form) {
+            return Jism.post('/api/group/1/record', form);
         },
-        STOP: function ({ commit }) {
-            return Jism.post('/api/group/1/stop', 'group/STOP');
+        STOP: function ({ commit, state }, form) {
+            return Jism.post('/api/group/1/stop', form);
+        },
+        SLEEP: function ({ commit, state }, form) {
+            return Jism.post('/api/group/1/sleep', form);
+        },
+        WAKE: function ({ commit, state }, form) {
+            return Jism.post('/api/group/1/wake', form);
         },
     },
     mutations: {
-        //
+        RECORD: (state, { item }) => {
+            //
+        },
     },
     getters: {
         all: state => {

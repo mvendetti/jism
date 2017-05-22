@@ -38137,9 +38137,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = {
+    data() {
+        return {
+            action: new JismForm({
+                record: 'record'
+            })
+        };
+    },
     methods: {
         record() {
-            this.$store.dispatch('group/RECORD').then(function () {});
+            this.$store.dispatch('group/RECORD', this.action).then(function () {});
         }
     }
 };
@@ -38171,9 +38178,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = {
+    data() {
+        return {
+            action: new JismForm({
+                stop: 'stop'
+            })
+        };
+    },
     methods: {
         stop() {
-            this.$store.dispatch('group/STOP').then(function () {});
+            this.$store.dispatch('group/STOP', this.action).then(function () {});
         }
     }
 };
@@ -38489,10 +38503,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     //
@@ -38608,20 +38618,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    computed: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['pods']),
+    computed: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['pod']),
     methods: {
-        disable(id, state) {
-            var that = this,
-                data = { 'disabled': state, id };
+        disable(state) {
+            var data = { 'disabled': state };
 
-            this.$store.dispatch('pod/UPDATE', data).then(function () {
-                if (form.successful) {
-                    that.$router.push({ name: 'pod-settings' });
-                }
+            axios.patch('/api/pod/' + this.pod.number, data).then(response => {
+                console.log(response.data);
+            }, error => {
+                console.log(error.response.data);
             });
         },
         sleep() {
@@ -38837,6 +38845,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     methods: {
@@ -38846,19 +38859,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 that.$router.push({ name: 'settings' });
             });
         },
-        sleep() {
-            axios.post('/api/group/1/sleep').then(response => {
-                console.log(response.data);
-            }, error => {
-                console.log(error.response.data);
-            });
+        sleep(action) {
+            this.$store.dispatch('group/SLEEP', action).then(function () {});
         },
-        wake() {
-            axios.post('/api/group/1/wake').then(response => {
-                console.log(response.data);
-            }, error => {
-                console.log(error.response.data);
-            });
+        wake(action) {
+            this.$store.dispatch('group/WAKE', action).then(function () {});
         },
         format() {
             //
@@ -39284,7 +39289,7 @@ module.exports = {
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
 
-const routes = [{ path: '/', name: 'home', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PageHome }, { path: '/settings', name: 'settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Settings }, { path: '/pod/add', name: 'add', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodCreate }, { path: '/pod/remove', name: 'remove', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodDelete }, { path: '/pod/:pod_id', name: 'pod', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodIndex }, { path: '/pod/:pod_id/settings', name: 'pod-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodEdit }, { path: '/pod/:pod_id/camera/:camera_id', name: 'camera', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Camera }, { path: '/pod/:pod_id/camera/:camera_id/review', name: 'review', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraReview }, { path: '/pod/:pod_id/camera/:camera_id/settings', name: 'camera-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraEdit }];
+const routes = [{ path: '/', name: 'home', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PageHome }, { path: '/settings', name: 'settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Settings }, { path: '/pod/add', name: 'add', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodCreate }, { path: '/pod/remove', name: 'remove', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodDelete }, { path: '/pod/:pod_id', name: 'pod', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodIndex }, { path: '/pod/:pod_id/settings', name: 'pod-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodEdit }, { path: '/pod/:pod_id/camera/:camera_id', name: 'camera', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraIndex }, { path: '/pod/:pod_id/camera/:camera_id/review', name: 'review', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraReview }, { path: '/pod/:pod_id/camera/:camera_id/settings', name: 'camera-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraEdit }];
 /* unused harmony export routes */
 
 
@@ -60471,11 +60476,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('jism-layout-primary', [_c('div', {
-    staticClass: "container"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('h1', [_vm._v("pod " + _vm._s(_vm.$route.params.pod_id) + " cam " + _vm._s(_vm.$route.params.camera_id))])])])])], 1)
+  return _c('div', [_c('jism-layout-primary', [_c('h1', [_vm._v("Camera " + _vm._s(_vm.$route.params.camera_id))])])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -60530,7 +60531,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('jism-layout-primary', [_c('h1', [_vm._v("Pod Settings")]), _vm._v(" "), _c('div', {
+  return _c('div', [_c('jism-layout-primary', [_c('h1', [_vm._v("Pod " + _vm._s(_vm.pod.number) + " Settings")]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-12 col-xs-12"
@@ -60544,32 +60545,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.wake
     }
-  }, [_vm._v("Wake")])])]), _vm._v(" "), _c('h3', [_vm._v("Disable Pods")]), _vm._v(" "), _c('ul', {
+  }, [_vm._v("Wake")])])]), _vm._v(" "), _c('h3', [_vm._v("Disable")]), _vm._v(" "), _c('ul', {
     staticClass: "list-group"
-  }, [_vm._l((_vm.pods), function(pod) {
-    return _c('li', {
-      class: ['list-group-item', pod.disabled ? 'disabled' : '']
-    }, [_c('span', [_vm._v("P" + _vm._s(pod.number))]), _vm._v(" "), _c('input', {
-      staticClass: "pull-right",
-      attrs: {
-        "type": "checkbox"
+  }, [_c('li', {
+    class: ['list-group-item', _vm.pod.disabled ? 'disabled' : '']
+  }, [_c('span', [_vm._v("P" + _vm._s(_vm.pod.number))]), _vm._v(" "), _c('input', {
+    staticClass: "pull-right",
+    attrs: {
+      "type": "checkbox"
+    },
+    domProps: {
+      "value": 'pod' + _vm.pod.number,
+      "checked": _vm.pod.disabled
+    },
+    on: {
+      "click": function($event) {
+        _vm.pod.disabled = !_vm.pod.disabled
       },
-      domProps: {
-        "value": 'pod' + pod.number,
-        "checked": pod.disabled
-      },
-      on: {
-        "click": function($event) {
-          pod.disabled = !pod.disabled
-        },
-        "change": function($event) {
-          _vm.disable(pod.id, pod.disabled)
-        }
+      "change": function($event) {
+        _vm.disable(_vm.pod.disabled)
       }
-    })])
-  }), _vm._v(" "), (!_vm.pods.length) ? _c('li', {
-    staticClass: "list-group-item"
-  }, [_vm._v("No pods to disable")]) : _vm._e()], 2)])], 1)
+    }
+  })])])])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -60792,7 +60789,9 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('jism-layout-primary', [_c('jism-settings-form', {
     on: {
-      "submit": _vm.save
+      "submit": _vm.save,
+      "sleep": _vm.sleep,
+      "wake": _vm.wake
     }
   })], 1)], 1)
 },staticRenderFns: []}
@@ -63960,15 +63959,23 @@ const obj = {
     namespaced: true,
     state: { all: [] },
     actions: {
-        RECORD: function ({ commit }) {
-            return Jism.post('/api/group/1/record', 'group/RECORD');
+        RECORD: function ({ commit, state }, form) {
+            return Jism.post('/api/group/1/record', form);
         },
-        STOP: function ({ commit }) {
-            return Jism.post('/api/group/1/stop', 'group/STOP');
+        STOP: function ({ commit, state }, form) {
+            return Jism.post('/api/group/1/stop', form);
+        },
+        SLEEP: function ({ commit, state }, form) {
+            return Jism.post('/api/group/1/sleep', form);
+        },
+        WAKE: function ({ commit, state }, form) {
+            return Jism.post('/api/group/1/wake', form);
         }
     },
     mutations: {
-        //
+        RECORD: (state, { item }) => {
+            //
+        }
     },
     getters: {
         all: state => {
@@ -64282,12 +64289,22 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 ev_comp: '4',
                 color: '1',
                 orientation: '1'
+            }),
+            action: new JismForm({
+                sleep: 'sleep',
+                wake: 'wake'
             })
         };
     },
     methods: {
         submit() {
             this.$emit('submit', this.form);
+        },
+        sleep() {
+            this.$emit('sleep', this.action);
+        },
+        wake() {
+            this.$emit('wake', this.action);
         },
         format() {
             //
@@ -64343,18 +64360,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('button', {
     staticClass: "btn btn-default",
     on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.sleep($event)
-      }
+      "click": _vm.sleep
     }
   }, [_vm._v("Sleep")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-default",
     on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.wake($event)
-      }
+      "click": _vm.wake
     }
   }, [_vm._v("Wake")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-primary pull-right"
