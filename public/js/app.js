@@ -38559,7 +38559,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
 //
 //
 //
@@ -38568,10 +38567,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    computed: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['pods']),
     methods: {
         destroy(form) {
             var that = this;
@@ -39311,9 +39308,11 @@ const router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__store_group__ = __webpack_require__(279);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__store_pod__ = __webpack_require__(187);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__store_camera__ = __webpack_require__(185);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__store_settings__ = __webpack_require__(284);
 
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
+
 
 
 
@@ -39329,7 +39328,8 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         keys: __WEBPACK_IMPORTED_MODULE_4__store_keys__["a" /* default */],
         group: __WEBPACK_IMPORTED_MODULE_5__store_group__["a" /* default */],
         pod: __WEBPACK_IMPORTED_MODULE_6__store_pod__["a" /* default */],
-        camera: __WEBPACK_IMPORTED_MODULE_7__store_camera__["a" /* default */]
+        camera: __WEBPACK_IMPORTED_MODULE_7__store_camera__["a" /* default */],
+        settings: __WEBPACK_IMPORTED_MODULE_8__store_settings__["a" /* default */]
     }
 });
 
@@ -39389,6 +39389,7 @@ const landlord = {
             Jism.Vue.$store.dispatch('keys/LOAD');
             Jism.Vue.$store.dispatch('pod/LOAD');
             Jism.Vue.$store.dispatch('camera/LOAD');
+            Jism.Vue.$store.dispatch('settings/LOAD');
             commit('STORE_POD_ID', route.params.pod_id);
             commit('STORE_CAMERA_ID', route.params.camera_id);
         }
@@ -60443,7 +60444,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, _vm._l((_vm.options), function(option) {
     return _c('option', {
       domProps: {
-        "selected": _vm.selected === option.value ? true : false,
+        "selected": _vm.selected === option.value,
         "value": option.value
       }
     }, [_vm._v(_vm._s(option.title))])
@@ -64156,6 +64157,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
@@ -64255,19 +64269,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     data() {
         return {
             form: new JismForm({
-                current_sub_mode_video: null,
-                protune: null,
-                video_format: null,
-                video_resolution: null,
-                manual_exposure: null,
-                frame_rate: null,
-                iso_limit: null,
-                fov_video: null,
-                sharpness: null,
-                white_balance: null,
-                ev_comp: null,
-                color: null,
-                orientation: null
+                current_sub_mode_video: '0',
+                protune: '1',
+                video_format: '0',
+                video_resolution: '1',
+                manual_exposure: '13',
+                frame_rate: '8',
+                iso_limit: '3',
+                fov_video: '0',
+                sharpness: '1',
+                white_balance: '2',
+                ev_comp: '4',
+                color: '1',
+                orientation: '1'
             })
         };
     },
@@ -64557,12 +64571,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "form.orientation"
     }
-  }) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
+  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.form.errors.hasUnreadErrors()),
+      expression: "form.errors.hasUnreadErrors()"
+    }],
+    staticClass: "panel-body"
+  }, _vm._l((_vm.form.errors.flattenUnread()), function(error) {
+    return _c('div', {
+      staticClass: "alert alert-danger",
+      attrs: {
+        "role": "alert"
+      }
+    }, [_vm._v(_vm._s(error))])
+  }))]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-12"
   }, [_c('button', {
     staticClass: "btn btn-primary btn-block save-button",
+    attrs: {
+      "type": "submit",
+      "disabled": _vm.form.busy
+    },
     on: {
       "click": _vm.submit
     }
@@ -64570,6 +64603,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-md-1 col-xs-1"
   }, [_c('button', {
     staticClass: "btn btn-danger format-button",
+    attrs: {
+      "type": "submit",
+      "disabled": _vm.form.busy
+    },
     on: {
       "click": _vm.format
     }
@@ -64593,15 +64630,44 @@ const obj = {
     state: { all: [] },
     actions: {
         LOAD: function ({ commit }) {
-            return Jism.get('/api/group/1/settings', 'keys/LOAD');
-        },
-        STORE: function ({ commit }) {
-            return Jism.post('/api/group/1/settings', 'settings/STORE');
+            return Jism.get('/api/key/settings', 'keys/LOAD');
         }
     },
     mutations: {
         LOAD: (state, { data }) => {
             state.all = data;
+        }
+    },
+    getters: {
+        all: state => {
+            return state.all;
+        }
+    }
+};
+/* harmony default export */ __webpack_exports__["a"] = obj;
+
+/***/ }),
+/* 284 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const obj = {
+    namespaced: true,
+    state: { all: [] },
+    actions: {
+        LOAD: function ({ commit }) {
+            return Jism.get('/api/group/1/settings', 'settings/LOAD');
+        },
+        STORE: function ({ commit, state }, form) {
+            return Jism.post('/api/group/1/settings', form, 'settings/STORE');
+        }
+    },
+    mutations: {
+        LOAD: (state, { data }) => {
+            state.all = data;
+        },
+        STORE: (state, { item }) => {
+            state.all = Jism.massMergeModels(state.all, [item]);
         }
     },
     getters: {

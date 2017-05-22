@@ -7,9 +7,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
     export default {
-        computed: mapGetters('landlord', ['pods']),
         methods: {
             destroy(form) {
                 var that = this;
