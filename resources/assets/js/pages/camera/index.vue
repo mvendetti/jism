@@ -1,11 +1,7 @@
 <template>
     <div>
         <jism-layout-primary>
-            <div class="container">
-                <div class="row">
-                    <h1>pod {{ $route.params.pod_id }} cam {{ $route.params.camera_id }}</h1>
-                </div>
-            </div>
+            <h1>Camera {{ $route.params.camera_id }}</h1>
         </jism-layout-primary>
     </div>
 </template>
