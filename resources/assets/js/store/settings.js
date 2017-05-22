@@ -13,6 +13,9 @@ const obj = {
         LOAD: (state, { data }) => {
             state.all = data;
         },
+        STORE: (state, { item }) => {
+            state.all = Jism.massMergeModels(state.all, [item]);
+        },
     },
     getters: {
         all: state => {

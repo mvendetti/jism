@@ -281,19 +281,19 @@
         data() {
             return {
                 form: new JismForm({
-                    current_sub_mode_video: null,
-                    protune: null,
-                    video_format: null,
-                    video_resolution: null,
-                    manual_exposure: null,
-                    frame_rate: null,
-                    iso_limit: null,
-                    fov_video: null,
-                    sharpness: null,
-                    white_balance: null,
-                    ev_comp: null,
-                    color: null,
-                    orientation: null,
+                    current_sub_mode_video: '0',
+                    protune: '1',
+                    video_format: '0',
+                    video_resolution: '1',
+                    manual_exposure: '13',
+                    frame_rate: '8',
+                    iso_limit: '3',
+                    fov_video: '0',
+                    sharpness: '1',
+                    white_balance: '2',
+                    ev_comp: '4',
+                    color: '1',
+                    orientation: '1',
                 })
             }
         },
