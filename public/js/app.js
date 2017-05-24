@@ -38214,6 +38214,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     props: ['value', 'options', 'selected', 'hasError', 'errorMsg', 'label', 'placeholder']
@@ -38583,7 +38584,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         destroy(form) {
             var that = this;
             this.$store.dispatch('pod/DESTROY', form.pod_id).then(function () {
-                that.$router.push({ name: 'add' });
+                that.$router.push({ name: 'remove' });
             });
         }
     }
@@ -60446,14 +60447,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.$emit('input', $event.target.value)
       }
     }
-  }, _vm._l((_vm.options), function(option) {
+  }, [_c('option', {
+    attrs: {
+      "value": "",
+      "hidden": "",
+      "disabled": "",
+      "selected": ""
+    }
+  }, [_vm._v("Select")]), _vm._v(" "), _vm._l((_vm.options), function(option) {
     return _c('option', {
       domProps: {
         "selected": _vm.selected === option.value,
         "value": option.value
       }
     }, [_vm._v(_vm._s(option.title))])
-  })), _vm._v(" "), _c('span', {
+  })], 2), _vm._v(" "), _c('span', {
     directives: [{
       name: "show",
       rawName: "v-show",

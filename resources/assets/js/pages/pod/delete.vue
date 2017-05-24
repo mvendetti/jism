@@ -13,7 +13,7 @@
                 var that = this;
                 this.$store.dispatch('pod/DESTROY', form.pod_id)
                     .then(function() {
-                        that.$router.push({ name: 'add' });
+                        that.$router.push({ name: 'remove' });
                     });
             },
         }
