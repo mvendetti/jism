@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Pod;
 use App\Http\Requests\PodPostRequest;
-use App\Http\Requests\PodUpdateRequest;
 
 class PodController extends Controller
 {
@@ -68,10 +67,9 @@ class PodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PodUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        Pod::where('id', $id)->update($request->all());
-        return response()->json(Pod::all());
+        //
     }
 
     /**

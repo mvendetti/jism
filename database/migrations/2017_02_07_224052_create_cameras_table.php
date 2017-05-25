@@ -16,7 +16,8 @@ class CreateCamerasTable extends Migration
         Schema::create('cameras', function (Blueprint $table) {
             $table->string('serial_number')->primary();
             $table->integer('pod_id')->index()->nullable();
-            $table->enum('pod_side', ['unassigned', 'left', 'right'])->default('unassigned')->index();
+            $table->enum('pod_side', ['left', 'right'])->nullable();
+            $table->unique(['pod_id', 'pod_side']);
             $table->string('ip')->unique();
             $table->string('mac')->unique();
             $table->string('ssid')->index();

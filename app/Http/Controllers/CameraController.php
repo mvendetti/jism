@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Camera;
+use App\Http\Requests\CameraUpdateRequest;
 
 class CameraController extends Controller
 {
@@ -66,9 +67,10 @@ class CameraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CameraUpdateRequest $request, $id)
     {
-        //
+        Camera::findOrFail($id)->setPodSide($request->all());
+        return response()->json(Camera::all());
     }
 
     /**
@@ -79,6 +81,7 @@ class CameraController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Camera::findOrFail($id)->setPodNull();
+        return response()->json(Camera::all());
     }
 }

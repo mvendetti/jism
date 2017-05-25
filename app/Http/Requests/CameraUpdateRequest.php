@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PodUpdateRequest extends FormRequest
+class CameraUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class PodUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'camera_left_id' => 'nullable|exists:cameras,serial_number',
-            'camera_right_id' => 'nullable|exists:cameras,serial_number'
+            'pod_id' => 'required|exists:pods,id',
+            'pod_side' => 'required|in:left,right'
         ];
     }
 }

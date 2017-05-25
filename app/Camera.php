@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Pod;
 use Illuminate\Support\Arr;
 use App\Traits\ModelLoadedEventTrait;
 use App\Traits\EnforceMacFormatTrait;
@@ -72,6 +73,40 @@ class Camera extends Model
     public function statuses()
     {
         return $this->hasMany('App\CameraStatus');
+    }
+
+    public function setPodSide(array $data)
+    {
+        $pod_id = array_key_exists('pod_id', $data)
+            ? $data['pod_id']
+            : abort(400, 'pod_id key not found');
+        $side = array_key_exists('pod_side', $data)
+            ? studly_case($data['pod_side'])
+            : abort(400, 'pod_side key not found');
+        return method_exists($this, 'setPod'.$side)
+            ? call_user_func([$this, 'setPod'.$side], Pod::findOrFail($pod_id))
+            : abort(400, 'Invalid side '.$side);
+    }
+
+    public function setPodNull()
+    {
+        $this->pod_id = null;
+        $this->pod_side = null;
+        $this->save();
+    }
+
+    public function setPodLeft(Pod $pod)
+    {
+        $this->pod_id = $pod->id;
+        $this->pod_side = 'left';
+        $this->save();
+    }
+
+    public function setPodRight(Pod $pod)
+    {
+        $this->pod_id = $pod->id;
+        $this->pod_side = 'right';
+        $this->save();
     }
 
     public function setOnline()
