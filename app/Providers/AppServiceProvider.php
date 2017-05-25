@@ -5,7 +5,6 @@ namespace App\Providers;
 use App\Pod;
 use App\Camera;
 use App\CameraStatus;
-use App\Observers\PodObserver;
 use App\Observers\CameraObserver;
 use Illuminate\Support\Facades\Schema;
 use App\Observers\CameraStatusObserver;
@@ -21,7 +20,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
-        Pod::observe(PodObserver::class);
         Camera::observe(CameraObserver::class);
         CameraStatus::observe(CameraStatusObserver::class);
     }
