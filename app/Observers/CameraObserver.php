@@ -4,7 +4,6 @@ namespace App\Observers;
 
 use App\Camera;
 use App\CameraStatus;
-use App\Lib\ParseGoProData;
 
 class CameraObserver
 {
@@ -16,7 +15,7 @@ class CameraObserver
      */
     public function loaded(Camera $camera)
     {
-        $cs = \App\CameraStatus::where('camera_serial_number', $camera->serial_number)
+        $cs = CameraStatus::where('camera_serial_number', $camera->serial_number)
                 ->latest()
                 ->first();
 

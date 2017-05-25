@@ -12,8 +12,8 @@ class DataGraph
 
     public function __construct()
     {
-        $this->setOtherCameras();
         $this->setPods();
+        $this->setOtherCameras();
     }
 
     protected function setPods()
