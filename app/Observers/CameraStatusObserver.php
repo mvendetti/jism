@@ -2,15 +2,16 @@
 
 namespace App\Observers;
 
+use Carbon\Carbon;
 use App\CameraStatus;
 use App\Lib\ParseGoProData;
 
 class CameraStatusObserver
 {
     /**
-     * Listen to the User created event.
+     * Listen to the CameraStatus saving event.
      *
-     * @param  User  $user
+     * @param  CameraStatus  $cs
      * @return void
      */
     public function saving(CameraStatus $cs)
@@ -28,5 +29,17 @@ class CameraStatusObserver
             $cs->camera->is_recording = $recordingStatus === 1;
             $cs->camera->save();
         }
+    }
+
+    /**
+     * Listen to the CameraStatus saved event.
+     *
+     * @param  CameraStatus  $cs
+     * @return void
+     */
+    public function saved(CameraStatus $cs)
+    {
+        $cutoff = Carbon::now()->subMinutes($cs->lifetime);
+        $records = CameraStatus::where('created_at', '<', $cutoff->toDateTimeString())->delete();
     }
 }

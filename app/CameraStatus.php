@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class CameraStatus extends Model
 {
     /**
+     * Autodelete records after N minutes.
+     * @var integer
+     */
+    public $lifetime = 1;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
