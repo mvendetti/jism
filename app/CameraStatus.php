@@ -10,7 +10,7 @@ class CameraStatus extends Model
      * Autodelete records after N minutes.
      * @var integer
      */
-    public $lifetime = 1;
+    public $lifetime = 30;
 
     /**
      * The attributes that are mass assignable.
