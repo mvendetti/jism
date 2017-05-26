@@ -1,7 +1,7 @@
 <template>
     <div>
         <jism-layout-primary>
-            <h1>Pod {{ $route.params.pod_id }}</h1>
+            <h1>Pod {{ $route.params.pod_number }}</h1>
         </jism-layout-primary>
     </div>
 </template>

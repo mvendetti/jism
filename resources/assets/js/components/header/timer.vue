@@ -5,7 +5,7 @@
         </button>
         <ul class="dropdown-menu duration">
             <li v-for="status in videoDurations">
-                <a>P{{ status.pod_id }}/{{ status.pod_side }}: {{ status.duration | secondsToHours }}</a>
+                <a>P{{ status.pod_number }}/{{ status.pod_side }}: {{ status.duration | secondsToHours }}</a>
             </li>
         </ul>
     </span>
