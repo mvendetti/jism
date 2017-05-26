@@ -39088,6 +39088,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.$emit('submit', this.form);
         },
         assignCameraToPod(pod, side, event) {
+            console.log(pod, side);
             if (event.target.value === 'unassign') {
                 this.unassignCameraFromPod(event.target.value);
                 return false;
@@ -39619,13 +39620,56 @@ module.exports = {
  * Jism helpers
  */
 module.exports = {
-    massMergeModels(models, newModels) {
-        var data = _.cloneDeep(models);
-        data = _.filter(data, function (elem) {
-            return !_.find(newModels, { id: elem.id });
+    massMergeModels(o, n, idColumn) {
+        // var data = models; //_.cloneDeep(models);
+        if (typeof idColumn === 'undefined') {
+            idColumn = 'id';
+        }
+
+        var oldIds = _.values(_.mapValues(o, idColumn)),
+            newIds = _.values(_.mapValues(n, idColumn)),
+            changedIds = _.intersection(oldIds, newIds),
+            removedIds = _.difference(oldIds, newIds),
+            addedIds = _.difference(newIds, oldIds);
+
+        // Add any new elements that did not exist in the old data
+        var newElems = _.filter(n, elem => {
+            return _.findIndex(addedIds, o => {
+                return o == elem[idColumn];
+            }) >= 0;
         });
-        data = data.concat(newModels);
-        return data;
+
+        if (_.size(newElems) > 0) {
+            o = _.concat(o, newElems);
+        }
+
+        // Remove any elements that are not in the new data
+        _.each(removedIds, elem => {
+            _.each(o, (oe, idx) => {
+                if (oe[idColumn] == elem) {
+                    _.unset(o, idx);
+                }
+            });
+            o = _.pickBy(o, _.identity);
+        });
+
+        _.each(changedIds, cid => {
+            var ne = _.find(n, elem => {
+                return elem[idColumn] == cid;
+            });
+            _.each(o, (oe, idx) => {
+                if (oe[idColumn] == cid) {
+
+                    if (typeof o[idx].ssid !== 'undefined') {
+                        o[idx].ssid = ne.ssid;
+                        console.log(o[idx].ssid);
+                    }
+                }
+            });
+        });
+
+        // models = models.concat(newModels);
+        return o;
     },
     removeModel(models, id) {
         return _.filter(models, function (elem) {
@@ -39712,7 +39756,10 @@ Jism.vuexGet = function (path, id) {
 "use strict";
 const obj = {
     namespaced: true,
-    state: { all: [] },
+    state: {
+        pods: [],
+        cameras: []
+    },
     actions: {
         LOAD: function ({ commit }) {
             return Jism.get('/api/graph', 'graph/LOAD');
@@ -39720,23 +39767,31 @@ const obj = {
     },
     mutations: {
         LOAD: (state, { data }) => {
-            state.all = data;
+            state.pods = Jism.massMergeModels(state.pods, data.pods);
+            state.cameras = Jism.massMergeModels(state.cameras, data.cameras, 'serial_number');
+
+            // console.log(state.pods);
+            //
+            //
+            // state.all = Jism.massMergeModels(state.all, data);
+            // console.log(Jism.massMergeModels(state.all, [data]));
+            // state.all = data;
         }
     },
     getters: {
         pods: state => {
-            return state.all.pods;
+            return state.pods;
         },
         pod: state => number => {
-            return _.find(state.all.pods, function (elem) {
+            return _.find(state.pods, function (elem) {
                 return elem.number == number;
             });
         },
         cameras: state => {
-            return state.all.cameras;
+            return state.cameras;
         },
         camera: state => serial_number => {
-            return _.find(state.all.cameras, function (elem) {
+            return _.find(state.cameras, function (elem) {
                 return elem.serial_number == serial_number;
             });
         }
@@ -39905,7 +39960,6 @@ const landlord = {
                 ordered = _.orderBy(stati, [remaining_video_path], ['asc']);
 
             return _.map(ordered, elem => {
-                console.log(elem);
                 var current_video_duration = _.result(elem, current_video_path),
                     remaining_video_duration = _.result(elem, remaining_video_path);
 

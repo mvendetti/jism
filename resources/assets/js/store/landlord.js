@@ -93,7 +93,6 @@ const landlord = {
                 ordered = _.orderBy(stati, [remaining_video_path], ['asc']);
 
             return _.map(ordered, (elem) => {
-                console.log(elem);
                 var current_video_duration = _.result(elem, current_video_path),
                     remaining_video_duration = _.result(elem, remaining_video_path);
 

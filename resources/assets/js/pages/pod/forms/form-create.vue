@@ -98,6 +98,7 @@
                 this.$emit('submit', this.form);
             },
             assignCameraToPod(pod, side, event) {
+                console.log(pod, side);
                 if(event.target.value === 'unassign') {
                     this.unassignCameraFromPod(event.target.value)
                     return false;
