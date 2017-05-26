@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 266);
+/******/ 	return __webpack_require__(__webpack_require__.s = 272);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1899,7 +1899,7 @@ function loadLocale(name) {
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            __webpack_require__(195)("./" + name);
+            __webpack_require__(199)("./" + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
@@ -16230,7 +16230,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(265)
+var listToStyles = __webpack_require__(271)
 
 /*
 type StyleObject = {
@@ -37206,9 +37206,9 @@ module.exports = function(module) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(184);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__router__ = __webpack_require__(183);
-__webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(185);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__router__ = __webpack_require__(184);
+__webpack_require__(176);
 
 
 
@@ -37220,9 +37220,12 @@ Jism.Vue = new Vue({
 });
 
 /*
- * Perform initial launch of status loading. WARNING. This runs for infiniti;
+ * Perform initial launch of graph loading. WARNING. This runs for infiniti;
  */
-Jism.Vue.$store.dispatch('status/LOAD');
+Jism.Vue.$store.dispatch('graph/LOAD');
+setInterval(() => {
+    Jism.Vue.$store.dispatch('graph/LOAD');
+}, 1000);
 
 /*
  * Update the data in landlord
@@ -38292,7 +38295,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    computed: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['online'])
+    computed: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['allOnline'])
 };
 
 /***/ }),
@@ -38388,7 +38391,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = {
     computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['pods']), {
         podId() {
-            return this.$route.params.pod_id;
+            return this.$route.params.pod_number;
         },
         camId() {
             return this.$route.params.camera_id;
@@ -38539,6 +38542,333 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['keys', 'pods', 'cameras']), {
+        current_sub_mode_video() {
+            var opts = [];
+            _.forEach(this.keys.current_sub_mode_video.opts, value => {
+                opts.push({ value: value.id, title: value.title });
+            });
+            return opts;
+        },
+        protune() {
+            var opts = [];
+            _.forEach(this.keys.protune.opts, value => {
+                opts.push({ value: value.id, title: value.title });
+            });
+            return opts;
+        },
+        video_format() {
+            var opts = [];
+            _.forEach(this.keys.video_format.opts, value => {
+                opts.push({ value: value.id, title: value.title });
+            });
+            return opts;
+        },
+        video_resolution() {
+            var opts = [];
+            _.forEach(this.keys.video_resolution.opts, value => {
+                opts.push({ value: value.id, title: value.title });
+            });
+            return opts;
+        },
+        frame_rate() {
+            var opts = [];
+            _.forEach(this.keys.frame_rate.opts, value => {
+                opts.push({ value: value.id, title: value.title });
+            });
+            return opts;
+        },
+        fov_video() {
+            var opts = [];
+            _.forEach(this.keys.fov_video.opts, value => {
+                opts.push({ value: value.id, title: value.title });
+            });
+            return opts;
+        },
+        white_balance() {
+            var opts = [];
+            _.forEach(this.keys.white_balance.opts, value => {
+                opts.push({ value: value.id, title: value.title });
+            });
+            return opts;
+        },
+        color() {
+            var opts = [];
+            _.forEach(this.keys.color.opts, value => {
+                opts.push({ value: value.id, title: value.title });
+            });
+            return opts;
+        },
+        manual_exposure() {
+            var opts = [];
+            _.forEach(this.keys.manual_exposure.opts, value => {
+                opts.push({ value: value.id, title: value.title });
+            });
+            return opts;
+        },
+        iso_limit() {
+            var opts = [];
+            _.forEach(this.keys.iso_limit.opts, value => {
+                opts.push({ value: value.id, title: value.title });
+            });
+            return opts;
+        },
+        sharpness() {
+            var opts = [];
+            _.forEach(this.keys.sharpness.opts, value => {
+                opts.push({ value: value.id, title: value.title });
+            });
+            return opts;
+        },
+        ev_comp() {
+            var opts = [];
+            _.forEach(this.keys.ev_comp.opts, value => {
+                opts.push({ value: value.id, title: value.title });
+            });
+            return opts;
+        },
+        orientation() {
+            var opts = [];
+            _.forEach(this.keys.orientation.opts, value => {
+                opts.push({ value: value.id, title: value.title });
+            });
+            return opts;
+        }
+    }),
+    data() {
+        return {
+            form: new JismForm({
+                current_sub_mode_video: '0',
+                protune: '1',
+                video_format: '0',
+                video_resolution: '1',
+                manual_exposure: '13',
+                frame_rate: '8',
+                iso_limit: '3',
+                fov_video: '0',
+                sharpness: '1',
+                white_balance: '2',
+                ev_comp: '4',
+                color: '1',
+                orientation: '1'
+            }),
+            action: new JismForm({
+                sleep: 'sleep',
+                wake: 'wake'
+            })
+        };
+    },
+    methods: {
+        submit() {
+            this.$emit('submit', this.form);
+        },
+        sleep() {
+            this.$emit('sleep', this.action);
+        },
+        wake() {
+            this.$emit('wake', this.action);
+        },
+        format() {
+            //
+        }
+    }
+};
+
+/***/ }),
+/* 169 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
 //
 //
 //
@@ -38565,7 +38895,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38591,7 +38921,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38651,7 +38981,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38721,7 +39051,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['pods', 'cameras']), {
+    computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['status', 'pods', 'cameras']), {
         values() {
             var vals = [];
 
@@ -38729,6 +39059,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 vals.push({ value: value, title: value });
             });
             return vals;
+        },
+        set_cameras() {
+            var arr = [];
+
+            _.forEach(this.status, val => {
+                console.log(val);
+            });
+
+            return arr;
+        },
+        other_cameras() {
+            //
+        },
+        merged_cameras() {
+            return _.merge();
         }
     }),
     data() {
@@ -38743,19 +39088,33 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.$emit('submit', this.form);
         },
         assignCameraToPod(pod, side, event) {
-            var camera_id = `${event.target.value}`;
-            pod['camera_' + side + '_id'] = camera_id;
-            axios.patch('/api/pod/' + pod.id, pod).then(response => {
+            if (event.target.value === 'unassign') {
+                this.unassignCameraFromPod(event.target.value);
+                return false;
+            }
+            var camera_id = `${event.target.value}`,
+                data = {
+                'pod_id': pod.id,
+                'pod_side': side
+            };
+            axios.patch('/api/camera/' + camera_id, data).then(response => {
                 console.log(response.data);
             }, error => {
-                this.errors = error.response.data;
+                console.log(error.response.data);
+            });
+        },
+        unassignCameraFromPod(camera_id) {
+            axios.delete('/api/camera/' + camera_id).then(response => {
+                console.log(response.data);
+            }, error => {
+                console.log(error.response.data);
             });
         }
     }
 };
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38814,7 +39173,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 };
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38833,7 +39192,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38873,10 +39232,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
-window._ = __webpack_require__(194);
+window._ = __webpack_require__(198);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -38888,7 +39247,7 @@ window.moment = __webpack_require__(0);
 
 window.$ = window.jQuery = __webpack_require__(4);
 
-__webpack_require__(189);
+__webpack_require__(193);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -38933,10 +39292,10 @@ window.axios = __webpack_require__(134);
 //     key: 'your-pusher-key'
 // });
 
-__webpack_require__(177);
+__webpack_require__(178);
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38945,77 +39304,77 @@ __webpack_require__(177);
 
 
 const Components = {
-    LayoutPrimary: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-layout-primary', __webpack_require__(216)),
+    LayoutPrimary: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-layout-primary', __webpack_require__(220)),
 
-    Breadcrumb: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-breadcrumb', __webpack_require__(215)),
+    Breadcrumb: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-breadcrumb', __webpack_require__(219)),
 
-    FormDropdown: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-form-dropdown', __webpack_require__(210)),
+    FormDropdown: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-form-dropdown', __webpack_require__(214)),
 
-    Header: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-header', __webpack_require__(212)),
-    HeaderTimer: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-header-timer', __webpack_require__(214)),
-    HeaderStatus: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-header-status', __webpack_require__(213)),
-    HeaderBattery: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-header-battery', __webpack_require__(211)),
+    Header: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-header', __webpack_require__(216)),
+    HeaderTimer: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-header-timer', __webpack_require__(218)),
+    HeaderStatus: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-header-status', __webpack_require__(217)),
+    HeaderBattery: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-header-battery', __webpack_require__(215)),
 
-    PageHome: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-page-home', __webpack_require__(220)),
-    Settings: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-settings', __webpack_require__(227)),
-    SettingsForm: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-settings-form', __webpack_require__(281)),
+    PageHome: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-page-home', __webpack_require__(225)),
+    Settings: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-settings', __webpack_require__(232)),
+    SettingsForm: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-settings-form', __webpack_require__(224)),
 
-    PodEdit: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-pod-edit', __webpack_require__(223)),
-    PodIndex: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-pod-index', __webpack_require__(226)),
-    PodCreate: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-pod-add', __webpack_require__(221)),
-    PodDelete: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-pod-delete', __webpack_require__(222)),
-    PodCreateForm: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-pod-create-form', __webpack_require__(224)),
-    PodDeleteForm: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-pod-delete-form', __webpack_require__(225)),
+    PodEdit: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-pod-edit', __webpack_require__(228)),
+    PodIndex: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-pod-index', __webpack_require__(231)),
+    PodCreate: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-pod-add', __webpack_require__(226)),
+    PodDelete: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-pod-delete', __webpack_require__(227)),
+    PodCreateForm: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-pod-create-form', __webpack_require__(229)),
+    PodDeleteForm: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-pod-delete-form', __webpack_require__(230)),
 
-    CameraEdit: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-camera-edit', __webpack_require__(217)),
-    CameraIndex: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-camera-index', __webpack_require__(218)),
-    CameraReview: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-camera-review', __webpack_require__(219)),
+    CameraEdit: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-camera-edit', __webpack_require__(221)),
+    CameraIndex: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-camera-index', __webpack_require__(222)),
+    CameraReview: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-camera-review', __webpack_require__(223)),
 
-    StopButton: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-button-stop', __webpack_require__(201)),
-    PauseButton: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-button-pause', __webpack_require__(198)),
-    RecordButton: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-button-record', __webpack_require__(199)),
-    ForwardButton: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-button-forward', __webpack_require__(197)),
-    BackwardButton: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-button-backward', __webpack_require__(196)),
-    ReferenceButton: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-button-reference', __webpack_require__(200)),
+    StopButton: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-button-stop', __webpack_require__(205)),
+    PauseButton: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-button-pause', __webpack_require__(202)),
+    RecordButton: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-button-record', __webpack_require__(203)),
+    ForwardButton: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-button-forward', __webpack_require__(201)),
+    BackwardButton: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-button-backward', __webpack_require__(200)),
+    ReferenceButton: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-button-reference', __webpack_require__(204)),
 
-    Footer: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer', __webpack_require__(202)),
-    FooterPod: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-pod', __webpack_require__(208)),
-    FooterMain: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-main', __webpack_require__(206)),
-    FooterAdd: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-add', __webpack_require__(203)),
-    FooterCamera: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-camera', __webpack_require__(204)),
-    FooterReview: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-review', __webpack_require__(209)),
-    FooterDefault: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-default', __webpack_require__(205)),
-    FooterMainSettings: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-main-settings', __webpack_require__(207))
+    Footer: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer', __webpack_require__(206)),
+    FooterPod: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-pod', __webpack_require__(212)),
+    FooterMain: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-main', __webpack_require__(210)),
+    FooterAdd: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-add', __webpack_require__(207)),
+    FooterCamera: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-camera', __webpack_require__(208)),
+    FooterReview: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-review', __webpack_require__(213)),
+    FooterDefault: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-default', __webpack_require__(209)),
+    FooterMainSettings: __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('jism-footer-main-settings', __webpack_require__(211))
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = Components;
 
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {$.extend(Jism, __webpack_require__(182));
-__webpack_require__(178);
+/* WEBPACK VAR INJECTION */(function($) {$.extend(Jism, __webpack_require__(183));
+__webpack_require__(179);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {/**
  * Load the form helpers
  */
+__webpack_require__(181);
 __webpack_require__(180);
-__webpack_require__(179);
 
 /**
  * Add additional HTTP / form helpers to the Jism object.
  */
-$.extend(Jism, __webpack_require__(181));
+$.extend(Jism, __webpack_require__(182));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 179 */
+/* 180 */
 /***/ (function(module, exports) {
 
 /**
@@ -39132,7 +39491,7 @@ window.JismFormErrors = function () {
 };
 
 /***/ }),
-/* 180 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {/**
@@ -39197,7 +39556,7 @@ window.JismForm = function (data) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 181 */
+/* 182 */
 /***/ (function(module, exports) {
 
 /**
@@ -39253,7 +39612,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 182 */
+/* 183 */
 /***/ (function(module, exports) {
 
 /**
@@ -39276,21 +39635,21 @@ module.exports = {
 };
 
 /***/ }),
-/* 183 */
+/* 184 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(260);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(266);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components__ = __webpack_require__(177);
 
 
 
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
 
-const routes = [{ path: '/', name: 'home', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PageHome }, { path: '/settings', name: 'settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Settings }, { path: '/pod/add', name: 'add', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodCreate }, { path: '/pod/remove', name: 'remove', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodDelete }, { path: '/pod/:pod_id', name: 'pod', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodIndex }, { path: '/pod/:pod_id/settings', name: 'pod-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodEdit }, { path: '/pod/:pod_id/camera/:camera_id', name: 'camera', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraIndex }, { path: '/pod/:pod_id/camera/:camera_id/review', name: 'review', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraReview }, { path: '/pod/:pod_id/camera/:camera_id/settings', name: 'camera-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraEdit }];
+const routes = [{ path: '/', name: 'home', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PageHome }, { path: '/settings', name: 'settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Settings }, { path: '/pod/add', name: 'add', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodCreate }, { path: '/pod/remove', name: 'remove', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodDelete }, { path: '/pod/:pod_number', name: 'pod', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodIndex }, { path: '/pod/:pod_number/settings', name: 'pod-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodEdit }, { path: '/pod/:pod_number/camera/:camera_id', name: 'camera', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraIndex }, { path: '/pod/:pod_number/camera/:camera_id/review', name: 'review', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraReview }, { path: '/pod/:pod_number/camera/:camera_id/settings', name: 'camera-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraEdit }];
 /* unused harmony export routes */
 
 
@@ -39301,20 +39660,18 @@ const router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
 
 
 /***/ }),
-/* 184 */
+/* 185 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store_landlord__ = __webpack_require__(186);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store_status__ = __webpack_require__(188);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store_keys__ = __webpack_require__(283);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__store_group__ = __webpack_require__(279);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__store_pod__ = __webpack_require__(187);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__store_camera__ = __webpack_require__(185);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__store_settings__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store_landlord__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store_graph__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store_keys__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__store_group__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__store_settings__ = __webpack_require__(192);
 
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
@@ -39323,19 +39680,19 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 
 
 
-
-
+// import pod from './store/pod';
+// import camera from './store/camera';
 
 
 const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     modules: {
         landlord: __WEBPACK_IMPORTED_MODULE_2__store_landlord__["a" /* default */],
-        status: __WEBPACK_IMPORTED_MODULE_3__store_status__["a" /* default */],
+        graph: __WEBPACK_IMPORTED_MODULE_3__store_graph__["a" /* default */],
         keys: __WEBPACK_IMPORTED_MODULE_4__store_keys__["a" /* default */],
         group: __WEBPACK_IMPORTED_MODULE_5__store_group__["a" /* default */],
-        pod: __WEBPACK_IMPORTED_MODULE_6__store_pod__["a" /* default */],
-        camera: __WEBPACK_IMPORTED_MODULE_7__store_camera__["a" /* default */],
-        settings: __WEBPACK_IMPORTED_MODULE_8__store_settings__["a" /* default */]
+        // pod: pod,
+        // camera: camera,
+        settings: __WEBPACK_IMPORTED_MODULE_6__store_settings__["a" /* default */]
     }
 });
 
@@ -39348,7 +39705,8 @@ Jism.vuexGet = function (path, id) {
 /* harmony default export */ __webpack_exports__["a"] = store;
 
 /***/ }),
-/* 185 */
+/* 186 */,
+/* 187 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39357,20 +39715,28 @@ const obj = {
     state: { all: [] },
     actions: {
         LOAD: function ({ commit }) {
-            return Jism.get('/api/camera', 'camera/LOAD');
+            return Jism.get('/api/graph', 'graph/LOAD');
         }
     },
     mutations: {
         LOAD: (state, { data }) => {
-            state.all = Jism.massMergeModels(state.all, data);
+            state.all = data;
         }
     },
     getters: {
-        all: state => {
-            return state.all;
+        pods: state => {
+            return state.all.pods;
         },
-        find: state => serial_number => {
-            return _.find(state.all, function (elem) {
+        pod: state => number => {
+            return _.find(state.all.pods, function (elem) {
+                return elem.number == number;
+            });
+        },
+        cameras: state => {
+            return state.all.cameras;
+        },
+        camera: state => serial_number => {
+            return _.find(state.all.cameras, function (elem) {
                 return elem.serial_number == serial_number;
             });
         }
@@ -39379,7 +39745,68 @@ const obj = {
 /* harmony default export */ __webpack_exports__["a"] = obj;
 
 /***/ }),
-/* 186 */
+/* 188 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const obj = {
+    namespaced: true,
+    state: { all: [] },
+    actions: {
+        RECORD: function ({ commit, state }, form) {
+            return Jism.post('/api/group/1/record', form);
+        },
+        STOP: function ({ commit, state }, form) {
+            return Jism.post('/api/group/1/stop', form);
+        },
+        SLEEP: function ({ commit, state }, form) {
+            return Jism.post('/api/group/1/sleep', form);
+        },
+        WAKE: function ({ commit, state }, form) {
+            return Jism.post('/api/group/1/wake', form);
+        }
+    },
+    mutations: {
+        RECORD: (state, { item }) => {
+            //
+        }
+    },
+    getters: {
+        all: state => {
+            return state.all;
+        }
+    }
+};
+/* harmony default export */ __webpack_exports__["a"] = obj;
+
+/***/ }),
+/* 189 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const obj = {
+    namespaced: true,
+    state: { all: [] },
+    actions: {
+        LOAD: function ({ commit }) {
+            return Jism.get('/api/key/settings', 'keys/LOAD');
+        }
+    },
+    mutations: {
+        LOAD: (state, { data }) => {
+            state.all = data;
+        }
+    },
+    getters: {
+        all: state => {
+            return state.all;
+        }
+    }
+};
+/* harmony default export */ __webpack_exports__["a"] = obj;
+
+/***/ }),
+/* 190 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39387,22 +39814,19 @@ const landlord = {
     namespaced: true,
     state: {
         group_id: 1,
-        pod_id: null,
+        pod_number: null,
         camera_id: null
     },
     actions: {
         UPDATE: function ({ commit, state }, route) {
             Jism.Vue.$store.dispatch('keys/LOAD');
-            Jism.Vue.$store.dispatch('pod/LOAD');
-            Jism.Vue.$store.dispatch('camera/LOAD');
-            Jism.Vue.$store.dispatch('settings/LOAD');
-            commit('STORE_POD_ID', route.params.pod_id);
+            commit('STORE_POD_NUMBER', route.params.pod_number);
             commit('STORE_CAMERA_ID', route.params.camera_id);
         }
     },
     mutations: {
-        STORE_POD_ID: (state, id) => {
-            state.pod_id = id;
+        STORE_POD_NUMBER: (state, id) => {
+            state.pod_number = id;
         },
         STORE_CAMERA_ID: (state, id) => {
             state.camera_id = id;
@@ -39410,7 +39834,7 @@ const landlord = {
     },
     getters: {
         status: state => {
-            return _.filter(Jism.vuexGet('status/all'), elem => {
+            var cameras = _.filter(Jism.vuexGet('graph/cameras'), elem => {
                 if (state.pod_id && state.camera_id) {
                     return elem.pod_id == state.pod_id && elem.pod_side == state.camera_id;
                 }
@@ -39419,27 +39843,45 @@ const landlord = {
                 }
                 return true;
             });
+
+            return _.map(cameras, camera => {
+                return camera.status;
+            });
         },
         pods: state => {
-            return _.orderBy(Jism.vuexGet('pod/all'), ['number'], ['asc']);
+            return _.orderBy(Jism.vuexGet('graph/pods'), ['number'], ['asc']);
         },
         pod: state => {
             return Jism.vuexGet('pod/find', state.pod_id);
         },
         cameras: state => {
-            return Jism.vuexGet('camera/all');
+            return Jism.vuexGet('graph/cameras');
+        },
+        camera: state => serial_number => {
+            return Jism.vuexGet('graph/camera', serial_number);
         },
         online: state => {
-            var e = _.first(_.orderBy(state.all, ['online'], ['asc']));
+            var cameras = Jism.vuexGet('graph/cameras'),
+                online = [];
 
-            if (e !== undefined) {
-                return e.online;
-            }
-            return 0;
+            _.each(cameras, camera => {
+                if (camera.online === true) {
+                    online.push(camera.serial_number);
+                }
+            });
+            return online;
+        },
+        onlineCount: state => {
+            return _.size(Jism.vuexGet('landlord/online'));
+        },
+        allOnline: state => {
+            var onlineCount = Jism.vuexGet('landlord/onlineCount'),
+                totalCount = _.size(Jism.vuexGet('graph/cameras'));
+            return onlineCount == totalCount && totalCount > 0;
         },
         batteryDurations: state => {
             var stati = Jism.vuexGet('landlord/status'),
-                battery_level_path = 'status.parsed.status.internal_battery_level.gopro_subid',
+                battery_level_path = 'parsed.status.internal_battery_level.gopro_subid',
                 ordered = _.orderBy(stati, [battery_level_path], ['asc']);
 
             return _.map(ordered, elem => {
@@ -39458,18 +39900,19 @@ const landlord = {
         },
         videoDurations: state => {
             var stati = Jism.vuexGet('landlord/status'),
-                remaining_video_path = 'status.parsed.status.remaining_video_duration.value',
-                current_video_path = 'status.parsed.status.current_video_duration.value',
+                remaining_video_path = 'parsed.status.remaining_video_duration.value',
+                current_video_path = 'parsed.status.current_video_duration.value',
                 ordered = _.orderBy(stati, [remaining_video_path], ['asc']);
 
             return _.map(ordered, elem => {
+                console.log(elem);
                 var current_video_duration = _.result(elem, current_video_path),
                     remaining_video_duration = _.result(elem, remaining_video_path);
 
                 remaining_video_duration = remaining_video_duration - current_video_duration;
 
                 return {
-                    'pod_id': elem.pod_id,
+                    'pod_number': elem.pod_number,
                     'pod_side': elem.pod_side,
                     'serial_number': elem.serial_number,
                     'duration': remaining_video_duration
@@ -39487,7 +39930,8 @@ const landlord = {
 /* harmony default export */ __webpack_exports__["a"] = landlord;
 
 /***/ }),
-/* 187 */
+/* 191 */,
+/* 192 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39496,78 +39940,30 @@ const obj = {
     state: { all: [] },
     actions: {
         LOAD: function ({ commit }) {
-            return Jism.get('/api/pod', 'pod/LOAD');
+            return Jism.get('/api/group/1/settings', 'settings/LOAD');
         },
-        STORE: function ({ commit, state }, data) {
-            return Jism.post('/api/pod', data, 'pod/STORE');
-        },
-        UPDATE: function ({ commit, state }, data) {
-            return Jism.patch('/api/pod/:pod_id', data, 'pod/STORE');
-        },
-        DESTROY: function ({ commit, state }, id) {
-            return Jism.destroy('/api/pod/' + id, 'pod/DESTROY', id);
-        }
-    },
-    mutations: {
-        LOAD: (state, { data }) => {
-            state.all = Jism.massMergeModels(state.all, data);
-        },
-        STORE: (state, { item }) => {
-            state.all = Jism.massMergeModels(state.all, [item]);
-        },
-        DESTROY: (state, { id }) => {
-            state.all = Jism.removeModel(state.all, id);
-        }
-    },
-    getters: {
-        all: state => {
-            return state.all;
-        },
-        find: state => number => {
-            return _.find(state.all, function (elem) {
-                return elem.number == number;
-            });
-        }
-    }
-};
-/* harmony default export */ __webpack_exports__["a"] = obj;
-
-/***/ }),
-/* 188 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-const obj = {
-    namespaced: true,
-    state: { all: [] },
-    actions: {
-        LOAD: function ({ commit }) {
-            return Jism.get('/api/group/1/status', 'status/LOAD');
+        STORE: function ({ commit, state }, form) {
+            return Jism.post('/api/group/1/settings', form, 'settings/STORE');
         }
     },
     mutations: {
         LOAD: (state, { data }) => {
             state.all = data;
-            setTimeout(() => {
-                Jism.Vue.$store.dispatch('status/LOAD');
-            }, 2500);
+        },
+        STORE: (state, { item }) => {
+            state.all = Jism.massMergeModels(state.all, [item]);
         }
     },
     getters: {
         all: state => {
             return state.all;
-        },
-        find: state => pod_id => pod_side => {
-            return _.find(state.all, function (elem) {
-                return elem.pod_id == pod_id && elem.pod_side == pod_side;
-            });
         }
     }
 };
 /* harmony default export */ __webpack_exports__["a"] = obj;
 
 /***/ }),
-/* 189 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -41951,35 +42347,35 @@ if (typeof jQuery === 'undefined') {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 190 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(5)();
 exports.push([module.i, "\n.top-status-bar {\n  padding: 0.25em;\n  text-align: center;\n}\n.top-status-bar i {\n    margin-right: 75px;\n}\n.top-status-bar i.green {\n      color: #6AA84F;\n}\n.top-status-bar i.red {\n      color: #CC0000;\n}\n.top-status-bar i.yellow {\n      color: #FFD966;\n}\n.top-status-bar i.gray {\n      color: #CCCCCC;\n}\n.top-status-bar button {\n    border: none;\n    background-color: transparent;\n}\n.pod-ordered-list {\n  border-radius: 0;\n  border-top: 1px solid #222;\n  border-bottom: 1px solid #222;\n  background-color: #e2e2e2;\n  padding: 0.75em;\n}\n.pod-ordered-list li::before {\n    padding: 0 15px;\n}\n.pod-ordered-list li a.active {\n    color: #777;\n}\n.pod-ordered-list li a:hover, .pod-ordered-list li a:focus {\n    text-decoration: none;\n}\n.pod-ordered-list .list-item {\n    font-weight: 900;\n    font-size: 1.1em;\n}\n.dropdown-menu.duration {\n  left: auto;\n  right: 0;\n  float: right;\n}\n", ""]);
 
 /***/ }),
-/* 191 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(5)();
 exports.push([module.i, "\nfooter {\n  position: fixed;\n  bottom: 0;\n  text-align: center;\n  width: 100%;\n  padding: 1em;\n  background-color: #E2E2E2;\n  border-top: 1px solid #222;\n}\nfooter a {\n    color: #636B6F;\n}\nfooter .fa {\n    margin: 0 15px;\n}\n", ""]);
 
 /***/ }),
-/* 192 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(5)();
 exports.push([module.i, "\n.fa-circle[data-v-833ffa5a] {\n  color: firebrick;\n}\n", ""]);
 
 /***/ }),
-/* 193 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(5)();
 exports.push([module.i, "\n.wrapper {\n  overflow: scroll;\n}\n", ""]);
 
 /***/ }),
-/* 194 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -59071,7 +59467,7 @@ exports.push([module.i, "\n.wrapper {\n  overflow: scroll;\n}\n", ""]);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(130), __webpack_require__(131)(module)))
 
 /***/ }),
-/* 195 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -59320,18 +59716,18 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 195;
+webpackContext.id = 199;
 
 
 /***/ }),
-/* 196 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(152),
   /* template */
-  __webpack_require__(243),
+  __webpack_require__(249),
   /* scopeId */
   null,
   /* cssModules */
@@ -59358,14 +59754,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 197 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(153),
   /* template */
-  __webpack_require__(233),
+  __webpack_require__(239),
   /* scopeId */
   null,
   /* cssModules */
@@ -59392,14 +59788,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 198 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(154),
   /* template */
-  __webpack_require__(247),
+  __webpack_require__(253),
   /* scopeId */
   null,
   /* cssModules */
@@ -59426,18 +59822,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 199 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(263)
+__webpack_require__(269)
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(155),
   /* template */
-  __webpack_require__(251),
+  __webpack_require__(257),
   /* scopeId */
   "data-v-833ffa5a",
   /* cssModules */
@@ -59464,14 +59860,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 200 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(156),
   /* template */
-  __webpack_require__(241),
+  __webpack_require__(247),
   /* scopeId */
   null,
   /* cssModules */
@@ -59498,14 +59894,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 201 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(157),
   /* template */
-  __webpack_require__(230),
+  __webpack_require__(235),
   /* scopeId */
   null,
   /* cssModules */
@@ -59532,18 +59928,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 202 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(262)
+__webpack_require__(268)
 
 var Component = __webpack_require__(1)(
   /* script */
   null,
   /* template */
-  __webpack_require__(234),
+  __webpack_require__(240),
   /* scopeId */
   null,
   /* cssModules */
@@ -59570,14 +59966,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 203 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   null,
   /* template */
-  __webpack_require__(254),
+  __webpack_require__(260),
   /* scopeId */
   null,
   /* cssModules */
@@ -59604,14 +60000,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 204 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   null,
   /* template */
-  __webpack_require__(246),
+  __webpack_require__(252),
   /* scopeId */
   null,
   /* cssModules */
@@ -59638,14 +60034,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 205 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   null,
   /* template */
-  __webpack_require__(245),
+  __webpack_require__(251),
   /* scopeId */
   null,
   /* cssModules */
@@ -59672,14 +60068,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 206 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   null,
   /* template */
-  __webpack_require__(236),
+  __webpack_require__(242),
   /* scopeId */
   null,
   /* cssModules */
@@ -59706,14 +60102,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 207 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   null,
   /* template */
-  __webpack_require__(250),
+  __webpack_require__(256),
   /* scopeId */
   null,
   /* cssModules */
@@ -59740,14 +60136,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 208 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   null,
   /* template */
-  __webpack_require__(235),
+  __webpack_require__(241),
   /* scopeId */
   null,
   /* cssModules */
@@ -59774,14 +60170,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 209 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   null,
   /* template */
-  __webpack_require__(248),
+  __webpack_require__(254),
   /* scopeId */
   null,
   /* cssModules */
@@ -59808,14 +60204,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 210 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(158),
   /* template */
-  __webpack_require__(228),
+  __webpack_require__(233),
   /* scopeId */
   null,
   /* cssModules */
@@ -59842,14 +60238,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 211 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(159),
   /* template */
-  __webpack_require__(249),
+  __webpack_require__(255),
   /* scopeId */
   null,
   /* cssModules */
@@ -59876,18 +60272,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 212 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(261)
+__webpack_require__(267)
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(160),
   /* template */
-  __webpack_require__(231),
+  __webpack_require__(237),
   /* scopeId */
   null,
   /* cssModules */
@@ -59914,14 +60310,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 213 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(161),
   /* template */
-  __webpack_require__(255),
+  __webpack_require__(261),
   /* scopeId */
   null,
   /* cssModules */
@@ -59948,14 +60344,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 214 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(162),
   /* template */
-  __webpack_require__(259),
+  __webpack_require__(265),
   /* scopeId */
   null,
   /* cssModules */
@@ -59982,14 +60378,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 215 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(163),
   /* template */
-  __webpack_require__(237),
+  __webpack_require__(243),
   /* scopeId */
   null,
   /* cssModules */
@@ -60016,18 +60412,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 216 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(264)
+__webpack_require__(270)
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(164),
   /* template */
-  __webpack_require__(258),
+  __webpack_require__(264),
   /* scopeId */
   null,
   /* cssModules */
@@ -60054,14 +60450,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 217 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(165),
   /* template */
-  __webpack_require__(253),
+  __webpack_require__(259),
   /* scopeId */
   null,
   /* cssModules */
@@ -60088,14 +60484,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 218 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(166),
   /* template */
-  __webpack_require__(229),
+  __webpack_require__(234),
   /* scopeId */
   null,
   /* cssModules */
@@ -60122,14 +60518,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 219 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(167),
   /* template */
-  __webpack_require__(240),
+  __webpack_require__(246),
   /* scopeId */
   null,
   /* cssModules */
@@ -60156,14 +60552,48 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 220 */
+/* 224 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(168),
+  /* template */
+  __webpack_require__(236),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/sites/jism.dev/resources/assets/js/pages/forms/form-settings.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] form-settings.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0ecc2dfc", Component.options)
+  } else {
+    hotAPI.reload("data-v-0ecc2dfc", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   null,
   /* template */
-  __webpack_require__(244),
+  __webpack_require__(250),
   /* scopeId */
   null,
   /* cssModules */
@@ -60190,14 +60620,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 221 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(168),
+  __webpack_require__(169),
   /* template */
-  __webpack_require__(257),
+  __webpack_require__(263),
   /* scopeId */
   null,
   /* cssModules */
@@ -60224,14 +60654,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 222 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(169),
+  __webpack_require__(170),
   /* template */
-  __webpack_require__(256),
+  __webpack_require__(262),
   /* scopeId */
   null,
   /* cssModules */
@@ -60258,14 +60688,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 223 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(170),
+  __webpack_require__(171),
   /* template */
-  __webpack_require__(232),
+  __webpack_require__(238),
   /* scopeId */
   null,
   /* cssModules */
@@ -60292,14 +60722,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 224 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(171),
+  __webpack_require__(172),
   /* template */
-  __webpack_require__(252),
+  __webpack_require__(258),
   /* scopeId */
   null,
   /* cssModules */
@@ -60326,14 +60756,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 225 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(172),
+  __webpack_require__(173),
   /* template */
-  __webpack_require__(242),
+  __webpack_require__(248),
   /* scopeId */
   null,
   /* cssModules */
@@ -60360,14 +60790,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 226 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(173),
+  __webpack_require__(174),
   /* template */
-  __webpack_require__(238),
+  __webpack_require__(244),
   /* scopeId */
   null,
   /* cssModules */
@@ -60394,14 +60824,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 227 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(174),
+  __webpack_require__(175),
   /* template */
-  __webpack_require__(239),
+  __webpack_require__(245),
   /* scopeId */
   null,
   /* cssModules */
@@ -60428,7 +60858,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 228 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -60480,7 +60910,7 @@ if (false) {
 }
 
 /***/ }),
-/* 229 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -60495,7 +60925,7 @@ if (false) {
 }
 
 /***/ }),
-/* 230 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -60518,7 +60948,292 @@ if (false) {
 }
 
 /***/ }),
-/* 231 */
+/* 236 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('h1', [_vm._v("Settings")]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12 col-xs-12"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    on: {
+      "click": _vm.sleep
+    }
+  }, [_vm._v("Sleep")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default",
+    on: {
+      "click": _vm.wake
+    }
+  }, [_vm._v("Wake")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary pull-right"
+  }, [_vm._v("Take Images")])])])]), _vm._v(" "), _c('hr'), _vm._v(" "), (_vm.keys) ? _c('div', {
+    staticClass: "form-group"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-4 col-xs-4"
+  }, [(_vm.keys.current_sub_mode_video) ? _c('jism-form-dropdown', {
+    attrs: {
+      "hasError": _vm.form.errors.has('current_sub_mode_video'),
+      "errorMsg": _vm.form.errors.get('current_sub_mode_video'),
+      "selected": 0,
+      "label": "Type",
+      "options": _vm.current_sub_mode_video
+    },
+    model: {
+      value: (_vm.form.current_sub_mode_video),
+      callback: function($$v) {
+        _vm.form.current_sub_mode_video = $$v
+      },
+      expression: "form.current_sub_mode_video"
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4 col-xs-4"
+  }, [(_vm.keys.protune) ? _c('jism-form-dropdown', {
+    attrs: {
+      "hasError": _vm.form.errors.has('protune'),
+      "errorMsg": _vm.form.errors.get('protune'),
+      "selected": 1,
+      "label": "Protune",
+      "options": _vm.protune
+    },
+    model: {
+      value: (_vm.form.protune),
+      callback: function($$v) {
+        _vm.form.protune = $$v
+      },
+      expression: "form.protune"
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4 col-xs-4"
+  }, [(_vm.keys.video_format) ? _c('jism-form-dropdown', {
+    attrs: {
+      "hasError": _vm.form.errors.has('video_format'),
+      "errorMsg": _vm.form.errors.get('video_format'),
+      "selected": 0,
+      "label": "Format",
+      "options": _vm.video_format
+    },
+    model: {
+      value: (_vm.form.video_format),
+      callback: function($$v) {
+        _vm.form.video_format = $$v
+      },
+      expression: "form.video_format"
+    }
+  }) : _vm._e()], 1)])]) : _vm._e(), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6 col-xs-6"
+  }, [(_vm.keys.video_resolution) ? _c('jism-form-dropdown', {
+    attrs: {
+      "hasError": _vm.form.errors.has('video_resolution'),
+      "errorMsg": _vm.form.errors.get('video_resolution'),
+      "selected": 1,
+      "label": "Resolution",
+      "options": _vm.video_resolution
+    },
+    model: {
+      value: (_vm.form.video_resolution),
+      callback: function($$v) {
+        _vm.form.video_resolution = $$v
+      },
+      expression: "form.video_resolution"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.keys.frame_rate) ? _c('jism-form-dropdown', {
+    attrs: {
+      "hasError": _vm.form.errors.has('frame_rate'),
+      "errorMsg": _vm.form.errors.get('frame_rate'),
+      "selected": 8,
+      "label": "FPS",
+      "options": _vm.frame_rate
+    },
+    model: {
+      value: (_vm.form.frame_rate),
+      callback: function($$v) {
+        _vm.form.frame_rate = $$v
+      },
+      expression: "form.frame_rate"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.keys.fov_video) ? _c('jism-form-dropdown', {
+    attrs: {
+      "hasError": _vm.form.errors.has('fov_video'),
+      "errorMsg": _vm.form.errors.get('fov_video'),
+      "selected": 0,
+      "label": "FOV",
+      "options": _vm.fov_video
+    },
+    model: {
+      value: (_vm.form.fov_video),
+      callback: function($$v) {
+        _vm.form.fov_video = $$v
+      },
+      expression: "form.fov_video"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.keys.white_balance) ? _c('jism-form-dropdown', {
+    attrs: {
+      "hasError": _vm.form.errors.has('white_balance'),
+      "errorMsg": _vm.form.errors.get('white_balance'),
+      "selected": 2,
+      "label": "White Balance",
+      "options": _vm.white_balance
+    },
+    model: {
+      value: (_vm.form.white_balance),
+      callback: function($$v) {
+        _vm.form.white_balance = $$v
+      },
+      expression: "form.white_balance"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.keys.color) ? _c('jism-form-dropdown', {
+    attrs: {
+      "hasError": _vm.form.errors.has('color'),
+      "errorMsg": _vm.form.errors.get('color'),
+      "selected": 1,
+      "label": "Color Profile",
+      "options": _vm.color
+    },
+    model: {
+      value: (_vm.form.color),
+      callback: function($$v) {
+        _vm.form.color = $$v
+      },
+      expression: "form.color"
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6 col-xs-6"
+  }, [(_vm.keys.manual_exposure) ? _c('jism-form-dropdown', {
+    attrs: {
+      "hasError": _vm.form.errors.has('manual_exposure'),
+      "errorMsg": _vm.form.errors.get('manual_exposure'),
+      "selected": 13,
+      "label": "Manual Exposure",
+      "options": _vm.manual_exposure
+    },
+    model: {
+      value: (_vm.form.manual_exposure),
+      callback: function($$v) {
+        _vm.form.manual_exposure = $$v
+      },
+      expression: "form.manual_exposure"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.keys.iso_limit) ? _c('jism-form-dropdown', {
+    attrs: {
+      "hasError": _vm.form.errors.has('iso_limit'),
+      "errorMsg": _vm.form.errors.get('iso_limit'),
+      "selected": 3,
+      "label": "ISO",
+      "options": _vm.iso_limit
+    },
+    model: {
+      value: (_vm.form.iso_limit),
+      callback: function($$v) {
+        _vm.form.iso_limit = $$v
+      },
+      expression: "form.iso_limit"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.keys.sharpness) ? _c('jism-form-dropdown', {
+    attrs: {
+      "hasError": _vm.form.errors.has('sharpness'),
+      "errorMsg": _vm.form.errors.get('sharpness'),
+      "selected": 1,
+      "label": "Sharpness",
+      "options": _vm.sharpness
+    },
+    model: {
+      value: (_vm.form.sharpness),
+      callback: function($$v) {
+        _vm.form.sharpness = $$v
+      },
+      expression: "form.sharpness"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.keys.ev_comp) ? _c('jism-form-dropdown', {
+    attrs: {
+      "hasError": _vm.form.errors.has('ev_comp'),
+      "errorMsg": _vm.form.errors.get('ev_comp'),
+      "selected": 4,
+      "label": "EV Comp",
+      "options": _vm.ev_comp
+    },
+    model: {
+      value: (_vm.form.ev_comp),
+      callback: function($$v) {
+        _vm.form.ev_comp = $$v
+      },
+      expression: "form.ev_comp"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.keys.orientation) ? _c('jism-form-dropdown', {
+    attrs: {
+      "hasError": _vm.form.errors.has('orientation'),
+      "errorMsg": _vm.form.errors.get('orientation'),
+      "selected": 1,
+      "label": "Orientation",
+      "options": _vm.orientation
+    },
+    model: {
+      value: (_vm.form.orientation),
+      callback: function($$v) {
+        _vm.form.orientation = $$v
+      },
+      expression: "form.orientation"
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.form.errors.hasUnreadErrors()),
+      expression: "form.errors.hasUnreadErrors()"
+    }],
+    staticClass: "panel-body"
+  }, _vm._l((_vm.form.errors.flattenUnread()), function(error) {
+    return _c('div', {
+      staticClass: "alert alert-danger",
+      attrs: {
+        "role": "alert"
+      }
+    }, [_vm._v(_vm._s(error))])
+  }))]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('button', {
+    staticClass: "btn btn-primary btn-block save-button",
+    attrs: {
+      "type": "submit",
+      "disabled": _vm.form.busy
+    },
+    on: {
+      "click": _vm.submit
+    }
+  }, [_vm._v("Save")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-1 col-xs-1"
+  }, [_c('button', {
+    staticClass: "btn btn-danger format-button",
+    attrs: {
+      "type": "submit",
+      "disabled": _vm.form.busy
+    },
+    on: {
+      "click": _vm.format
+    }
+  }, [_vm._v("FORMAT")])])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-0ecc2dfc", module.exports)
+  }
+}
+
+/***/ }),
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -60535,7 +61250,7 @@ if (false) {
 }
 
 /***/ }),
-/* 232 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -60585,7 +61300,7 @@ if (false) {
 }
 
 /***/ }),
-/* 233 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -60609,7 +61324,7 @@ if (false) {
 }
 
 /***/ }),
-/* 234 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -60624,7 +61339,7 @@ if (false) {
 }
 
 /***/ }),
-/* 235 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -60659,7 +61374,7 @@ if (false) {
 }
 
 /***/ }),
-/* 236 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -60694,7 +61409,7 @@ if (false) {
 }
 
 /***/ }),
-/* 237 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -60720,7 +61435,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "to": {
           name: 'pod',
           params: {
-            pod_id: pod.number
+            pod_number: pod.number
           }
         }
       }
@@ -60733,14 +61448,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         name: 'pod'
       }
     }
-  }, [_vm._v("\n                    P" + _vm._s(this.podId) + "\n                ")])], 1) : _vm._e(), _vm._v(" "), (_vm.podRoute || _vm.camRoute) ? _c('li', {
+  }, [_vm._v("\n                    P" + _vm._s(_vm.podId) + "\n                ")])], 1) : _vm._e(), _vm._v(" "), (_vm.podRoute || _vm.camRoute) ? _c('li', {
     staticClass: "list-item"
   }, [(this.camId !== 'left') ? _c('router-link', {
     attrs: {
       "to": {
         name: 'camera',
         params: {
-          pod_id: this.podId,
+          pod_number: this.podId,
           camera_id: 'left'
         }
       }
@@ -60752,7 +61467,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "to": {
         name: 'camera',
         params: {
-          pod_id: this.podId,
+          pod_number: this.podId,
           camera_id: 'right'
         }
       }
@@ -60776,11 +61491,11 @@ if (false) {
 }
 
 /***/ }),
-/* 238 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('jism-layout-primary', [_c('h1', [_vm._v("Pod " + _vm._s(_vm.$route.params.pod_id))])])], 1)
+  return _c('div', [_c('jism-layout-primary', [_c('h1', [_vm._v("Pod " + _vm._s(_vm.$route.params.pod_number))])])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -60791,7 +61506,7 @@ if (false) {
 }
 
 /***/ }),
-/* 239 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -60812,7 +61527,7 @@ if (false) {
 }
 
 /***/ }),
-/* 240 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -60831,7 +61546,7 @@ if (false) {
 }
 
 /***/ }),
-/* 241 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -60851,7 +61566,7 @@ if (false) {
 }
 
 /***/ }),
-/* 242 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -60905,7 +61620,7 @@ if (false) {
 }
 
 /***/ }),
-/* 243 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -60929,7 +61644,7 @@ if (false) {
 }
 
 /***/ }),
-/* 244 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -60944,7 +61659,7 @@ if (false) {
 }
 
 /***/ }),
-/* 245 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -60992,7 +61707,7 @@ if (false) {
 }
 
 /***/ }),
-/* 246 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -61026,7 +61741,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), (_vm.$route.params.camera_id === 'left') ? _c('router-link', {
     attrs: {
       "to": {
-        path: '/pod/' + _vm.$route.params.pod_id + '/camera/' + _vm.$route.params.camera_id + '/settings'
+        path: '/pod/' + _vm.$route.params.pod_number + '/camera/' + _vm.$route.params.camera_id + '/settings'
       }
     }
   }, [_c('i', {
@@ -61037,7 +61752,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]) : _vm._e(), _vm._v(" "), (_vm.$route.params.camera_id === 'right') ? _c('router-link', {
     attrs: {
       "to": {
-        path: '/pod/' + _vm.$route.params.pod_id + '/camera/' + _vm.$route.params.camera_id + '/settings'
+        path: '/pod/' + _vm.$route.params.pod_number + '/camera/' + _vm.$route.params.camera_id + '/settings'
       }
     }
   }, [_c('i', {
@@ -61056,7 +61771,7 @@ if (false) {
 }
 
 /***/ }),
-/* 247 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -61080,7 +61795,7 @@ if (false) {
 }
 
 /***/ }),
-/* 248 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -61106,7 +61821,7 @@ if (false) {
 }
 
 /***/ }),
-/* 249 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -61177,7 +61892,7 @@ if (false) {
 }
 
 /***/ }),
-/* 250 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -61214,7 +61929,7 @@ if (false) {
 }
 
 /***/ }),
-/* 251 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -61237,7 +61952,7 @@ if (false) {
 }
 
 /***/ }),
-/* 252 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -61306,9 +62021,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       return _c('option', {
         domProps: {
           "value": camera.serial_number,
-          "selected": camera.serial_number == pod.camera_left_id
+          "selected": camera.pod_side
         }
-      }, [_vm._v("\n                        " + _vm._s(camera.ssid) + "\n                        ")])
+      }, [_vm._v("\n                            " + _vm._s(camera.ssid) + "\n                        ")])
     })], 2)]), _vm._v(" "), _c('div', {
       staticClass: "col-xs-5 col-md-5"
     }, [_c('select', {
@@ -61326,9 +62041,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       return _c('option', {
         domProps: {
           "value": camera.serial_number,
-          "selected": camera.serial_number == pod.camera_right_id
+          "selected": camera.pod_side
         }
-      }, [_vm._v("\n                        " + _vm._s(camera.ssid) + "\n                    ")])
+      }, [_vm._v("\n                            " + _vm._s(camera.ssid) + "\n                        ")])
     })], 2)])])])
   }), _vm._v(" "), (!_vm.pods.length) ? _c('li', {
     staticClass: "list-group-item"
@@ -61343,7 +62058,7 @@ if (false) {
 }
 
 /***/ }),
-/* 253 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -61382,7 +62097,7 @@ if (false) {
 }
 
 /***/ }),
-/* 254 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -61419,13 +62134,13 @@ if (false) {
 }
 
 /***/ }),
-/* 255 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('i', {
-    class: ['fa fa-circle', _vm.online ? 'green' : 'yellow']
-  })
+  return _c('span', [_c('i', {
+    class: ['fa fa-circle', _vm.allOnline ? 'green' : 'red']
+  })])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -61436,7 +62151,7 @@ if (false) {
 }
 
 /***/ }),
-/* 256 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -61455,7 +62170,7 @@ if (false) {
 }
 
 /***/ }),
-/* 257 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -61474,7 +62189,7 @@ if (false) {
 }
 
 /***/ }),
-/* 258 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -61491,7 +62206,7 @@ if (false) {
 }
 
 /***/ }),
-/* 259 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -61505,7 +62220,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n        " + _vm._s(_vm._f("secondsToHours")(_vm.videoDuration.duration)) + "\n    ")]), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu duration"
   }, _vm._l((_vm.videoDurations), function(status) {
-    return _c('li', [_c('a', [_vm._v("P" + _vm._s(status.pod_id) + "/" + _vm._s(status.pod_side) + ": " + _vm._s(_vm._f("secondsToHours")(status.duration)))])])
+    return _c('li', [_c('a', [_vm._v("P" + _vm._s(status.pod_number) + "/" + _vm._s(status.pod_side) + ": " + _vm._s(_vm._f("secondsToHours")(status.duration)))])])
   }))]) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
@@ -61517,7 +62232,7 @@ if (false) {
 }
 
 /***/ }),
-/* 260 */
+/* 266 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -63802,13 +64517,13 @@ if (inBrowser && window.Vue) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(6)))
 
 /***/ }),
-/* 261 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(190);
+var content = __webpack_require__(194);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -63828,13 +64543,13 @@ if(false) {
 }
 
 /***/ }),
-/* 262 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(191);
+var content = __webpack_require__(195);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -63854,13 +64569,13 @@ if(false) {
 }
 
 /***/ }),
-/* 263 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(192);
+var content = __webpack_require__(196);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -63880,13 +64595,13 @@ if(false) {
 }
 
 /***/ }),
-/* 264 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(193);
+var content = __webpack_require__(197);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -63906,7 +64621,7 @@ if(false) {
 }
 
 /***/ }),
-/* 265 */
+/* 271 */
 /***/ (function(module, exports) {
 
 /**
@@ -63939,763 +64654,12 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 266 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(132);
 module.exports = __webpack_require__(133);
 
-
-/***/ }),
-/* 267 */,
-/* 268 */,
-/* 269 */,
-/* 270 */,
-/* 271 */,
-/* 272 */,
-/* 273 */,
-/* 274 */,
-/* 275 */,
-/* 276 */,
-/* 277 */,
-/* 278 */,
-/* 279 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-const obj = {
-    namespaced: true,
-    state: { all: [] },
-    actions: {
-        RECORD: function ({ commit, state }, form) {
-            return Jism.post('/api/group/1/record', form);
-        },
-        STOP: function ({ commit, state }, form) {
-            return Jism.post('/api/group/1/stop', form);
-        },
-        SLEEP: function ({ commit, state }, form) {
-            return Jism.post('/api/group/1/sleep', form);
-        },
-        WAKE: function ({ commit, state }, form) {
-            return Jism.post('/api/group/1/wake', form);
-        }
-    },
-    mutations: {
-        RECORD: (state, { item }) => {
-            //
-        }
-    },
-    getters: {
-        all: state => {
-            return state.all;
-        }
-    }
-};
-/* harmony default export */ __webpack_exports__["a"] = obj;
-
-/***/ }),
-/* 280 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = {
-    computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['keys', 'pods', 'cameras']), {
-        current_sub_mode_video() {
-            var opts = [];
-            _.forEach(this.keys.current_sub_mode_video.opts, value => {
-                opts.push({ value: value.id, title: value.title });
-            });
-            return opts;
-        },
-        protune() {
-            var opts = [];
-            _.forEach(this.keys.protune.opts, value => {
-                opts.push({ value: value.id, title: value.title });
-            });
-            return opts;
-        },
-        video_format() {
-            var opts = [];
-            _.forEach(this.keys.video_format.opts, value => {
-                opts.push({ value: value.id, title: value.title });
-            });
-            return opts;
-        },
-        video_resolution() {
-            var opts = [];
-            _.forEach(this.keys.video_resolution.opts, value => {
-                opts.push({ value: value.id, title: value.title });
-            });
-            return opts;
-        },
-        frame_rate() {
-            var opts = [];
-            _.forEach(this.keys.frame_rate.opts, value => {
-                opts.push({ value: value.id, title: value.title });
-            });
-            return opts;
-        },
-        fov_video() {
-            var opts = [];
-            _.forEach(this.keys.fov_video.opts, value => {
-                opts.push({ value: value.id, title: value.title });
-            });
-            return opts;
-        },
-        white_balance() {
-            var opts = [];
-            _.forEach(this.keys.white_balance.opts, value => {
-                opts.push({ value: value.id, title: value.title });
-            });
-            return opts;
-        },
-        color() {
-            var opts = [];
-            _.forEach(this.keys.color.opts, value => {
-                opts.push({ value: value.id, title: value.title });
-            });
-            return opts;
-        },
-        manual_exposure() {
-            var opts = [];
-            _.forEach(this.keys.manual_exposure.opts, value => {
-                opts.push({ value: value.id, title: value.title });
-            });
-            return opts;
-        },
-        iso_limit() {
-            var opts = [];
-            _.forEach(this.keys.iso_limit.opts, value => {
-                opts.push({ value: value.id, title: value.title });
-            });
-            return opts;
-        },
-        sharpness() {
-            var opts = [];
-            _.forEach(this.keys.sharpness.opts, value => {
-                opts.push({ value: value.id, title: value.title });
-            });
-            return opts;
-        },
-        ev_comp() {
-            var opts = [];
-            _.forEach(this.keys.ev_comp.opts, value => {
-                opts.push({ value: value.id, title: value.title });
-            });
-            return opts;
-        },
-        orientation() {
-            var opts = [];
-            _.forEach(this.keys.orientation.opts, value => {
-                opts.push({ value: value.id, title: value.title });
-            });
-            return opts;
-        }
-    }),
-    data() {
-        return {
-            form: new JismForm({
-                current_sub_mode_video: '0',
-                protune: '1',
-                video_format: '0',
-                video_resolution: '1',
-                manual_exposure: '13',
-                frame_rate: '8',
-                iso_limit: '3',
-                fov_video: '0',
-                sharpness: '1',
-                white_balance: '2',
-                ev_comp: '4',
-                color: '1',
-                orientation: '1'
-            }),
-            action: new JismForm({
-                sleep: 'sleep',
-                wake: 'wake'
-            })
-        };
-    },
-    methods: {
-        submit() {
-            this.$emit('submit', this.form);
-        },
-        sleep() {
-            this.$emit('sleep', this.action);
-        },
-        wake() {
-            this.$emit('wake', this.action);
-        },
-        format() {
-            //
-        }
-    }
-};
-
-/***/ }),
-/* 281 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(280),
-  /* template */
-  __webpack_require__(282),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/sites/jism.dev/resources/assets/js/pages/forms/form-settings.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] form-settings.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0ecc2dfc", Component.options)
-  } else {
-    hotAPI.reload("data-v-0ecc2dfc", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 282 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('h1', [_vm._v("Settings")]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-12 col-xs-12"
-  }, [_c('button', {
-    staticClass: "btn btn-default",
-    on: {
-      "click": _vm.sleep
-    }
-  }, [_vm._v("Sleep")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-default",
-    on: {
-      "click": _vm.wake
-    }
-  }, [_vm._v("Wake")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-primary pull-right"
-  }, [_vm._v("Take Images")])])])]), _vm._v(" "), _c('hr'), _vm._v(" "), (_vm.keys) ? _c('div', {
-    staticClass: "form-group"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-4 col-xs-4"
-  }, [(_vm.keys.current_sub_mode_video) ? _c('jism-form-dropdown', {
-    attrs: {
-      "hasError": _vm.form.errors.has('current_sub_mode_video'),
-      "errorMsg": _vm.form.errors.get('current_sub_mode_video'),
-      "selected": 0,
-      "label": "Type",
-      "options": _vm.current_sub_mode_video
-    },
-    model: {
-      value: (_vm.form.current_sub_mode_video),
-      callback: function($$v) {
-        _vm.form.current_sub_mode_video = $$v
-      },
-      expression: "form.current_sub_mode_video"
-    }
-  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-4 col-xs-4"
-  }, [(_vm.keys.protune) ? _c('jism-form-dropdown', {
-    attrs: {
-      "hasError": _vm.form.errors.has('protune'),
-      "errorMsg": _vm.form.errors.get('protune'),
-      "selected": 1,
-      "label": "Protune",
-      "options": _vm.protune
-    },
-    model: {
-      value: (_vm.form.protune),
-      callback: function($$v) {
-        _vm.form.protune = $$v
-      },
-      expression: "form.protune"
-    }
-  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-4 col-xs-4"
-  }, [(_vm.keys.video_format) ? _c('jism-form-dropdown', {
-    attrs: {
-      "hasError": _vm.form.errors.has('video_format'),
-      "errorMsg": _vm.form.errors.get('video_format'),
-      "selected": 0,
-      "label": "Format",
-      "options": _vm.video_format
-    },
-    model: {
-      value: (_vm.form.video_format),
-      callback: function($$v) {
-        _vm.form.video_format = $$v
-      },
-      expression: "form.video_format"
-    }
-  }) : _vm._e()], 1)])]) : _vm._e(), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6 col-xs-6"
-  }, [(_vm.keys.video_resolution) ? _c('jism-form-dropdown', {
-    attrs: {
-      "hasError": _vm.form.errors.has('video_resolution'),
-      "errorMsg": _vm.form.errors.get('video_resolution'),
-      "selected": 1,
-      "label": "Resolution",
-      "options": _vm.video_resolution
-    },
-    model: {
-      value: (_vm.form.video_resolution),
-      callback: function($$v) {
-        _vm.form.video_resolution = $$v
-      },
-      expression: "form.video_resolution"
-    }
-  }) : _vm._e(), _vm._v(" "), (_vm.keys.frame_rate) ? _c('jism-form-dropdown', {
-    attrs: {
-      "hasError": _vm.form.errors.has('frame_rate'),
-      "errorMsg": _vm.form.errors.get('frame_rate'),
-      "selected": 8,
-      "label": "FPS",
-      "options": _vm.frame_rate
-    },
-    model: {
-      value: (_vm.form.frame_rate),
-      callback: function($$v) {
-        _vm.form.frame_rate = $$v
-      },
-      expression: "form.frame_rate"
-    }
-  }) : _vm._e(), _vm._v(" "), (_vm.keys.fov_video) ? _c('jism-form-dropdown', {
-    attrs: {
-      "hasError": _vm.form.errors.has('fov_video'),
-      "errorMsg": _vm.form.errors.get('fov_video'),
-      "selected": 0,
-      "label": "FOV",
-      "options": _vm.fov_video
-    },
-    model: {
-      value: (_vm.form.fov_video),
-      callback: function($$v) {
-        _vm.form.fov_video = $$v
-      },
-      expression: "form.fov_video"
-    }
-  }) : _vm._e(), _vm._v(" "), (_vm.keys.white_balance) ? _c('jism-form-dropdown', {
-    attrs: {
-      "hasError": _vm.form.errors.has('white_balance'),
-      "errorMsg": _vm.form.errors.get('white_balance'),
-      "selected": 2,
-      "label": "White Balance",
-      "options": _vm.white_balance
-    },
-    model: {
-      value: (_vm.form.white_balance),
-      callback: function($$v) {
-        _vm.form.white_balance = $$v
-      },
-      expression: "form.white_balance"
-    }
-  }) : _vm._e(), _vm._v(" "), (_vm.keys.color) ? _c('jism-form-dropdown', {
-    attrs: {
-      "hasError": _vm.form.errors.has('color'),
-      "errorMsg": _vm.form.errors.get('color'),
-      "selected": 1,
-      "label": "Color Profile",
-      "options": _vm.color
-    },
-    model: {
-      value: (_vm.form.color),
-      callback: function($$v) {
-        _vm.form.color = $$v
-      },
-      expression: "form.color"
-    }
-  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6 col-xs-6"
-  }, [(_vm.keys.manual_exposure) ? _c('jism-form-dropdown', {
-    attrs: {
-      "hasError": _vm.form.errors.has('manual_exposure'),
-      "errorMsg": _vm.form.errors.get('manual_exposure'),
-      "selected": 13,
-      "label": "Manual Exposure",
-      "options": _vm.manual_exposure
-    },
-    model: {
-      value: (_vm.form.manual_exposure),
-      callback: function($$v) {
-        _vm.form.manual_exposure = $$v
-      },
-      expression: "form.manual_exposure"
-    }
-  }) : _vm._e(), _vm._v(" "), (_vm.keys.iso_limit) ? _c('jism-form-dropdown', {
-    attrs: {
-      "hasError": _vm.form.errors.has('iso_limit'),
-      "errorMsg": _vm.form.errors.get('iso_limit'),
-      "selected": 3,
-      "label": "ISO",
-      "options": _vm.iso_limit
-    },
-    model: {
-      value: (_vm.form.iso_limit),
-      callback: function($$v) {
-        _vm.form.iso_limit = $$v
-      },
-      expression: "form.iso_limit"
-    }
-  }) : _vm._e(), _vm._v(" "), (_vm.keys.sharpness) ? _c('jism-form-dropdown', {
-    attrs: {
-      "hasError": _vm.form.errors.has('sharpness'),
-      "errorMsg": _vm.form.errors.get('sharpness'),
-      "selected": 1,
-      "label": "Sharpness",
-      "options": _vm.sharpness
-    },
-    model: {
-      value: (_vm.form.sharpness),
-      callback: function($$v) {
-        _vm.form.sharpness = $$v
-      },
-      expression: "form.sharpness"
-    }
-  }) : _vm._e(), _vm._v(" "), (_vm.keys.ev_comp) ? _c('jism-form-dropdown', {
-    attrs: {
-      "hasError": _vm.form.errors.has('ev_comp'),
-      "errorMsg": _vm.form.errors.get('ev_comp'),
-      "selected": 4,
-      "label": "EV Comp",
-      "options": _vm.ev_comp
-    },
-    model: {
-      value: (_vm.form.ev_comp),
-      callback: function($$v) {
-        _vm.form.ev_comp = $$v
-      },
-      expression: "form.ev_comp"
-    }
-  }) : _vm._e(), _vm._v(" "), (_vm.keys.orientation) ? _c('jism-form-dropdown', {
-    attrs: {
-      "hasError": _vm.form.errors.has('orientation'),
-      "errorMsg": _vm.form.errors.get('orientation'),
-      "selected": 1,
-      "label": "Orientation",
-      "options": _vm.orientation
-    },
-    model: {
-      value: (_vm.form.orientation),
-      callback: function($$v) {
-        _vm.form.orientation = $$v
-      },
-      expression: "form.orientation"
-    }
-  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.form.errors.hasUnreadErrors()),
-      expression: "form.errors.hasUnreadErrors()"
-    }],
-    staticClass: "panel-body"
-  }, _vm._l((_vm.form.errors.flattenUnread()), function(error) {
-    return _c('div', {
-      staticClass: "alert alert-danger",
-      attrs: {
-        "role": "alert"
-      }
-    }, [_vm._v(_vm._s(error))])
-  }))]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('button', {
-    staticClass: "btn btn-primary btn-block save-button",
-    attrs: {
-      "type": "submit",
-      "disabled": _vm.form.busy
-    },
-    on: {
-      "click": _vm.submit
-    }
-  }, [_vm._v("Save")])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-1 col-xs-1"
-  }, [_c('button', {
-    staticClass: "btn btn-danger format-button",
-    attrs: {
-      "type": "submit",
-      "disabled": _vm.form.busy
-    },
-    on: {
-      "click": _vm.format
-    }
-  }, [_vm._v("FORMAT")])])])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-0ecc2dfc", module.exports)
-  }
-}
-
-/***/ }),
-/* 283 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-const obj = {
-    namespaced: true,
-    state: { all: [] },
-    actions: {
-        LOAD: function ({ commit }) {
-            return Jism.get('/api/key/settings', 'keys/LOAD');
-        }
-    },
-    mutations: {
-        LOAD: (state, { data }) => {
-            state.all = data;
-        }
-    },
-    getters: {
-        all: state => {
-            return state.all;
-        }
-    }
-};
-/* harmony default export */ __webpack_exports__["a"] = obj;
-
-/***/ }),
-/* 284 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-const obj = {
-    namespaced: true,
-    state: { all: [] },
-    actions: {
-        LOAD: function ({ commit }) {
-            return Jism.get('/api/group/1/settings', 'settings/LOAD');
-        },
-        STORE: function ({ commit, state }, form) {
-            return Jism.post('/api/group/1/settings', form, 'settings/STORE');
-        }
-    },
-    mutations: {
-        LOAD: (state, { data }) => {
-            state.all = data;
-        },
-        STORE: (state, { item }) => {
-            state.all = Jism.massMergeModels(state.all, [item]);
-        }
-    },
-    getters: {
-        all: state => {
-            return state.all;
-        }
-    }
-};
-/* harmony default export */ __webpack_exports__["a"] = obj;
 
 /***/ })
 /******/ ]);

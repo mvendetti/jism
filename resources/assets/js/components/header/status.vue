@@ -1,10 +1,10 @@
 <template>
-    <i :class="['fa fa-circle', online ? 'green' : 'yellow']"></i></span>
+    <span><i :class="['fa fa-circle', allOnline ? 'green' : 'red']"></i></span>
 </template>
 
 <script>
     import { mapGetters } from 'vuex'
     export default {
-        computed: mapGetters('landlord', ['online']),
+        computed: mapGetters('landlord', ['allOnline']),
     }
 </script>
