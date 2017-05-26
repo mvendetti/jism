@@ -3,21 +3,21 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 import landlord from './store/landlord';
-import status from './store/status';
+import graph from './store/graph';
 import keys from './store/keys';
 import group from './store/group';
-import pod from './store/pod';
-import camera from './store/camera';
+// import pod from './store/pod';
+// import camera from './store/camera';
 import settings from './store/settings'
 
 const store = new Vuex.Store({
     modules: {
         landlord: landlord,
-        status: status,
+        graph: graph,
         keys: keys,
         group: group,
-        pod: pod,
-        camera: camera,
+        // pod: pod,
+        // camera: camera,
         settings: settings,
     }
 });

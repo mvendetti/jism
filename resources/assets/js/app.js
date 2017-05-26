@@ -10,9 +10,12 @@ Jism.Vue = new Vue({
 });
 
 /*
- * Perform initial launch of status loading. WARNING. This runs for infiniti;
+ * Perform initial launch of graph loading. WARNING. This runs for infiniti;
  */
-Jism.Vue.$store.dispatch('status/LOAD');
+Jism.Vue.$store.dispatch('graph/LOAD');
+setInterval(() => {
+    Jism.Vue.$store.dispatch('graph/LOAD');
+}, 1000);
 
 /*
  * Update the data in landlord
