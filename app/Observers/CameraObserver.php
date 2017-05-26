@@ -7,20 +7,20 @@ use App\CameraStatus;
 
 class CameraObserver
 {
-    /**
-     * Listen to the Camera loaded event.
-     *
-     * @param  Camera  $camera
-     * @return void
-     */
-    public function loaded(Camera $camera)
-    {
-        $cs = CameraStatus::where('camera_serial_number', $camera->serial_number)
-                ->latest()
-                ->first();
-
-        $camera->setRelation('status', $cs);
-    }
+    // /**
+    //  * Listen to the Camera loaded event.
+    //  *
+    //  * @param  Camera  $camera
+    //  * @return void
+    //  */
+    // public function loaded(Camera $camera)
+    // {
+    //     $cs = CameraStatus::where('camera_serial_number', $camera->serial_number)
+    //             ->latest()
+    //             ->first();
+    //
+    //     $camera->setRelation('status', $cs);
+    // }
 
     /**
      * Listen to the Camera creating event.

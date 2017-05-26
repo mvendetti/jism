@@ -25,18 +25,6 @@ class GroupSettingsController extends Controller
      */
     public function store(Request $request, $group_id)
     {
-        /**
-         * Groups not yet implemented in data schema
-         */
-        // $settings = $request->except(['errors', 'response', 'busy', 'successful']);
-        // $txn = \DB::transaction(function () use ($settings) {
-        //     foreach(Camera::all() as $camera)
-        //     {
-        //         $camera->update(['settings' => $settings]);
-        //     }
-        // });
-        // return response()->json($txn);
-
         $settings = json_encode($request->except(['errors', 'response', 'busy', 'successful']));
         return response()->json(\DB::table('cameras')->update(['settings' => $settings]));
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Camera;
+use App\Lib\DataGraph;
 use Illuminate\Http\Request;
 use App\Actions\CameraStopRecordAction;
 
@@ -17,6 +18,6 @@ class GroupStopRecordController extends Controller
     public function store($group)
     {
         $action = CameraStopRecordAction::run(Camera::all());
-        return response()->json($action->getResults());
+        return response()->json(new DataGraph);
     }
 }
