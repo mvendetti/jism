@@ -38,7 +38,7 @@ module.exports = {
         return axios[method](Jism.scopeUrl(url), JSON.parse(JSON.stringify(form)))
             .then((response) => {
                 form.finishProcessing(response);
-                return Jism.Vue.$store.commit(mutation, { item: response.data });
+                return Jism.Vue.$store.commit(mutation, { data: response.data });
             }, (errors) => {
                 form.errors.set(errors.response.data);
                 form.busy = false;

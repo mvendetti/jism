@@ -16,7 +16,7 @@ const obj = {
         },
     },
     mutations: {
-        RECORD: (state, { item }) => {
+        RECORD: (state, { data }) => {
             //
         },
     },

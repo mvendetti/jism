@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pod;
+use App\Lib\DataGraph;
 use App\Http\Requests\PodPostRequest;
 
 class PodController extends Controller
@@ -35,7 +36,8 @@ class PodController extends Controller
      */
     public function store(PodPostRequest $request)
     {
-        return response()->json(Pod::create($request->all()));
+        Pod::create($request->all());
+        return response()->json(new DataGraph);
     }
 
     /**
