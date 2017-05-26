@@ -32,9 +32,9 @@
                             <option
                                 v-for="camera in cameras"
                                 :value="camera.serial_number"
-                                :selected="camera.serial_number == pod.camera_left_id"
+                                :selected="camera.pod_side"
                             >
-                            {{ camera.ssid }}
+                                {{ camera.ssid }}
                             </option>
                         </select>
                     </div>
@@ -44,10 +44,10 @@
                             <option
                                 v-for="camera in cameras"
                                 :value="camera.serial_number"
-                                :selected="camera.serial_number == pod.camera_right_id"
+                                :selected="camera.pod_side"
                             >
-                            {{ camera.ssid }}
-                        </option>
+                                {{ camera.ssid }}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
     import { mapGetters } from 'vuex';
     export default {
         computed: {
-            ...mapGetters('landlord', ['pods', 'cameras']),
+            ...mapGetters('landlord', ['status', 'pods', 'cameras']),
             values() {
                 var vals = [];
 
@@ -69,7 +69,22 @@
                     vals.push({ value: value, title: value });
                 });
                 return vals;
-            }
+            },
+            set_cameras() {
+                var arr = [];
+
+                _.forEach(this.status, (val) => {
+                    console.log(val);
+                });
+
+                return arr;
+            },
+            other_cameras() {
+                //
+            },
+            merged_cameras() {
+                return _.merge()
+            },
         },
         data() {
             return {
@@ -83,12 +98,26 @@
                 this.$emit('submit', this.form);
             },
             assignCameraToPod(pod, side, event) {
-                var camera_id = `${event.target.value}`;
-                pod['camera_' + side + '_id'] = camera_id;
-                axios.patch('/api/pod/' + pod.id, pod).then((response) => {
+                if(event.target.value === 'unassign') {
+                    this.unassignCameraFromPod(event.target.value)
+                    return false;
+                }
+                var camera_id = `${event.target.value}`,
+                    data = {
+                        'pod_id': pod.id,
+                        'pod_side': side
+                    };
+                axios.patch('/api/camera/' + camera_id, data).then((response) => {
                     console.log(response.data);
                 }, (error) => {
-                    this.errors = error.response.data;
+                    console.log(error.response.data);
+                });
+            },
+            unassignCameraFromPod(camera_id) {
+                axios.delete('/api/camera/' + camera_id).then((response) => {
+                    console.log(response.data);
+                }, (error) => {
+                    console.log(error.response.data);
                 });
             }
         },
