@@ -32,7 +32,7 @@
                             <option
                                 v-for="camera in cameras"
                                 :value="camera.serial_number"
-                                :selected="camera.pod_side"
+                                :selected="compareSelectedLeft == camera.serial_number"
                             >
                                 {{ camera.ssid }}
                             </option>
@@ -44,7 +44,7 @@
                             <option
                                 v-for="camera in cameras"
                                 :value="camera.serial_number"
-                                :selected="camera.pod_side"
+                                :selected="compareSelectedRight == camera.serial_number"
                             >
                                 {{ camera.ssid }}
                             </option>
@@ -70,20 +70,21 @@
                 });
                 return vals;
             },
-            set_cameras() {
-                var arr = [];
+            compareSelectedLeft() {
+                var id;
 
-                _.forEach(this.status, (val) => {
-                    console.log(val);
+                _.forEach(this.pods, (value) => {
+                    id = value.camera_left;
                 });
+                return id;
+            },
+            compareSelectedRight() {
+                var id;
 
-                return arr;
-            },
-            other_cameras() {
-                //
-            },
-            merged_cameras() {
-                return _.merge()
+                _.forEach(this.pods, (value) => {
+                    id = value.camera_right;
+                });
+                return id;
             },
         },
         data() {
@@ -98,11 +99,6 @@
                 this.$emit('submit', this.form);
             },
             assignCameraToPod(pod, side, event) {
-                console.log(pod, side);
-                if(event.target.value === 'unassign') {
-                    this.unassignCameraFromPod(event.target.value)
-                    return false;
-                }
                 var camera_id = `${event.target.value}`,
                     data = {
                         'pod_id': pod.id,
@@ -114,13 +110,6 @@
                     console.log(error.response.data);
                 });
             },
-            unassignCameraFromPod(camera_id) {
-                axios.delete('/api/camera/' + camera_id).then((response) => {
-                    console.log(response.data);
-                }, (error) => {
-                    console.log(error.response.data);
-                });
-            }
         },
     }
 </script>
