@@ -32,7 +32,7 @@
                             <option
                                 v-for="camera in cameras"
                                 :value="camera.serial_number"
-                                :selected="compareSelectedLeft == camera.serial_number"
+                                :selected="pod.camera_left == camera.serial_number"
                             >
                                 {{ camera.ssid }}
                             </option>
@@ -44,7 +44,7 @@
                             <option
                                 v-for="camera in cameras"
                                 :value="camera.serial_number"
-                                :selected="compareSelectedRight == camera.serial_number"
+                                :selected="pod.camera_right == camera.serial_number"
                             >
                                 {{ camera.ssid }}
                             </option>
@@ -69,22 +69,6 @@
                     vals.push({ value: value, title: value });
                 });
                 return vals;
-            },
-            compareSelectedLeft() {
-                var id;
-
-                _.forEach(this.pods, (value) => {
-                    id = value.camera_left;
-                });
-                return id;
-            },
-            compareSelectedRight() {
-                var id;
-
-                _.forEach(this.pods, (value) => {
-                    id = value.camera_right;
-                });
-                return id;
             },
         },
         data() {

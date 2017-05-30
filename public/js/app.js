@@ -39059,22 +39059,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 vals.push({ value: value, title: value });
             });
             return vals;
-        },
-        compareSelectedLeft() {
-            var id;
-
-            _.forEach(this.pods, value => {
-                id = value.camera_left;
-            });
-            return id;
-        },
-        compareSelectedRight() {
-            var id;
-
-            _.forEach(this.pods, value => {
-                id = value.camera_right;
-            });
-            return id;
         }
     }),
     data() {
@@ -39651,7 +39635,7 @@ module.exports = {
 
                     if (typeof o[idx].ssid !== 'undefined') {
                         o[idx].ssid = ne.ssid;
-                        console.log(o[idx].ssid);
+                        // console.log(o[idx].ssid);
                     }
                 }
             });
@@ -62092,7 +62076,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       return _c('option', {
         domProps: {
           "value": camera.serial_number,
-          "selected": _vm.compareSelectedLeft == camera.serial_number
+          "selected": pod.camera_left == camera.serial_number
         }
       }, [_vm._v("\n                            " + _vm._s(camera.ssid) + "\n                        ")])
     })], 2)]), _vm._v(" "), _c('div', {
@@ -62112,7 +62096,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       return _c('option', {
         domProps: {
           "value": camera.serial_number,
-          "selected": _vm.compareSelectedRight == camera.serial_number
+          "selected": pod.camera_right == camera.serial_number
         }
       }, [_vm._v("\n                            " + _vm._s(camera.ssid) + "\n                        ")])
     })], 2)])])])
