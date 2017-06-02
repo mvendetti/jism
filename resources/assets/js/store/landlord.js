@@ -2,19 +2,19 @@ const landlord = {
     namespaced: true,
     state: {
         group_id: 1,
-        pod_number: null,
+        pod_id: null,
         camera_id: null,
     },
     actions: {
         UPDATE: function ({ commit, state }, route) {
             Jism.Vue.$store.dispatch('keys/LOAD');
-            commit('STORE_POD_NUMBER', route.params.pod_number);
+            commit('STORE_POD_ID', route.params.pod_id);
             commit('STORE_CAMERA_ID', route.params.camera_id);
         },
     },
     mutations: {
-        STORE_POD_NUMBER: (state, id) => {
-            state.pod_number = id;
+        STORE_POD_ID: (state, id) => {
+            state.pod_id = id;
         },
         STORE_CAMERA_ID: (state, id) => {
             state.camera_id = id;

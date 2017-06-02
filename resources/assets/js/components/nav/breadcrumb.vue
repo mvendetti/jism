@@ -8,33 +8,45 @@
                     </router-link>
                 </li>
 
-                <li v-if="!podRoute && !camRoute" v-for="pod in pods" class="list-item">
-                    <router-link :to="{ name: 'pod', params: { pod_number: pod.number } }">
+                <li
+                    v-if="!pod_route && !camera_route"
+                    v-for="pod in pods"
+                    class="list-item"
+                >
+                    <router-link
+                        :to="{ name: 'pod', params: { pod_id: pod.id, pod_number: pod.number } }"
+                    >
                         P{{ pod.number }}
                     </router-link>
                 </li>
 
-                <li v-if="podRoute || camRoute" class="list-item">
-                    <router-link :to="{ name: 'pod' }">
-                        P{{ podId }}
+                <li v-if="pod_route || camera_route" class="list-item">
+                    <router-link :to="{ name: 'pod', params: { pod_number: pod_number} }">
+                        P{{ pod_number }}
                     </router-link>
                 </li>
 
-                <li v-if="podRoute || camRoute" class="list-item">
-                    <router-link v-if="this.camId !== 'left'" :to="{ name: 'camera', params: { pod_number: this.podId, camera_id: 'left' } }">
+                <li v-if="pod_route || camera_route" class="list-item">
+                    <router-link
+                        v-if="camera_id !== 'left'"
+                        :to="{ name: 'camera', params: { pod_id: pod_id, pod_number: pod_number, camera_id: 'left' } }"
+                    >
                         Left
                     </router-link>
-                    <span v-if="this.camId === 'left'">Left</span>
+                    <span v-if="camera_id === 'left'">Left</span>
                 </li>
 
-                <li v-if="podRoute || camRoute" class="list-item">
-                    <router-link v-if="this.camId !== 'right'" :to="{ name: 'camera', params: { pod_number: this.podId, camera_id: 'right' } }">
+                <li v-if="pod_route || camera_route" class="list-item">
+                    <router-link
+                        v-if="camera_id !== 'right'"
+                        :to="{ name: 'camera', params: { pod_id: pod_id, pod_number: pod_number, camera_id: 'right' } }"
+                    >
                         Right
                     </router-link>
-                    <span v-if="this.camId === 'right'">Right</span>
+                    <span v-if="camera_id === 'right'">Right</span>
                 </li>
 
-                <li v-if="this.$route.name === 'home' && this.pods.length <= 2" class="list-item">
+                <li v-if="$route.name === 'home' && pods.length <= 2" class="list-item">
                     <router-link :to="{ name: 'add' }">+</router-link>
                 </li>
             </ol>
@@ -47,16 +59,19 @@
     export default {
         computed: {
             ...mapGetters('landlord', ['pods']),
-            podId() {
+            pod_number() {
                 return this.$route.params.pod_number;
             },
-            camId() {
+            pod_id() {
+                return this.$route.params.pod_id;
+            },
+            camera_id() {
                 return this.$route.params.camera_id;
             },
-            podRoute() {
+            pod_route() {
                 return this.$route.name === 'pod';
             },
-            camRoute() {
+            camera_route() {
                 return this.$route.name === 'camera';
             }
         }

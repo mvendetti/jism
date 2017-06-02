@@ -13,8 +13,8 @@ const obj = {
         all: state => {
             return state.all;
         },
-        find: state => number => {
-            return _.find(state.all, function(elem) { return elem.number == number; });
+        find: state => id => {
+            return _.find(state.all, function(elem) { return elem.id == id; });
         },
     }
 };
