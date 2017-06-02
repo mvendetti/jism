@@ -11,7 +11,7 @@
         methods: {
             destroy(form) {
                 var that = this;
-                this.$store.dispatch('pod/DESTROY', form.pod_id)
+                this.$store.dispatch('pod/DESTROY', form)
                     .then(function() {
                         that.$router.push({ name: 'remove' });
                     });

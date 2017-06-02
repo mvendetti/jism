@@ -13,13 +13,8 @@ module.exports = {
             });
     },
 
-    destroy(url, mutation, id) {
-        return axios.delete(Jism.scopeUrl(url))
-            .then((response) => {
-                return Jism.Vue.$store.commit(mutation, { id : id });
-            }, (errors) => {
-                return false;
-            });
+    destroy(url, form, mutation) {
+        return Jism.request('delete', url, form, mutation);
     },
 
     post(url, form, mutation) {

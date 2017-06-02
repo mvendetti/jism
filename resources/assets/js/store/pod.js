@@ -5,8 +5,8 @@ const obj = {
         STORE: function ({ commit, state }, data) {
             return Jism.post('/api/pod', data, 'graph/LOAD');
         },
-        DESTROY: function ({ commit, state }, id) {
-            return Jism.request('delete', '/api/pod/' + id, null, 'graph/LOAD');
+        DESTROY: function ({ commit, state }, form) {
+            return Jism.request('delete', '/api/pod/' + form.pod_id, form, 'graph/LOAD');
         },
     },
     getters: {

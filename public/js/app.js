@@ -38386,20 +38386,35 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
     computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['pods']), {
-        podId() {
+        pod_number() {
             return this.$route.params.pod_number;
         },
-        camId() {
+        pod_id() {
+            return this.$route.params.pod_id;
+        },
+        camera_id() {
             return this.$route.params.camera_id;
         },
-        podRoute() {
+        pod_route() {
             return this.$route.name === 'pod';
         },
-        camRoute() {
+        camera_route() {
             return this.$route.name === 'camera';
         }
     })
@@ -38913,7 +38928,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         destroy(form) {
             var that = this;
-            this.$store.dispatch('pod/DESTROY', form.pod_id).then(function () {
+            this.$store.dispatch('pod/DESTROY', form).then(function () {
                 that.$router.push({ name: 'remove' });
             });
         }
@@ -39547,12 +39562,8 @@ module.exports = {
         });
     },
 
-    destroy(url, mutation, id) {
-        return axios.delete(Jism.scopeUrl(url)).then(response => {
-            return Jism.Vue.$store.commit(mutation, { id: id });
-        }, errors => {
-            return false;
-        });
+    destroy(url, form, mutation) {
+        return Jism.request('delete', url, form, mutation);
     },
 
     post(url, form, mutation) {
@@ -39635,7 +39646,7 @@ module.exports = {
 
                     if (typeof o[idx].ssid !== 'undefined') {
                         o[idx].ssid = ne.ssid;
-                        // console.log(o[idx].ssid);
+                        console.log(o[idx].ssid);
                     }
                 }
             });
@@ -39666,7 +39677,7 @@ module.exports = {
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
 
-const routes = [{ path: '/', name: 'home', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PageHome }, { path: '/settings', name: 'settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Settings }, { path: '/pod/add', name: 'add', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodCreate }, { path: '/pod/remove', name: 'remove', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodDelete }, { path: '/pod/:pod_number', name: 'pod', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodIndex }, { path: '/pod/:pod_number/settings', name: 'pod-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodEdit }, { path: '/pod/:pod_number/camera/:camera_id', name: 'camera', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraIndex }, { path: '/pod/:pod_number/camera/:camera_id/review', name: 'review', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraReview }, { path: '/pod/:pod_number/camera/:camera_id/settings', name: 'camera-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraEdit }];
+const routes = [{ path: '/', name: 'home', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PageHome }, { path: '/settings', name: 'settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].Settings }, { path: '/pod/add', name: 'add', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodCreate }, { path: '/pod/remove', name: 'remove', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodDelete }, { path: '/pod/:pod_id', name: 'pod', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodIndex }, { path: '/pod/:pod_id/settings', name: 'pod-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].PodEdit }, { path: '/pod/:pod_id/camera/:camera_id', name: 'camera', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraIndex }, { path: '/pod/:pod_id/camera/:camera_id/review', name: 'review', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraReview }, { path: '/pod/:pod_id/camera/:camera_id/settings', name: 'camera-settings', component: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* Components */].CameraEdit }];
 /* unused harmony export routes */
 
 
@@ -39842,19 +39853,19 @@ const landlord = {
     namespaced: true,
     state: {
         group_id: 1,
-        pod_number: null,
+        pod_id: null,
         camera_id: null
     },
     actions: {
         UPDATE: function ({ commit, state }, route) {
             Jism.Vue.$store.dispatch('keys/LOAD');
-            commit('STORE_POD_NUMBER', route.params.pod_number);
+            commit('STORE_POD_ID', route.params.pod_id);
             commit('STORE_CAMERA_ID', route.params.camera_id);
         }
     },
     mutations: {
-        STORE_POD_NUMBER: (state, id) => {
-            state.pod_number = id;
+        STORE_POD_ID: (state, id) => {
+            state.pod_id = id;
         },
         STORE_CAMERA_ID: (state, id) => {
             state.camera_id = id;
@@ -39939,7 +39950,7 @@ const landlord = {
                 remaining_video_duration = remaining_video_duration - current_video_duration;
 
                 return {
-                    'pod_number': elem.pod_number,
+                    'pod_id': elem.pod_id,
                     'pod_side': elem.pod_side,
                     'serial_number': elem.serial_number,
                     'duration': remaining_video_duration
@@ -39968,17 +39979,17 @@ const obj = {
         STORE: function ({ commit, state }, data) {
             return Jism.post('/api/pod', data, 'graph/LOAD');
         },
-        DESTROY: function ({ commit, state }, id) {
-            return Jism.request('delete', '/api/pod/' + id, null, 'graph/LOAD');
+        DESTROY: function ({ commit, state }, form) {
+            return Jism.request('delete', '/api/pod/' + form.pod_id, form, 'graph/LOAD');
         }
     },
     getters: {
         all: state => {
             return state.all;
         },
-        find: state => number => {
+        find: state => id => {
             return _.find(state.all, function (elem) {
-                return elem.number == number;
+                return elem.id == id;
             });
         }
     }
@@ -61483,51 +61494,57 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_vm._v("\n                    All\n                ")])], 1), _vm._v(" "), _vm._l((_vm.pods), function(pod) {
-    return (!_vm.podRoute && !_vm.camRoute) ? _c('li', {
+    return (!_vm.pod_route && !_vm.camera_route) ? _c('li', {
       staticClass: "list-item"
     }, [_c('router-link', {
       attrs: {
         "to": {
           name: 'pod',
           params: {
+            pod_id: pod.id,
             pod_number: pod.number
           }
         }
       }
     }, [_vm._v("\n                    P" + _vm._s(pod.number) + "\n                ")])], 1) : _vm._e()
-  }), _vm._v(" "), (_vm.podRoute || _vm.camRoute) ? _c('li', {
+  }), _vm._v(" "), (_vm.pod_route || _vm.camera_route) ? _c('li', {
     staticClass: "list-item"
   }, [_c('router-link', {
     attrs: {
       "to": {
-        name: 'pod'
+        name: 'pod',
+        params: {
+          pod_number: _vm.pod_number
+        }
       }
     }
-  }, [_vm._v("\n                    P" + _vm._s(_vm.podId) + "\n                ")])], 1) : _vm._e(), _vm._v(" "), (_vm.podRoute || _vm.camRoute) ? _c('li', {
+  }, [_vm._v("\n                    P" + _vm._s(_vm.pod_number) + "\n                ")])], 1) : _vm._e(), _vm._v(" "), (_vm.pod_route || _vm.camera_route) ? _c('li', {
     staticClass: "list-item"
-  }, [(this.camId !== 'left') ? _c('router-link', {
+  }, [(_vm.camera_id !== 'left') ? _c('router-link', {
     attrs: {
       "to": {
         name: 'camera',
         params: {
-          pod_number: this.podId,
+          pod_id: _vm.pod_id,
+          pod_number: _vm.pod_number,
           camera_id: 'left'
         }
       }
     }
-  }, [_vm._v("\n                    Left\n                ")]) : _vm._e(), _vm._v(" "), (this.camId === 'left') ? _c('span', [_vm._v("Left")]) : _vm._e()], 1) : _vm._e(), _vm._v(" "), (_vm.podRoute || _vm.camRoute) ? _c('li', {
+  }, [_vm._v("\n                    Left\n                ")]) : _vm._e(), _vm._v(" "), (_vm.camera_id === 'left') ? _c('span', [_vm._v("Left")]) : _vm._e()], 1) : _vm._e(), _vm._v(" "), (_vm.pod_route || _vm.camera_route) ? _c('li', {
     staticClass: "list-item"
-  }, [(this.camId !== 'right') ? _c('router-link', {
+  }, [(_vm.camera_id !== 'right') ? _c('router-link', {
     attrs: {
       "to": {
         name: 'camera',
         params: {
-          pod_number: this.podId,
+          pod_id: _vm.pod_id,
+          pod_number: _vm.pod_number,
           camera_id: 'right'
         }
       }
     }
-  }, [_vm._v("\n                    Right\n                ")]) : _vm._e(), _vm._v(" "), (this.camId === 'right') ? _c('span', [_vm._v("Right")]) : _vm._e()], 1) : _vm._e(), _vm._v(" "), (this.$route.name === 'home' && this.pods.length <= 2) ? _c('li', {
+  }, [_vm._v("\n                    Right\n                ")]) : _vm._e(), _vm._v(" "), (_vm.camera_id === 'right') ? _c('span', [_vm._v("Right")]) : _vm._e()], 1) : _vm._e(), _vm._v(" "), (_vm.$route.name === 'home' && _vm.pods.length <= 2) ? _c('li', {
     staticClass: "list-item"
   }, [_c('router-link', {
     attrs: {
@@ -61796,7 +61813,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), (_vm.$route.params.camera_id === 'left') ? _c('router-link', {
     attrs: {
       "to": {
-        path: '/pod/' + _vm.$route.params.pod_number + '/camera/' + _vm.$route.params.camera_id + '/settings'
+        path: '/pod/' + _vm.$route.params.pod_id + '/camera/' + _vm.$route.params.camera_id + '/settings'
       }
     }
   }, [_c('i', {
@@ -61807,7 +61824,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]) : _vm._e(), _vm._v(" "), (_vm.$route.params.camera_id === 'right') ? _c('router-link', {
     attrs: {
       "to": {
-        path: '/pod/' + _vm.$route.params.pod_number + '/camera/' + _vm.$route.params.camera_id + '/settings'
+        path: '/pod/' + _vm.$route.params.pod_id + '/camera/' + _vm.$route.params.camera_id + '/settings'
       }
     }
   }, [_c('i', {
