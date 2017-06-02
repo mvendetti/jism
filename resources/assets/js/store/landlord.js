@@ -99,7 +99,7 @@ const landlord = {
                 remaining_video_duration = remaining_video_duration - current_video_duration;
 
                 return {
-                    'pod_number': elem.pod_number,
+                    'pod_id': elem.pod_id,
                     'pod_side': elem.pod_side,
                     'serial_number': elem.serial_number,
                     'duration': remaining_video_duration
