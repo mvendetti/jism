@@ -21,15 +21,15 @@
                 </li>
 
                 <li v-if="pod_route || camera_route" class="list-item">
-                    <router-link :to="{ name: 'pod', params: { pod_number: pod_number} }">
-                        P{{ pod_number }}
+                    <router-link :to="{ name: 'pod', params: { pod_number: pod.number} }">
+                        P{{ pod.number }}
                     </router-link>
                 </li>
 
                 <li v-if="pod_route || camera_route" class="list-item">
                     <router-link
                         v-if="camera_id !== 'left'"
-                        :to="{ name: 'camera', params: { pod_id: pod_id, pod_number: pod_number, camera_id: 'left' } }"
+                        :to="{ name: 'camera', params: { pod_id: pod_id, pod_number: pod.number, camera_id: 'left' } }"
                     >
                         Left
                     </router-link>
@@ -39,7 +39,7 @@
                 <li v-if="pod_route || camera_route" class="list-item">
                     <router-link
                         v-if="camera_id !== 'right'"
-                        :to="{ name: 'camera', params: { pod_id: pod_id, pod_number: pod_number, camera_id: 'right' } }"
+                        :to="{ name: 'camera', params: { pod_id: pod_id, pod_number: pod.number, camera_id: 'right' } }"
                     >
                         Right
                     </router-link>
@@ -58,10 +58,7 @@
     import { mapGetters } from 'vuex'
     export default {
         computed: {
-            ...mapGetters('landlord', ['pods']),
-            pod_number() {
-                return this.$route.params.pod_number;
-            },
+            ...mapGetters('landlord', ['pod', 'pods']),
             pod_id() {
                 return this.$route.params.pod_id;
             },

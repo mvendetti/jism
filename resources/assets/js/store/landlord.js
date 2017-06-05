@@ -32,32 +32,23 @@ const landlord = {
                 return true;
             });
 
-            return _.map(cameras, (camera) => {
+            var status = _.map(cameras, (camera) => {
                 return camera.status;
             });
+
+            return _.without(status, undefined);
         },
         pods: state => {
             return _.orderBy(Jism.vuexGet('graph/pods'), ['number'], ['asc']);
         },
         pod: state => {
-            return Jism.vuexGet('pod/find', state.pod_id);
+            return Jism.vuexGet('graph/pod', state.pod_id);
         },
         cameras: state => {
             return Jism.vuexGet('graph/cameras');
         },
-        camera: state => serial_number => {
-            return Jism.vuexGet('graph/camera', serial_number);
-        },
-        online: state => {
-            var cameras = Jism.vuexGet('graph/cameras'),
-                online = [];
-
-            _.each(cameras, (camera) => {
-                if(camera.online === true) {
-                    online.push(camera.serial_number)
-                }
-            });
-            return online;
+        camera: state => {
+            return Jism.vuexGet('graph/camera', state.camera_id);
         },
         onlineCount: state => {
             return _.size(Jism.vuexGet('landlord/online'));

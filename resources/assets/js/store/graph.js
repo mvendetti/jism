@@ -26,8 +26,8 @@ const obj = {
         pods: state => {
             return state.pods;
         },
-        pod: state => number => {
-            return _.find(state.pods, function(elem) { return elem.number == number; });
+        pod: state => pod_id => {
+            return _.find(state.pods, function(elem) { return elem.id == pod_id; });
         },
         cameras: state => {
             return state.cameras;

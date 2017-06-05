@@ -38401,10 +38401,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['pods']), {
-        pod_number() {
-            return this.$route.params.pod_number;
-        },
+    computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['pod', 'pods']), {
         pod_id() {
             return this.$route.params.pod_id;
         },
@@ -39766,9 +39763,9 @@ const obj = {
         pods: state => {
             return state.pods;
         },
-        pod: state => number => {
+        pod: state => pod_id => {
             return _.find(state.pods, function (elem) {
-                return elem.number == number;
+                return elem.id == pod_id;
             });
         },
         cameras: state => {
@@ -39883,32 +39880,23 @@ const landlord = {
                 return true;
             });
 
-            return _.map(cameras, camera => {
+            var status = _.map(cameras, camera => {
                 return camera.status;
             });
+
+            return _.without(status, undefined);
         },
         pods: state => {
             return _.orderBy(Jism.vuexGet('graph/pods'), ['number'], ['asc']);
         },
         pod: state => {
-            return Jism.vuexGet('pod/find', state.pod_id);
+            return Jism.vuexGet('graph/pod', state.pod_id);
         },
         cameras: state => {
             return Jism.vuexGet('graph/cameras');
         },
-        camera: state => serial_number => {
-            return Jism.vuexGet('graph/camera', serial_number);
-        },
-        online: state => {
-            var cameras = Jism.vuexGet('graph/cameras'),
-                online = [];
-
-            _.each(cameras, camera => {
-                if (camera.online === true) {
-                    online.push(camera.serial_number);
-                }
-            });
-            return online;
+        camera: state => {
+            return Jism.vuexGet('graph/camera', state.camera_id);
         },
         onlineCount: state => {
             return _.size(Jism.vuexGet('landlord/online'));
@@ -61514,11 +61502,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "to": {
         name: 'pod',
         params: {
-          pod_number: _vm.pod_number
+          pod_number: _vm.pod.number
         }
       }
     }
-  }, [_vm._v("\n                    P" + _vm._s(_vm.pod_number) + "\n                ")])], 1) : _vm._e(), _vm._v(" "), (_vm.pod_route || _vm.camera_route) ? _c('li', {
+  }, [_vm._v("\n                    P" + _vm._s(_vm.pod.number) + "\n                ")])], 1) : _vm._e(), _vm._v(" "), (_vm.pod_route || _vm.camera_route) ? _c('li', {
     staticClass: "list-item"
   }, [(_vm.camera_id !== 'left') ? _c('router-link', {
     attrs: {
@@ -61526,7 +61514,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         name: 'camera',
         params: {
           pod_id: _vm.pod_id,
-          pod_number: _vm.pod_number,
+          pod_number: _vm.pod.number,
           camera_id: 'left'
         }
       }
@@ -61539,7 +61527,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         name: 'camera',
         params: {
           pod_id: _vm.pod_id,
-          pod_number: _vm.pod_number,
+          pod_number: _vm.pod.number,
           camera_id: 'right'
         }
       }
