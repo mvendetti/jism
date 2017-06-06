@@ -38318,10 +38318,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    computed: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['videoDurations', 'videoDuration']),
+    computed: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['pod', 'videoDurations', 'videoDuration']),
     filters: {
         secondsToHours(value) {
             var mom = moment.duration(value, 'seconds'),
@@ -39164,6 +39165,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
 //
 //
 //
@@ -39173,8 +39175,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = {
-    //
+    computed: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('landlord', ['pod'])
 };
 
 /***/ }),
@@ -39643,13 +39646,11 @@ module.exports = {
 
                     if (typeof o[idx].ssid !== 'undefined') {
                         o[idx].ssid = ne.ssid;
-                        console.log(o[idx].ssid);
                     }
                 }
             });
         });
 
-        // models = models.concat(newModels);
         return o;
     },
     removeModel(models, id) {
@@ -39696,8 +39697,7 @@ const router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store_graph__ = __webpack_require__(186);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store_keys__ = __webpack_require__(188);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__store_group__ = __webpack_require__(187);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__store_pod__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__store_settings__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__store_settings__ = __webpack_require__(191);
 
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
@@ -39707,8 +39707,6 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 
 
 
-// import camera from './store/camera';
-
 
 const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     modules: {
@@ -39716,9 +39714,7 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         graph: __WEBPACK_IMPORTED_MODULE_3__store_graph__["a" /* default */],
         keys: __WEBPACK_IMPORTED_MODULE_4__store_keys__["a" /* default */],
         group: __WEBPACK_IMPORTED_MODULE_5__store_group__["a" /* default */],
-        pod: __WEBPACK_IMPORTED_MODULE_6__store_pod__["a" /* default */],
-        // camera: camera,
-        settings: __WEBPACK_IMPORTED_MODULE_7__store_settings__["a" /* default */]
+        settings: __WEBPACK_IMPORTED_MODULE_6__store_settings__["a" /* default */]
     }
 });
 
@@ -39750,13 +39746,6 @@ const obj = {
         LOAD: (state, { data }) => {
             state.pods = Jism.massMergeModels(state.pods, data.pods);
             state.cameras = Jism.massMergeModels(state.cameras, data.cameras, 'serial_number');
-
-            // console.log(state.pods);
-            //
-            //
-            // state.all = Jism.massMergeModels(state.all, data);
-            // console.log(Jism.massMergeModels(state.all, [data]));
-            // state.all = data;
         }
     },
     getters: {
@@ -39956,35 +39945,7 @@ const landlord = {
 /* harmony default export */ __webpack_exports__["a"] = landlord;
 
 /***/ }),
-/* 190 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-const obj = {
-    namespaced: true,
-    state: { all: [] },
-    actions: {
-        STORE: function ({ commit, state }, data) {
-            return Jism.post('/api/pod', data, 'graph/LOAD');
-        },
-        DESTROY: function ({ commit, state }, form) {
-            return Jism.request('delete', '/api/pod/' + form.pod_id, form, 'graph/LOAD');
-        }
-    },
-    getters: {
-        all: state => {
-            return state.all;
-        },
-        find: state => id => {
-            return _.find(state.all, function (elem) {
-                return elem.id == id;
-            });
-        }
-    }
-};
-/* harmony default export */ __webpack_exports__["a"] = obj;
-
-/***/ }),
+/* 190 */,
 /* 191 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -61555,7 +61516,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('jism-layout-primary', [_c('h1', [_vm._v("Pod " + _vm._s(_vm.$route.params.pod_number))])])], 1)
+  return _c('div', [_c('jism-layout-primary', [_c('h1', [_vm._v("Pod " + _vm._s(_vm.pod.number))])])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -62280,7 +62241,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n        " + _vm._s(_vm._f("secondsToHours")(_vm.videoDuration.duration)) + "\n    ")]), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu duration"
   }, _vm._l((_vm.videoDurations), function(status) {
-    return _c('li', [_c('a', [_vm._v("P" + _vm._s(status.pod_number) + "/" + _vm._s(status.pod_side) + ": " + _vm._s(_vm._f("secondsToHours")(status.duration)))])])
+    return _c('li', [_c('a', [_vm._v("P" + _vm._s(_vm.pod.number) + ": " + _vm._s(_vm._f("secondsToHours")(status.duration)))])])
   }))]) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true

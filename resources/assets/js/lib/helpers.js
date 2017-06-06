@@ -43,7 +43,6 @@ module.exports = {
                     if(typeof o[idx].ssid !== 'undefined')
                     {
                         o[idx].ssid = ne.ssid;
-                        console.log(o[idx].ssid);
                     }
 
                 }
@@ -51,8 +50,6 @@ module.exports = {
 
         });
 
-
-        // models = models.concat(newModels);
         return o;
     },
     removeModel(models, id) {

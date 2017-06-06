@@ -13,13 +13,6 @@ const obj = {
         LOAD: (state, { data }) => {
             state.pods = Jism.massMergeModels(state.pods, data.pods);
             state.cameras = Jism.massMergeModels(state.cameras, data.cameras, 'serial_number');
-
-            // console.log(state.pods);
-            //
-            //
-            // state.all = Jism.massMergeModels(state.all, data);
-            // console.log(Jism.massMergeModels(state.all, [data]));
-            // state.all = data;
         },
     },
     getters: {
