@@ -5,7 +5,8 @@
         </button>
         <ul class="dropdown-menu duration">
             <li v-for="status in videoDurations">
-                <a>P{{ status.pod_number }}/{{ status.pod_side }}: {{ status.duration | secondsToHours }}</a>
+                <!-- eventually need to add which pod side next to pod number -->
+                <a>P{{ pod.number }}: {{ status.duration | secondsToHours }}</a>
             </li>
         </ul>
     </span>
@@ -14,7 +15,7 @@
 <script>
     import { mapGetters } from 'vuex'
     export default {
-        computed: mapGetters('landlord', ['videoDurations', 'videoDuration']),
+        computed: mapGetters('landlord', ['pod', 'videoDurations', 'videoDuration']),
         filters: {
             secondsToHours(value) {
                 var mom = moment.duration(value, 'seconds'),
