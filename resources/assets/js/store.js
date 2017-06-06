@@ -6,8 +6,6 @@ import landlord from './store/landlord';
 import graph from './store/graph';
 import keys from './store/keys';
 import group from './store/group';
-import pod from './store/pod';
-// import camera from './store/camera';
 import settings from './store/settings'
 
 const store = new Vuex.Store({
@@ -16,8 +14,6 @@ const store = new Vuex.Store({
         graph: graph,
         keys: keys,
         group: group,
-        pod: pod,
-        // camera: camera,
         settings: settings,
     }
 });
